@@ -50,16 +50,15 @@ export default function CodeScanner() {
   }
 
   return (
-    <CameraView
-      style={styles.camera}
-      barcodeScannerSettings={{ barcodeTypes }}
-      onBarcodeScanned={onBarcodeScanned}
-    >
-      <View style={styles.center}>
-        <CodeModal link={link} callbackClose={handleCloseLink} />
-        <View style={styles.vision} />
-      </View>
-    </CameraView>
+    <>
+      <CameraView
+        style={styles.camera}
+        barcodeScannerSettings={{ barcodeTypes }}
+        onBarcodeScanned={onBarcodeScanned}
+      >
+      </CameraView>
+      <CodeModal link={link} callbackClose={handleCloseLink} />
+    </>
   );
 }
 

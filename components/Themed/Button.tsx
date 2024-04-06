@@ -18,8 +18,9 @@ export default function Button(props: ComponentProps) {
 }
 
 const defaultStyle: ViewStyle = {
-  padding: 20,
-  borderRadius: 10,
+  paddingVertical: 5,
+  paddingHorizontal: 8,
+  borderRadius: 5,
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
 }
