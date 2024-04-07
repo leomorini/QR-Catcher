@@ -8,7 +8,6 @@ import * as ImagePicker from "expo-image-picker";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
-import CodeModal from "@/components/CodeModal";
 import { ButtonThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 
