@@ -10,6 +10,7 @@ export default function TabLayout() {
 
   return (
     <Tabs
+      initialRouteName="index"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colorsTheme.tint,
@@ -26,11 +27,11 @@ export default function TabLayout() {
         },
         tabBarIconStyle: {
           marginTop: 10,
-        }
+        },
       }}
     >
       <Tabs.Screen
-        name="scanner"
+        name="index"
         options={{
           title: "Scanner",
           tabBarIcon: ({ color }) => (
