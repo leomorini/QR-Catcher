@@ -1,7 +1,8 @@
 import { CameraView, BarcodeType } from "expo-camera/next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import CodeModal from "@/components/CodeModal";
+import { Button, Text } from "@/components/Themed";
 
 function validURL(str: string) {
   var pattern = new RegExp(
@@ -57,56 +58,35 @@ export default function CodeScanner() {
         onBarcodeScanned={onBarcodeScanned}
       >
       </CameraView>
-      <CodeModal link={link} callbackClose={handleCloseLink} />
+      <View style={styles.absolute}>
+        <CodeModal link={link} callbackClose={handleCloseLink} />
+        <Button style={styles.historyButton}>
+          <Text style={styles.historyButtonText}>Histórico</Text>
+        </Button>
+      </View>
+
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    position: 'relative',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
   camera: {
     flex: 1,
   },
-  center: {
+  absolute: {
     position: "absolute",
+    bottom: 0,
     left: 0,
     right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'transparent',
+  }, 
+  historyButton: {
+    height: 50,
+    borderTopLeftRadius: 300,
+    borderTopRightRadius: 300,
   },
-  vision: {
-    height: 250,
-    width: 250,
-    borderWidth: 4,
-    borderColor: "cyan",
-    borderRadius: 8,
-    borderStyle: "dashed",
-  },
-  bottom: {
-    justifyContent: "flex-end",
-  },
-  bar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 20,
-    marginBottom: 50,
-  },
+  historyButtonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  }
 });

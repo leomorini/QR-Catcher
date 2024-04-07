@@ -3,10 +3,10 @@ import { ThemeProps, useThemeColor } from "@/styles";
 export type ComponentProps = ThemeProps & DefaultComponent["props"];
 
 export default function Button(props: ComponentProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const { style, lightColor, darkColor, color = "background2", ...otherProps } = props;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "background"
+    color
   );
 
   return (
