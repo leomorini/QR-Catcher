@@ -11,7 +11,10 @@ import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import { ButtonThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 
-function validURL(str: string) {
+/**
+ * Checks if a string is a valid link
+ */
+function valid(str: string) {
   var pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
@@ -46,19 +49,25 @@ export default function CodeScanner() {
   const colorsTheme = getThemeColors();
   const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
-  const [facing, setFacing] = useState<CameraType>("front");
+  const [facing, setFacing] = useState<CameraType>("back");
 
+  /** Saves the decoded text of a QRCode or Bar Code in the state */
+  function setLinkToDecode(text: string) {
+    const isURL: boolean = validURL(text);
+    setLink({ isURL, text });
+  }
+  
+  /**
+   * Executes every time the camera detects a QRCode or Barcode
+   * It only runs when there is no code already decoded (optimization)
+  */
   const onBarcodeScanned = ({ data }: any) => {
     if (link.text == "" && !!data) {
       setLinkToDecode(data);
     }
   };
 
-  function setLinkToDecode(text: string) {
-    const isURL: boolean = validURL(text);
-    setLink({ isURL, text });
-  }
-
+  /** Upload a local image and check if it has a QRCode / Barcode in it, if so it will decode it */
   async function handleLink() {
     if (link.isURL) {
       Linking.openURL(link.text);
@@ -67,6 +76,7 @@ export default function CodeScanner() {
     }
   }
 
+  /**  */
   const handleUploadImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -75,12 +85,18 @@ export default function CodeScanner() {
       quality: 1,
     });
 
+    // if success upload image by ImagePicker
     if (
       !result.canceled &&
       Array.isArray(result.assets) &&
       result.assets[0] &&
       result.assets[0].uri
     ) {
+
+      /**
+       * if success detect and decode barcode/qrcode in image 
+       * @TODO this library stopped working after expo 50!
+       *  */
       const scanned = await BarCodeScanner.scanFromURLAsync(
         result.assets[0].uri
       );
@@ -99,6 +115,7 @@ export default function CodeScanner() {
     });
   };
 
+  /** Switches between the front and back camera */
   function handleFacing() {
     setFacing(facing === "front" ? "back" : "front");
   }
