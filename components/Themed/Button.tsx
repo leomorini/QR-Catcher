@@ -1,9 +1,19 @@
-import { TouchableOpacity as DefaultComponent, StyleSheet, ViewStyle } from "react-native";
+import {
+  TouchableOpacity as DefaultComponent,
+  StyleSheet,
+  ViewStyle,
+} from "react-native";
 import { ThemeProps, useThemeColor } from "@/styles";
 export type ComponentProps = ThemeProps & DefaultComponent["props"];
 
 export default function Button(props: ComponentProps) {
-  const { style, lightColor, darkColor, color = "background2", ...otherProps } = props;
+  const {
+    style,
+    lightColor,
+    darkColor,
+    color = "background2",
+    ...otherProps
+  } = props;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
     color
@@ -23,4 +33,4 @@ const defaultStyle: ViewStyle = {
   borderRadius: 5,
   justifyContent: "center",
   alignItems: "center",
-}
+};
