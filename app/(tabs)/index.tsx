@@ -14,7 +14,7 @@ import { getThemeColors } from "@/styles";
 /**
  * Checks if a string is a valid link
  */
-function valid(str: string) {
+function validURL(str: string) {
   var pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
@@ -23,10 +23,13 @@ function valid(str: string) {
       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
       "(\\#[-a-z\\d_]*)?$",
     "i"
-  ); // fragment locator
+  ); 
   return !!pattern.test(str);
 }
 
+/**
+ * All types of codes that the reader decodes
+ */
 const barcodeTypes: BarcodeType[] = [
   "qr",
   "aztec",
@@ -43,6 +46,7 @@ const barcodeTypes: BarcodeType[] = [
   "upc_a",
 ];
 
+/** Standard structure of decoded code to start/clear when necessary */
 const defaultLink = { isURL: false, text: "" };
 
 export default function CodeScanner() {
@@ -67,7 +71,11 @@ export default function CodeScanner() {
     }
   };
 
-  /** Upload a local image and check if it has a QRCode / Barcode in it, if so it will decode it */
+  /** 
+  * Determines what action you will take when clicking the Dialog button
+      - If it is a link: It will load the link by opening the browser
+      - If it is text: It will copy the text with the clipboard 
+  */
   async function handleLink() {
     if (link.isURL) {
       Linking.openURL(link.text);
@@ -76,7 +84,7 @@ export default function CodeScanner() {
     }
   }
 
-  /**  */
+  /** Upload a local image and check if it has a QRCode / Barcode in it, if so it will decode it */
   const handleUploadImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
