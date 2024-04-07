@@ -1,3 +1,3 @@
-export { default as View } from './View';
-export { default as Button } from './Button';
-export { default as Text } from './Text';
+export { default as ViewThemed } from './View';
+export { default as ButtonThemed } from './Button';
+export { default as TextThemed } from './Text';
