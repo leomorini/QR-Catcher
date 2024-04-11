@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
 import { CameraView, CameraType } from "expo-camera/next";
@@ -124,24 +124,24 @@ export default function CodeScanner() {
     <>
       <CameraView
         ref={scannerRef}
-        style={styles.camera}
+        className="flex flex-1 h-full w-full"
         barcodeScannerSettings={{ barcodeTypes }}
         onBarcodeScanned={onBarcodeScanned}
         facing={facing}
       ></CameraView>
-      <View style={styles.absolute}>
-        <View style={styles.bottom}>
+      <View className="absolute right-0 left-0 bottom-0 bg-transparent">
+        <View className="h-16 my-4 rounded-3xl flex-row items-center justify-between">
           <ButtonThemed
             onPress={handleUploadImage}
             color="tintColorLight"
-            style={styles.button}
+            className="mx-4 h-14 w-14 rounded-xl items-center justify-center bg-slate-600"
           >
             <Entypo name="image" size={24} color={colorsTheme.tabIconDefault} />
           </ButtonThemed>
           <ButtonThemed
             color="tintColorLight"
             onPress={handleFacing}
-            style={styles.button}
+            className="mx-4 h-14 w-14 rounded-xl items-center justify-center"
           >
             <Ionicons
               name="camera-reverse-outline"
@@ -154,32 +154,3 @@ export default function CodeScanner() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  camera: {
-    flex: 1,
-  },
-  absolute: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "transparent",
-  },
-  bottom: {
-    height: 70,
-    marginVertical: 15,
-    borderRadius: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  button: {
-    marginHorizontal: 15,
-    height: 50,
-    width: 50,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

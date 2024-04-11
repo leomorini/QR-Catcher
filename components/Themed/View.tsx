@@ -8,6 +8,7 @@ export default function View(props: ComponentProps) {
     lightColor,
     darkColor,
     color = "background",
+    className = "",
     ...otherProps
   } = props;
   const backgroundColor = useThemeColor(
@@ -16,6 +17,10 @@ export default function View(props: ComponentProps) {
   );
 
   return (
-    <DefaultComponent style={[{ backgroundColor }, style]} {...otherProps} />
+    <DefaultComponent
+      className={`${className}`}
+      style={[{ backgroundColor }, style]}
+      {...otherProps}
+    />
   );
 }

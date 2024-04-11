@@ -12,6 +12,7 @@ export default function Button(props: ComponentProps) {
     lightColor,
     darkColor,
     color = "background2",
+    className = "",
     ...otherProps
   } = props;
   const backgroundColor = useThemeColor(
@@ -21,16 +22,9 @@ export default function Button(props: ComponentProps) {
 
   return (
     <DefaultComponent
-      style={[{ backgroundColor }, defaultStyle, style]}
+      className={`px-1 py-2 rounded-md items-center justify-center ${className}`}
+      style={[{ backgroundColor }, style]}
       {...otherProps}
     />
   );
 }
-
-const defaultStyle: ViewStyle = {
-  paddingVertical: 5,
-  paddingHorizontal: 8,
-  borderRadius: 5,
-  justifyContent: "center",
-  alignItems: "center",
-};

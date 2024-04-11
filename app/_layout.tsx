@@ -11,7 +11,8 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useColorScheme } from "@/styles/useColorScheme";
-import Header from "@/components/Header";
+
+import "@/global.css";
 
 export {
   // Catch any errors thrown by the Layout component.
