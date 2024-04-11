@@ -11,6 +11,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useColorScheme } from "@/styles/useColorScheme";
+import Header from "@/components/Header";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,13 +55,14 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <SafeAreaProvider>
-        <AlertNotificationRoot>
+      <AlertNotificationRoot>
+        <SafeAreaProvider>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="info" options={{ headerShown: true, title: 'Information' }} />
           </Stack>
-        </AlertNotificationRoot>
-      </SafeAreaProvider>
+        </SafeAreaProvider>
+      </AlertNotificationRoot>
     </ThemeProvider>
   );
 }

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
-import { CameraView, BarcodeType, CameraType } from "expo-camera/next";
+import { CameraView, CameraType } from "expo-camera/next";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import * as ImagePicker from "expo-image-picker";
 import { Entypo, Ionicons } from "@expo/vector-icons";
@@ -10,61 +10,36 @@ import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 import { ButtonThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
-
-/**
- * Checks if a string is a valid link
- */
-function validURL(str: string) {
-  var pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
-  ); 
-  return !!pattern.test(str);
-}
-
-/**
- * All types of codes that the reader decodes
- */
-const barcodeTypes: BarcodeType[] = [
-  "qr",
-  "aztec",
-  "ean13",
-  "ean8",
-  "pdf417",
-  "upc_e",
-  "datamatrix",
-  "code39",
-  "code93",
-  "itf14",
-  "codabar",
-  "code128",
-  "upc_a",
-];
+import { validURL, barcodeTypes } from "@/services/helper";
+import { LinkInterface } from "@/services/interfaces";
+import { useStorageStore } from "@/services/storage";
 
 /** Standard structure of decoded code to start/clear when necessary */
-const defaultLink = { isURL: false, text: "" };
+const defaultLink: LinkInterface = {
+  isURL: false,
+  text: "",
+  created_at: Date.now(),
+};
 
 export default function CodeScanner() {
   const colorsTheme = getThemeColors();
   const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<CameraType>("back");
+  const { historyIncrement } = useStorageStore();
 
   /** Saves the decoded text of a QRCode or Bar Code in the state */
   function setLinkToDecode(text: string) {
     const isURL: boolean = validURL(text);
-    setLink({ isURL, text });
+    const link: LinkInterface = { isURL, text, created_at: Date.now() };
+    historyIncrement(link);
+    setLink(link);
   }
-  
+
   /**
    * Executes every time the camera detects a QRCode or Barcode
    * It only runs when there is no code already decoded (optimization)
-  */
+   */
   const onBarcodeScanned = ({ data }: any) => {
     if (link.text == "" && !!data) {
       setLinkToDecode(data);
@@ -100,9 +75,8 @@ export default function CodeScanner() {
       result.assets[0] &&
       result.assets[0].uri
     ) {
-
       /**
-       * if success detect and decode barcode/qrcode in image 
+       * if success detect and decode barcode/qrcode in image
        * @TODO this library stopped working after expo 50!
        *  */
       const scanned = await BarCodeScanner.scanFromURLAsync(
