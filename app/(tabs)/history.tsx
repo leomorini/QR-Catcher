@@ -6,7 +6,7 @@ const History = observer(() => {
   const { history } = useStorageStore(); // OR useContext(CounterStoreContext)
 
   return (
-    <View className="flex flex-1 items-center justify-center bg-white">
+    <View className="flex flex-1 items-center justify-center bg-red-500 p-10">
       <Text>Histórico</Text>
 
       {!!history && (

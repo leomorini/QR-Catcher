@@ -9,8 +9,10 @@ import { AlertNotificationRoot } from "react-native-alert-notification";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
+import { useCameraPermissions, PermissionResponse } from "expo-camera/next";
 import * as SplashScreen from "expo-splash-screen";
 import { useColorScheme } from "@/styles/useColorScheme";
+import RequestPermissions from "./RequestPermissions";
 
 import "@/global.css";
 
@@ -28,6 +30,8 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [permission, requestPermission] = useCameraPermissions();
+
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
@@ -46,6 +50,10 @@ export default function RootLayout() {
 
   if (!loaded) {
     return null;
+  }
+
+  if (!permission || !permission.granted) {
+    return <RequestPermissions requestPermission={requestPermission} />;
   }
 
   return <RootLayoutNav />;

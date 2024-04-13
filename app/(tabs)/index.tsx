@@ -8,7 +8,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
-import { ButtonThemed } from "@/components/Themed";
+import { ButtonThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
@@ -121,14 +121,14 @@ export default function CodeScanner() {
   }, [link]);
 
   return (
-    <>
-      <CameraView
+    <ViewThemed className="flex flex-1">
+      {/* <CameraView
         ref={scannerRef}
-        className="flex flex-1 h-full w-full"
+        className="flex flex-1 h-full w-full rounded-t-md rounded-r-md mt-3"
         barcodeScannerSettings={{ barcodeTypes }}
         onBarcodeScanned={onBarcodeScanned}
         facing={facing}
-      ></CameraView>
+      ></CameraView> */}
       <View className="absolute right-0 left-0 bottom-0 bg-transparent">
         <View className="h-16 my-4 rounded-3xl flex-row items-center justify-between">
           <ButtonThemed
@@ -151,6 +151,6 @@ export default function CodeScanner() {
           </ButtonThemed>
         </View>
       </View>
-    </>
+    </ViewThemed>
   );
 }

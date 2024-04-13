@@ -1,50 +1,28 @@
 import React from "react";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { Link, Tabs } from "expo-router";
-import { getThemeColors } from "@/styles";
+import { Tabs } from "expo-router";
+import { getScreenOptionsStyle } from "@/styles";
 import Header from "@/components/Header";
 
 export default function TabLayout() {
-  const colorsTheme = getThemeColors();
-  const iconColorSelected = colorsTheme.tabIconSelected;
+  const screenOptions: any = getScreenOptionsStyle();
 
   return (
     <>
       <Header />
 
-      <Tabs
-        initialRouteName="index"
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: colorsTheme.tint,
-          tabBarStyle: {
-            height: 80,
-            borderWidth: 1,
-            backgroundColor: colorsTheme.background,
-          },
-          tabBarLabelStyle: {
-            fontSize: 12,
-            fontWeight: "bold",
-            marginBottom: 10,
-            color: colorsTheme.tabIconDefault,
-          },
-          tabBarIconStyle: {
-            marginTop: 10,
-          },
-        }}
-      >
+      <Tabs initialRouteName="index" screenOptions={screenOptions}>
         <Tabs.Screen
           name="index"
           options={{
-            title: "Scanner",
+            title: "Scan",
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="data-matrix-scan"
-                size={24}
+                size={26}
                 color={color}
               />
             ),
-            tabBarActiveTintColor: iconColorSelected,
           }}
         />
         <Tabs.Screen
@@ -52,9 +30,8 @@ export default function TabLayout() {
           options={{
             title: "History",
             tabBarIcon: ({ color }) => (
-              <MaterialIcons name="history" size={30} color={color} />
+              <MaterialIcons name="history" size={32} color={color} />
             ),
-            tabBarActiveTintColor: iconColorSelected,
           }}
         />
       </Tabs>

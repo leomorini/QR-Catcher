@@ -17,16 +17,15 @@ export default function Header() {
   }
 
   return (
-    <ViewThemed
-      className={`w-full flex-row items-center justify-center pb-[${paddingBottom}px] 
-      pt-[${insets.top + paddingBottom}px]`}
+    <View
+      className={`py-9 w-full flex-row items-center justify-center`}
     >
-      <View className="relative w-full flex-row items-center justify-center">
+      <View className="py-9 bg-red-200 relative w-full flex-row items-center justify-center">
         <TextThemed className="font-bold text-lg">QrCode</TextThemed>
         <TouchableOpacity onPress={handleInfo} className="absolute right-4">
           <Entypo name="info-with-circle" size={24} color={iconColor} />
         </TouchableOpacity>
       </View>
-    </ViewThemed>
+    </View>
   );
 }
