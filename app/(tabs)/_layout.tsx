@@ -18,7 +18,7 @@ export default function TabLayout() {
             title: "Scan",
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
-                name="data-matrix-scan"
+                name="data-matrix-sscan"
                 size={26}
                 color={color}
               />
