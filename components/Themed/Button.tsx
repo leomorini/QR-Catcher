@@ -25,7 +25,7 @@ export default function Button(props: ComponentProps) {
   return (
     <DefaultComponent {...otherProps}>
       <View
-        className={`px-5 py-5 rounded-md items-center justify-center ${className}`}
+        className={`${className}`}
         style={[{ backgroundColor }, style]}
       >
         {children}

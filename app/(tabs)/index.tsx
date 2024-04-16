@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { View } from "react-native";
-import * as Clipboard from "expo-clipboard";
-import * as Linking from "expo-linking";
 import { CameraView, CameraType } from "expo-camera/next";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import * as ImagePicker from "expo-image-picker";
@@ -9,7 +7,7 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import { ButtonThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
-import { validURL, barcodeTypes } from "@/services/helper";
+import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useStorageStore } from "@/services/storage";
 
@@ -45,19 +43,6 @@ export default function CodeScanner() {
     }
   };
 
-  /** 
-  * Determines what action you will take when clicking the Dialog button
-      - If it is a link: It will load the link by opening the browser
-      - If it is text: It will copy the text with the clipboard 
-  */
-  async function handleLink() {
-    if (link.isURL) {
-      Linking.openURL(link.text);
-    } else {
-      await Clipboard.setStringAsync(link.text);
-    }
-  }
-
   /** Upload a local image and check if it has a QRCode / Barcode in it, if so it will decode it */
   const handleUploadImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -66,6 +51,11 @@ export default function CodeScanner() {
       allowsEditing: false,
       quality: 1,
     });
+    
+    // if canceled
+    if (result.canceled) {
+      return false;
+    }
 
     // if success upload image by ImagePicker
     if (
@@ -110,7 +100,7 @@ export default function CodeScanner() {
         textBody: `${link.text}`,
         button: link.isURL ? "Acessar link" : "Copiar texto",
         onPressButton: () => {
-          handleLink();
+          handleLink(link);
         },
         onHide: () => {
           setLink(defaultLink);
@@ -128,23 +118,23 @@ export default function CodeScanner() {
         onBarcodeScanned={onBarcodeScanned}
         facing={facing}
       ></CameraView>
-      <View className="absolute right-0 left-0 bottom-0 bg-transparent">
-        <View className="mb-14 mx-2 rounded-3xl flex-row items-center justify-between">
+      <View className="absolute right-0 left-0 bottom-10 bg-transparent">
+        <View className="mx-2 rounded-3xl flex-row items-center justify-between">
           <ButtonThemed
+            color="background2"
             onPress={handleUploadImage}
-            color="tintColorLight"
-            className="mx-4 rounded-xl items-center justify-center"
+            className="flex h-16 w-16 mx-2 rounded-full items-center justify-center"
           >
-            <Entypo name="image" size={24} color={colorsTheme.tabIconDefault} />
+            <Entypo name="image" size={26} color={colorsTheme.tabIconDefault} />
           </ButtonThemed>
           <ButtonThemed
-            color="tintColorLight"
+            color="background2"
             onPress={handleFacing}
-            className="mx-4 rounded-xl items-center justify-center"
+            className="flex h-16 w-16 mx-2 rounded-full items-center justify-center"
           >
             <Ionicons
               name="camera-reverse-outline"
-              size={28}
+              size={30}
               color={colorsTheme.tabIconDefault}
             />
           </ButtonThemed>

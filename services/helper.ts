@@ -1,4 +1,7 @@
 import { BarcodeType } from "expo-camera/next";
+import * as Clipboard from "expo-clipboard";
+import * as Linking from "expo-linking";
+import { LinkInterface } from "./interfaces";
 
 /**
  * Checks if a string is a valid link
@@ -34,3 +37,16 @@ export const barcodeTypes: BarcodeType[] = [
   "code128",
   "upc_a",
 ];
+
+/** 
+* Determines what action you will take when clicking the Dialog button
+    - If it is a link: It will load the link by opening the browser
+    - If it is text: It will copy the text with the clipboard 
+*/
+export const handleLink = async (link: LinkInterface) => {
+  if (link.isURL) {
+    Linking.openURL(link.text);
+  } else {
+    await Clipboard.setStringAsync(link.text);
+  }
+};
