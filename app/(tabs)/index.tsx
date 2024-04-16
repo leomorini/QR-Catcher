@@ -7,7 +7,6 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import * as ImagePicker from "expo-image-picker";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
-
 import { ButtonThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes } from "@/services/helper";
@@ -122,30 +121,30 @@ export default function CodeScanner() {
 
   return (
     <ViewThemed className="flex flex-1">
-      {/* <CameraView
+      <CameraView
         ref={scannerRef}
-        className="flex flex-1 h-full w-full rounded-t-md rounded-r-md mt-3"
+        style={{flex: 1}}
         barcodeScannerSettings={{ barcodeTypes }}
         onBarcodeScanned={onBarcodeScanned}
         facing={facing}
-      ></CameraView> */}
+      ></CameraView>
       <View className="absolute right-0 left-0 bottom-0 bg-transparent">
-        <View className="h-16 my-4 rounded-3xl flex-row items-center justify-between">
+        <View className="mb-14 mx-2 rounded-3xl flex-row items-center justify-between">
           <ButtonThemed
             onPress={handleUploadImage}
             color="tintColorLight"
-            className="mx-4 h-14 w-14 rounded-xl items-center justify-center bg-slate-600"
+            className="mx-4 rounded-xl items-center justify-center"
           >
             <Entypo name="image" size={24} color={colorsTheme.tabIconDefault} />
           </ButtonThemed>
           <ButtonThemed
             color="tintColorLight"
             onPress={handleFacing}
-            className="mx-4 h-14 w-14 rounded-xl items-center justify-center"
+            className="mx-4 rounded-xl items-center justify-center"
           >
             <Ionicons
               name="camera-reverse-outline"
-              size={30}
+              size={28}
               color={colorsTheme.tabIconDefault}
             />
           </ButtonThemed>

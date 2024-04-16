@@ -39,15 +39,8 @@ export function getScreenOptionsStyle() {
     tabBarActiveTintColor: colorsTheme.tint,
     tabBarInactiveTintColor: colorsTheme.tabIconDefault,
     tabBarStyle: {
-      // position
-      position: "absolute",
-      bottom: 15,
-      right: 25,
-      left: 25,
-
       height: 70,
-      backgroundColor: colorsTheme.backgroundFull,
-      borderRadius: 15,
+      backgroundColor: colorsTheme.background,
       borderColor: 'transparent',
       ...shadowNoneTheme,
     },

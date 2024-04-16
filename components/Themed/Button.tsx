@@ -1,5 +1,6 @@
 import {
   TouchableOpacity as DefaultComponent,
+  View,
   StyleSheet,
   ViewStyle,
 } from "react-native";
@@ -13,6 +14,7 @@ export default function Button(props: ComponentProps) {
     darkColor,
     color = "background2",
     className = "",
+    children,
     ...otherProps
   } = props;
   const backgroundColor = useThemeColor(
@@ -21,10 +23,13 @@ export default function Button(props: ComponentProps) {
   );
 
   return (
-    <DefaultComponent
-      className={`px-1 py-2 rounded-md items-center justify-center ${className}`}
-      style={[{ backgroundColor }, style]}
-      {...otherProps}
-    />
+    <DefaultComponent {...otherProps}>
+      <View
+        className={`px-5 py-5 rounded-md items-center justify-center ${className}`}
+        style={[{ backgroundColor }, style]}
+      >
+        {children}
+      </View>
+    </DefaultComponent>
   );
 }

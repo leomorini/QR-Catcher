@@ -14,6 +14,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { useColorScheme } from "@/styles/useColorScheme";
 import RequestPermissions from "./RequestPermissions";
 
+import Title from "@/components/Title";
+import SettingsIcon from "@/components/SetttingsIcon";
+
 import "@/global.css";
 
 export {
@@ -67,8 +70,26 @@ function RootLayoutNav() {
       <AlertNotificationRoot>
         <SafeAreaProvider>
           <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="info" options={{ headerShown: true, title: 'Information' }} />
+            <Stack.Screen
+              name="(tabs)"
+              options={{
+                headerShown: true,
+                headerTitle: (title) => {
+                  return <Title title="QrCode" />;
+                },
+                headerRight: () => <SettingsIcon />,
+              }}
+            />
+            <Stack.Screen
+              name="info"
+              options={{
+                headerShown: true,
+                title: "Information",
+                headerTitle: ({ children }) => {
+                  return <Title title={children} />;
+                },
+              }}
+            />
           </Stack>
         </SafeAreaProvider>
       </AlertNotificationRoot>
