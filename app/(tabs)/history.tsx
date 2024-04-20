@@ -11,7 +11,7 @@ const History = observer(() => {
   const colorsTheme = getThemeColors();
 
   return (
-    <ViewThemed className="flex flex-1 items-center justify-center">
+    <ViewThemed color="backgroundFull" className="flex flex-1 items-center justify-center">
       {!!historySorted && (
         <ScrollView
           className="flex flex-1 w-full"

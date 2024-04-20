@@ -5,6 +5,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import * as ImagePicker from "expo-image-picker";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import { useTranslation } from "react-i18next";
+
 import { ButtonThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
@@ -24,6 +26,7 @@ export default function CodeScanner() {
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<CameraType>("back");
   const { historyIncrement } = useStorageStore();
+  const { t } = useTranslation();
 
   /** Saves the decoded text of a QRCode or Bar Code in the state */
   function setLinkToDecode(text: string) {
@@ -51,7 +54,7 @@ export default function CodeScanner() {
       allowsEditing: false,
       quality: 1,
     });
-    
+
     // if canceled
     if (result.canceled) {
       return false;
@@ -79,9 +82,12 @@ export default function CodeScanner() {
 
     Toast.show({
       type: ALERT_TYPE.DANGER,
-      title: "Não foi dessa vez!",
+      title: t("A problem has occurred!"),
       textBody:
-        "\nNão detectamos um QRCode ou Barra de código na sua imagem. \n\nPor favor tente novamente com outra imagem!",
+        "\n" +
+        t("We did not detect a QRCode or Barcode in your image.") +
+        "\n\n" +
+        t("Please try again with another image!"),
       autoClose: 2000,
     });
   };
@@ -98,7 +104,7 @@ export default function CodeScanner() {
         type: ALERT_TYPE.SUCCESS,
         title: "",
         textBody: `${link.text}`,
-        button: link.isURL ? "Acessar link" : "Copiar texto",
+        button: link.isURL ? t("Access link") : t("Copy Text"),
         onPressButton: () => {
           handleLink(link);
         },
@@ -113,7 +119,7 @@ export default function CodeScanner() {
     <ViewThemed className="flex flex-1">
       <CameraView
         ref={scannerRef}
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         barcodeScannerSettings={{ barcodeTypes }}
         onBarcodeScanned={onBarcodeScanned}
         facing={facing}

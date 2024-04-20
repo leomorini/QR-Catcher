@@ -16,6 +16,7 @@ import RequestPermissions from "./RequestPermissions";
 
 import Title from "@/components/Title";
 import SettingsIcon from "@/components/SetttingsIcon";
+import { i18nextInit } from "@/services/intl";
 
 import "@/global.css";
 
@@ -39,6 +40,11 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
+
+  // ComponentDidMount
+  useEffect(() => {
+    i18nextInit();
+  }, []);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
