@@ -11,36 +11,37 @@ const History = observer(() => {
   const colorsTheme = getThemeColors();
 
   return (
-    <ViewThemed color="backgroundFull" className="flex flex-1 items-center justify-center">
+    <ViewThemed className="flex flex-1 items-center justify-center">
       {!!historySorted && (
-        <ScrollView
-          className="flex flex-1 w-full"
-          contentContainerStyle={{ padding: 10, paddingVertical: 30 }}
-        >
+        <ScrollView className="flex flex-1 w-full">
           {historySorted.map((item, index) => (
-            <ButtonThemed
-              onPress={() => handleLink(item)}
-              color="background2"
-              className={`relative flex p-4 rounded-md shadow-lg w-full mb-8`}
-              key={index}
-            >
-              <TextThemed className="text-lg">{item.text}</TextThemed>
-
-              <ViewThemed
-                color="tint"
-                className="absolute -top-3 -right-1 rounded-full p-2"
+            <>
+              {index > 0 && <View className="h-5 w-full my-4" />}
+              <ButtonThemed
+                onPress={() => handleLink(item)}
+                className={`flex flex-col p-7 rounded-[40px] overflow-hidden m-5`}
+                key={index}
               >
-                {item.isURL ? (
-                  <Entypo name="link" size={20} color={colorsTheme.text} />
-                ) : (
-                  <Feather
-                    name="file-text"
-                    size={20}
-                    color={colorsTheme.text}
-                  />
-                )}
-              </ViewThemed>
-            </ButtonThemed>
+                <View className="flex flex-row">
+                  <View className="flex flex-row">
+                    <ViewThemed color="bgComponents" className="p-5 rounded-3xl">
+                      {item.isURL ? (
+                        <Entypo name="link" size={25} color={colorsTheme.text} />
+                      ) : (
+                        <Feather
+                          name="file-text"
+                          size={25}
+                          color={colorsTheme.text}
+                        />
+                      )}
+                    </ViewThemed>
+                  </View>
+                  <TextThemed numberOfLines={3} className="text-lg">{item.text}</TextThemed>
+                </View>
+               
+       
+              </ButtonThemed>
+            </>
           ))}
         </ScrollView>
       )}

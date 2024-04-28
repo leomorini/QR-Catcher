@@ -1,10 +1,13 @@
 import { useColorScheme } from "./useColorScheme";
 import colors from "./colors";
+import dimensions, { borderDimension } from "./dimensions";
 
 export type ThemeProps = {
   lightColor?: string;
   darkColor?: string;
   color?: keyof typeof colors.light & keyof typeof colors.dark;
+  borderColor?: keyof typeof colors.light & keyof typeof colors.dark;
+  borderWidth?: borderDimension;
 };
 
 export function useThemeColor(
@@ -26,55 +29,20 @@ export function getThemeColors() {
   return colors[colorScheme ?? "light"];
 }
 
-export function getScreenOptionsStyle() {
-  const colorsTheme = getThemeColors();
-  const iconColorSelected = colorsTheme.tabIconSelected;
-  const borderWidthThemed = {
-    ...borderWidthTheme,
-    borderColor: colorsTheme.text,
-  }
+export function borderBrutalismStyle(size: borderDimension = "md") {
+  const borderWidth = dimensions.border[size];
+  const borderRadius = dimensions.borderRadius[size];
 
   return {
-    headerShown: false,
-    tabBarActiveTintColor: colorsTheme.tint,
-    tabBarInactiveTintColor: colorsTheme.tabIconDefault,
-    tabBarStyle: {
-      height: 70,
-      backgroundColor: colorsTheme.background,
-      borderColor: 'transparent',
-      ...shadowNoneTheme,
-    },
-    tabBarLabelStyle: {
-      fontSize: 12,
-      fontWeight: "bold",
-      marginBottom: 8,
-    },
-    tabBarIconStyle: {
-      marginTop: 8,
-    },
-    tabBarItemStyle: {
-    },
+    borderTopWidth: borderWidth,
+    borderLeftWidth: borderWidth,
+    borderRightWidth: borderWidth,
+    borderBottomWidth: borderWidth,
+    borderRadius,
   };
 }
 
-const borderWidthTheme = {
-  borderRadius: 5,
-  borderWidth: 1,
-  borderBottomWidth: 3,
-}
-
-const shadowTheme = {
-  shadowColor: "#000",
-  shadowOffset: {
-    width: 0,
-    height: 8,
-  },
-  shadowOpacity: 0.44,
-  shadowRadius: 10.32,
-  elevation: 16,
-}
-
-const shadowNoneTheme = {
+export const shadowNoneStyle = {
   shadowColor: "transparent",
   shadowOffset: {
     width: 0,
@@ -83,4 +51,14 @@ const shadowNoneTheme = {
   shadowOpacity: 0,
   shadowRadius: 0,
   elevation: 0,
+};
+
+export function getBrutalismBorder(
+  color: string = "",
+  borderWidth: borderDimension = "md"
+) {
+  return {
+    ...borderBrutalismStyle(borderWidth),
+    borderColor: color,
+  };
 }

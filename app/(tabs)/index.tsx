@@ -12,6 +12,7 @@ import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useStorageStore } from "@/services/storage";
+import ScreenContainer from "@/components/ScreenContainer";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
@@ -116,36 +117,37 @@ export default function CodeScanner() {
   }, [link]);
 
   return (
-    <ViewThemed className="flex flex-1">
-      <CameraView
-        ref={scannerRef}
-        style={{ flex: 1 }}
-        barcodeScannerSettings={{ barcodeTypes }}
-        onBarcodeScanned={onBarcodeScanned}
-        facing={facing}
-      ></CameraView>
-      <View className="absolute right-0 left-0 bottom-10 bg-transparent">
-        <View className="mx-2 rounded-3xl flex-row items-center justify-between">
+    <ScreenContainer className="relative" tabsPadding={true}>
+      <ViewThemed brutalism={true} borderColor="highlightedColored" className="relative mx-4 mb-8 flex flex-1">
+        <CameraView
+          ref={scannerRef}
+          style={{ flex: 1, overflow: "hidden" }}
+          barcodeScannerSettings={{ barcodeTypes }}
+          onBarcodeScanned={onBarcodeScanned}
+          facing={facing}
+        ></CameraView>
+      </ViewThemed>
+
+      <View className="">
+        <ViewThemed className="mx-2 rounded-3xl flex-row items-center justify-between">
           <ButtonThemed
-            color="background2"
             onPress={handleUploadImage}
-            className="flex h-16 w-16 mx-2 rounded-full items-center justify-center"
+            className="flex h-14 w-28 rounded-full items-center justify-center"
           >
-            <Entypo name="image" size={26} color={colorsTheme.tabIconDefault} />
+            <Entypo name="image" size={26} color={colorsTheme.text} />
           </ButtonThemed>
           <ButtonThemed
-            color="background2"
             onPress={handleFacing}
-            className="flex h-16 w-16 mx-2 rounded-full items-center justify-center"
+            className="flex h-14 w-28 rounded-full items-center justify-center"
           >
             <Ionicons
               name="camera-reverse-outline"
               size={30}
-              color={colorsTheme.tabIconDefault}
+              color={colorsTheme.text}
             />
           </ButtonThemed>
-        </View>
+        </ViewThemed>
       </View>
-    </ViewThemed>
+    </ScreenContainer>
   );
 }

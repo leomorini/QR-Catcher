@@ -1,25 +1,31 @@
 import { View as DefaultComponent } from "react-native";
-import { ThemeProps, useThemeColor } from "@/styles";
-export type ComponentProps = ThemeProps & DefaultComponent["props"];
+import { ThemeProps, getBrutalismBorder, getThemeColors } from "@/styles";
+
+interface MyProps {
+  brutalism?: boolean;
+}
+
+export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function View(props: ComponentProps) {
   const {
+    color = "bgComponents",
+    borderColor = "border",
+    borderWidth = "md",
+    brutalism = false,
     style,
-    lightColor,
-    darkColor,
-    color = "background",
-    className = "",
     ...otherProps
   } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    color
-  );
+
+  const colors = getThemeColors();
 
   return (
     <DefaultComponent
-      className={`${className}`}
-      style={[{ backgroundColor }, style]}
+      style={[
+        { backgroundColor: colors[color], overflow: "hidden" },
+        brutalism ? getBrutalismBorder(colors[borderColor], borderWidth) : {},
+        style,
+      ]}
       {...otherProps}
     />
   );

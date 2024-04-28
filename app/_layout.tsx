@@ -19,6 +19,8 @@ import SettingsIcon from "@/components/SetttingsIcon";
 import { i18nextInit } from "@/services/intl";
 
 import "@/global.css";
+import { getThemeColors } from "@/styles";
+import { ViewThemed } from "@/components/Themed";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -37,7 +39,8 @@ export default function RootLayout() {
   const [permission, requestPermission] = useCameraPermissions();
 
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    InterRegular: require("../assets/fonts/Inter-Regular.ttf"),
+    InterBold: require("../assets/fonts/Inter-Bold.ttf"),
     ...FontAwesome.font,
   });
 
@@ -70,35 +73,45 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const colorsTheme = getThemeColors();
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <AlertNotificationRoot>
-        <SafeAreaProvider>
-          <Stack>
-            <Stack.Screen
-              name="(tabs)"
-              options={{
-                headerShown: true,
-                headerTitle: (title) => {
-                  return <Title title="QrCode" />;
-                },
-                headerRight: () => <SettingsIcon />,
+      <SafeAreaProvider>
+        <ViewThemed color="bg" className="flex flex-1">
+          <AlertNotificationRoot>
+            <Stack
+              screenOptions={{
+                headerStyle: { backgroundColor: "transparent" },
+                contentStyle: { backgroundColor: "transparent" },
               }}
-            />
-            <Stack.Screen
-              name="info"
-              options={{
-                headerShown: true,
-                title: "Information",
-                headerTitle: ({ children }) => {
-                  return <Title title={children} />;
-                },
-              }}
-            />
-          </Stack>
-        </SafeAreaProvider>
-      </AlertNotificationRoot>
+            >
+              <Stack.Screen
+                name="(tabs)"
+                options={{
+                  headerShown: true,
+                  headerTitle: (title) => {
+                    return <Title title="QrCode" />;
+                  },
+                  headerRight: () => <SettingsIcon />,
+                  headerShadowVisible: false,
+                }}
+              />
+              <Stack.Screen
+                name="info"
+                options={{
+                  headerShown: true,
+                  title: "Information",
+                  headerTitle: ({ children }) => {
+                    return <Title title={children} />;
+                  },
+                  headerShadowVisible: false,
+                }}
+              />
+            </Stack>
+          </AlertNotificationRoot>
+        </ViewThemed>
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }

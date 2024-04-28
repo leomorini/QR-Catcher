@@ -1,32 +1,34 @@
-import {
-  TouchableOpacity as DefaultComponent,
-  View,
-  StyleSheet,
-  ViewStyle,
-} from "react-native";
-import { ThemeProps, useThemeColor } from "@/styles";
-export type ComponentProps = ThemeProps & DefaultComponent["props"];
+import { TouchableOpacity as DefaultComponent, View } from "react-native";
+import { ThemeProps, getBrutalismBorder, getThemeColors } from "@/styles";
+
+interface MyProps {
+  brutalism?: boolean;
+}
+
+export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function Button(props: ComponentProps) {
   const {
-    style,
-    lightColor,
-    darkColor,
-    color = "background2",
+    color = "bgComponents",
+    borderColor = "border",
     className = "",
+    brutalism,
+    style,
     children,
     ...otherProps
   } = props;
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    color
-  );
+
+  const colors = getThemeColors();
 
   return (
     <DefaultComponent {...otherProps}>
       <View
         className={`${className}`}
-        style={[{ backgroundColor }, style]}
+        style={[
+          { backgroundColor: colors[color], overflow: "hidden" },
+          brutalism ? getBrutalismBorder(colors[borderColor]) : {},
+          style,
+        ]}
       >
         {children}
       </View>

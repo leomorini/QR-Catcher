@@ -1,11 +1,14 @@
-import { Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { TextThemed, ViewThemed } from "@/components/Themed";
+import ScreenContainer from "@/components/ScreenContainer";
 
 const Info = () => {
   return (
-    <SafeAreaView className="flex flex-1 items-center justify-center">
-      <Text>Info</Text>
-    </SafeAreaView>
+    <ViewThemed
+      color="bg"
+      className="flex flex-1 items-center justify-center m-10"
+    >
+      <TextThemed>Info</TextThemed>
+    </ViewThemed>
   );
 };
 

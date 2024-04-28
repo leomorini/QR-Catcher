@@ -1,15 +1,28 @@
 import { Text as DefaultComponent } from "react-native";
-import { ThemeProps, useThemeColor } from "@/styles";
-export type ComponentProps = ThemeProps & DefaultComponent["props"];
+import { ThemeProps, getThemeColors } from "@/styles";
+
+interface MyProps {
+  bold?: boolean;
+}
+
+export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function Text(props: ComponentProps) {
-  const { style, lightColor, darkColor, className = "", ...otherProps } = props;
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const {
+    style,
+    className = "",
+    color = "text",
+    bold = false,
+    ...otherProps
+  } = props;
+
+  const colors = getThemeColors();
+  const fontFamily = bold ? "InterBold" : "InterRegular";
 
   return (
     <DefaultComponent
       className={`text-md ${className}`}
-      style={[{ color }, style]}
+      style={[{ color: colors[color], fontFamily }, style]}
       {...otherProps}
     />
   );
