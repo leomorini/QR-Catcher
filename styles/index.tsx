@@ -1,13 +1,15 @@
 import { useColorScheme } from "./useColorScheme";
 import colors from "./colors";
-import dimensions, { borderDimension } from "./dimensions";
+import { dimensions, borderDimension, sizeDimension } from "./dimensions";
 
+export type ColorType = keyof typeof colors.light & keyof typeof colors.dark;
 export type ThemeProps = {
   lightColor?: string;
   darkColor?: string;
-  color?: keyof typeof colors.light & keyof typeof colors.dark;
-  borderColor?: keyof typeof colors.light & keyof typeof colors.dark;
+  color?: ColorType;
+  borderColor?: ColorType;
   borderWidth?: borderDimension;
+  size?: sizeDimension;
 };
 
 export function useThemeColor(

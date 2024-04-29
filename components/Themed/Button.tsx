@@ -11,7 +11,6 @@ export default function Button(props: ComponentProps) {
   const {
     color = "bgComponents",
     borderColor = "border",
-    className = "",
     brutalism,
     style,
     children,
@@ -23,7 +22,6 @@ export default function Button(props: ComponentProps) {
   return (
     <DefaultComponent {...otherProps}>
       <View
-        className={`${className}`}
         style={[
           { backgroundColor: colors[color], overflow: "hidden" },
           brutalism ? getBrutalismBorder(colors[borderColor]) : {},

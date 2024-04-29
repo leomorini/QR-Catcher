@@ -5,10 +5,18 @@ export function NavButton({ children, accessibilityState, ...rest }: any) {
   const selected =
     typeof accessibilityState == "object" && accessibilityState.selected;
 
-    const colorsTheme = getThemeColors();
+  const colorsTheme = getThemeColors();
   return (
     <TouchableOpacity {...rest}>
-      <View className={`flex-1 flex flex-row items-center justify-center`}>
+      <View
+        style={{
+          display: "flex",
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {children}
       </View>
     </TouchableOpacity>

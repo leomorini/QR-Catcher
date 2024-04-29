@@ -11,20 +11,28 @@ const History = observer(() => {
   const colorsTheme = getThemeColors();
 
   return (
-    <ViewThemed className="flex flex-1 items-center justify-center">
+    <ViewThemed style={{
+      display: "flex",
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    }}>
       {!!historySorted && (
-        <ScrollView className="flex flex-1 w-full">
+        <ScrollView style={{
+          display: "flex",
+          flex: 1,
+        }}>
           {historySorted.map((item, index) => (
             <>
-              {index > 0 && <View className="h-5 w-full my-4" />}
+              {index > 0 && <View style={{}} />}
               <ButtonThemed
                 onPress={() => handleLink(item)}
-                className={`flex flex-col p-7 rounded-[40px] overflow-hidden m-5`}
+                // className={`flex flex-col p-7 rounded-[40px] overflow-hidden m-5`}
                 key={index}
               >
-                <View className="flex flex-row">
-                  <View className="flex flex-row">
-                    <ViewThemed color="bgComponents" className="p-5 rounded-3xl">
+                <View>
+                  <View>
+                    <ViewThemed color="bgComponents">
                       {item.isURL ? (
                         <Entypo name="link" size={25} color={colorsTheme.text} />
                       ) : (
@@ -36,7 +44,7 @@ const History = observer(() => {
                       )}
                     </ViewThemed>
                   </View>
-                  <TextThemed numberOfLines={3} className="text-lg">{item.text}</TextThemed>
+                  <TextThemed numberOfLines={3}>{item.text}</TextThemed>
                 </View>
                
        

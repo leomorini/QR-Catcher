@@ -1,4 +1,10 @@
-const dimensions = {
+export const dimensions = {
+  size: {
+    sm: 4,
+    md: 6,
+    lg: 10,
+    xl: 14,
+  },
   border: {
     sm: 2,
     md: 4,
@@ -25,9 +31,8 @@ const dimensions = {
   },
 };
 
+export type sizeDimension = keyof typeof dimensions.size;
 export type borderDimension = keyof typeof dimensions.border;
 export type borderRadiusDimension = keyof typeof dimensions.borderRadius;
 export type paddingDimension = keyof typeof dimensions.padding;
 export type marginDimension = keyof typeof dimensions.margin;
-
-export default dimensions;

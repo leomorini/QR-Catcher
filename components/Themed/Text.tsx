@@ -8,21 +8,14 @@ interface MyProps {
 export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function Text(props: ComponentProps) {
-  const {
-    style,
-    className = "",
-    color = "text",
-    bold = false,
-    ...otherProps
-  } = props;
+  const { style, color = "text", bold = false, ...otherProps } = props;
 
   const colors = getThemeColors();
   const fontFamily = bold ? "InterBold" : "InterRegular";
 
   return (
     <DefaultComponent
-      className={`text-md ${className}`}
-      style={[{ color: colors[color], fontFamily }, style]}
+      style={[{ color: colors[color], fontFamily, fontSize: 16 }, style]}
       {...otherProps}
     />
   );

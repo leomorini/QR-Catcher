@@ -12,8 +12,13 @@ export default function RequestPermissions({
   const { t } = useTranslation();
 
   return (
-    <ViewThemed className="flex flex-1 items-center justify-center">
-      <View className="mb-3">
+    <ViewThemed style={{
+      display: "flex",
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    }}>
+      <View>
         <TextThemed>
           {t("You need to activate permission to use the camera and storage!")}
         </TextThemed>

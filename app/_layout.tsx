@@ -78,7 +78,7 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaProvider>
-        <ViewThemed color="bg" className="flex flex-1">
+        <ViewThemed color="bg" style={{ display: 'flex', flex: 1 }}>
           <AlertNotificationRoot>
             <Stack
               screenOptions={{

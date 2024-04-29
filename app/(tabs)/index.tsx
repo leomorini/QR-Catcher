@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { CameraView, CameraType } from "expo-camera/next";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import * as ImagePicker from "expo-image-picker";
@@ -7,12 +7,13 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import { useTranslation } from "react-i18next";
 
-import { ButtonThemed, ViewThemed } from "@/components/Themed";
+import { ButtonThemed, TextThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useStorageStore } from "@/services/storage";
 import ScreenContainer from "@/components/ScreenContainer";
+import Divider from "@/components/Themed/Divider";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
@@ -117,8 +118,21 @@ export default function CodeScanner() {
   }, [link]);
 
   return (
-    <ScreenContainer className="relative" tabsPadding={true}>
-      <ViewThemed brutalism={true} borderColor="highlightedColored" className="relative mx-4 mb-8 flex flex-1">
+    <ScreenContainer
+      style={{ position: "relative", flex: 1, paddingBottom: 100 }}
+      tabsPadding={true}
+    >
+      <ViewThemed
+        brutalism={true}
+        borderColor="highlightedColored"
+        style={{
+          display: "flex",
+          flex: 1,
+          position: "relative",
+          marginVertical: 6,
+          marginHorizontal: 6,
+        }}
+      >
         <CameraView
           ref={scannerRef}
           style={{ flex: 1, overflow: "hidden" }}
@@ -126,28 +140,79 @@ export default function CodeScanner() {
           onBarcodeScanned={onBarcodeScanned}
           facing={facing}
         ></CameraView>
-      </ViewThemed>
 
-      <View className="">
-        <ViewThemed className="mx-2 rounded-3xl flex-row items-center justify-between">
-          <ButtonThemed
+        <ViewThemed
+          style={{
+            width: "100%",
+            minHeight: 70,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 0,
+            borderTopWidth: 4,
+            borderColor: colorsTheme.highlightedColored,
+          }}
+        >
+          <TouchableOpacity
             onPress={handleUploadImage}
-            className="flex h-14 w-28 rounded-full items-center justify-center"
+            style={{ display: "flex", flex: 1, padding: 5 }}
           >
-            <Entypo name="image" size={26} color={colorsTheme.text} />
-          </ButtonThemed>
-          <ButtonThemed
+            <View
+              style={{
+                display: "flex",
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flex: 1,
+                  justifyContent: "center",
+                }}
+              >
+                <TextThemed style={{ fontSize: 10 }}>
+                  Busque a partir de uma
+                </TextThemed>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Entypo
+                    style={{ marginRight: 4 }}
+                    name="image"
+                    size={26}
+                    color={colorsTheme.text}
+                  />
+                  <TextThemed style={{ fontSize: 14 }}>Imagem</TextThemed>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <Divider mode="vertical" color="highlightedColored" />
+          <TouchableOpacity
             onPress={handleFacing}
-            className="flex h-14 w-28 rounded-full items-center justify-center"
+            style={{
+              display: "flex",
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             <Ionicons
               name="camera-reverse-outline"
               size={30}
               color={colorsTheme.text}
             />
-          </ButtonThemed>
+          </TouchableOpacity>
         </ViewThemed>
-      </View>
+      </ViewThemed>
     </ScreenContainer>
   );
 }

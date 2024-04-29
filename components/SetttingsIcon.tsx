@@ -14,10 +14,14 @@ export default function SettingsIcon() {
   }
 
   return (
-    <TouchableOpacity onPress={handleInfo} className="absolute right-4 bg-transparent">
-      <ViewThemed brutalism color="bg" className="bg-transparent rounded-md py-2 px-2">
+    <TouchableOpacity
+      onPress={handleInfo}
+      style={{ position: "absolute", right: 4, backgroundColor: "transparent" }}
+    >
+      <ViewThemed brutalism color="bg" style={{ borderRadius: 14, padding: 2 }}>
         <Entypo name="info-with-circle" size={24} color={iconColor} />
       </ViewThemed>
     </TouchableOpacity>
   );
-}1
+}
+1;

@@ -7,7 +7,7 @@ export type TitleProps = {
 
 export default function Header({ title = "QrCode", bold = true }: TitleProps) {
   return (
-    <TextThemed bold={bold} className="my-5 text-2xl">
+    <TextThemed bold={bold} style={{ marginHorizontal: 10, fontSize: 36 }}>
       {title}
     </TextThemed>
   );

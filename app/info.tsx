@@ -5,7 +5,13 @@ const Info = () => {
   return (
     <ViewThemed
       color="bg"
-      className="flex flex-1 items-center justify-center m-10"
+      style={{
+        display: "flex",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: 10,
+      }}
     >
       <TextThemed>Info</TextThemed>
     </ViewThemed>
