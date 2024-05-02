@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { CameraView, CameraType } from "expo-camera/next";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import * as ImagePicker from "expo-image-picker";
@@ -118,101 +118,95 @@ export default function CodeScanner() {
   }, [link]);
 
   return (
-    <ScreenContainer
-      style={{ position: "relative", flex: 1, paddingBottom: 100 }}
-      tabsPadding={true}
-    >
-      <ViewThemed
-        brutalism={true}
-        borderColor="highlightedColored"
-        style={{
-          display: "flex",
-          flex: 1,
-          position: "relative",
-          marginVertical: 6,
-          marginHorizontal: 6,
-        }}
-      >
-        <CameraView
-          ref={scannerRef}
-          style={{ flex: 1, overflow: "hidden" }}
-          barcodeScannerSettings={{ barcodeTypes }}
-          onBarcodeScanned={onBarcodeScanned}
-          facing={facing}
-        ></CameraView>
+    <View style={{ position: "relative", flex: 1 }}>
+      <CameraView
+        ref={scannerRef}
+        style={{ flex: 1, overflow: "hidden" }}
+        barcodeScannerSettings={{ barcodeTypes }}
+        onBarcodeScanned={onBarcodeScanned}
+        facing={facing}
+      ></CameraView>
 
-        <ViewThemed
-          style={{
-            width: "100%",
-            minHeight: 70,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 0,
-            borderTopWidth: 4,
-            borderColor: colorsTheme.highlightedColored,
-          }}
-        >
-          <TouchableOpacity
-            onPress={handleUploadImage}
-            style={{ display: "flex", flex: 1, padding: 5 }}
-          >
-            <View
-              style={{
-                display: "flex",
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flex: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <TextThemed style={{ fontSize: 10 }}>
-                  Busque a partir de uma
-                </TextThemed>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Entypo
-                    style={{ marginRight: 4 }}
-                    name="image"
-                    size={26}
-                    color={colorsTheme.text}
-                  />
-                  <TextThemed style={{ fontSize: 14 }}>Imagem</TextThemed>
-                </View>
-              </View>
+      <ViewThemed style={styles.camActions}>
+        <TouchableOpacity onPress={handleUploadImage} style={styles.camAction}>
+          <View style={styles.camActionBody}>
+            <TextThemed style={styles.camActionBodyText}>
+              Busque a partir de uma
+            </TextThemed>
+            <View style={styles.camActionContent}>
+              <Entypo
+                style={{ marginRight: 4 }}
+                name="image"
+                size={26}
+                color={colorsTheme.text}
+              />
+              <TextThemed style={styles.camActionContentText}>
+                Imagem
+              </TextThemed>
             </View>
-          </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
 
-          <Divider mode="vertical" color="highlightedColored" />
-          <TouchableOpacity
-            onPress={handleFacing}
-            style={{
-              display: "flex",
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Ionicons
-              name="camera-reverse-outline"
-              size={30}
-              color={colorsTheme.text}
-            />
-          </TouchableOpacity>
-        </ViewThemed>
+        <Divider mode="vertical" color="highlightedColored" />
+        <TouchableOpacity onPress={handleFacing} style={styles.camAction}>
+          <View style={styles.camActionBody}>
+            <TextThemed style={styles.camActionBodyText}>
+              Inverta a imagem da
+            </TextThemed>
+            <View style={styles.camActionContent}>
+              <Ionicons
+                name="camera-reverse-outline"
+                size={30}
+                color={colorsTheme.text}
+              />
+              <TextThemed style={styles.camActionContentText}>
+                Camera
+              </TextThemed>
+            </View>
+          </View>
+        </TouchableOpacity>
       </ViewThemed>
-    </ScreenContainer>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  camActions: {
+    position: "absolute",
+    left: 25,
+    right: 25,
+    bottom: 25,
+
+    height: 80,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    borderWidth: 4,
+  },
+  camAction: {
+    display: "flex",
+    flex: 1,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  camActionBody: {
+    display: "flex",
+    flex: 1,
+    justifyContent: "center",
+  },
+  camActionContent: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  camActionBodyText: {
+    fontSize: 10,
+  },
+  camActionContentText: {
+    fontSize: 14,
+  },
+});

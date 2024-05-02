@@ -15,7 +15,7 @@ export default function TabLayout() {
 
   return (
     <Tabs
-      initialRouteName="index"
+      initialRouteName="history"
       screenOptions={{
         ...screenOptionsStyle,
         tabBarButton: (props) => <NavButton {...props} />,
@@ -60,19 +60,14 @@ function getTabStyles() {
       tabBarInactiveTintColor: colorsTheme.text,
       activeBackgroundColor: colorsTheme.highlightedColored,
       tabBarStyle: {
+        height: 80,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        position: "absolute",
-        bottom: 16,
-        left: 16,
-        right: 16,
-        height: 80,
         borderColor: colorsTheme.text,
         backgroundColor: colorsTheme.bgComponents,
         overflow: "hidden",
         ...shadowNoneStyle,
-        ...borderBrutalismStyle("md"),
       },
       tabBarItemStyle: {
         height: "100%",

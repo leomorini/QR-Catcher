@@ -1,9 +1,9 @@
 export const dimensions = {
   size: {
-    sm: 4,
-    md: 6,
-    lg: 10,
-    xl: 14,
+    sm: 10,
+    md: 15,
+    lg: 20,
+    xl: 28,
   },
   border: {
     sm: 2,

@@ -1,60 +1,33 @@
-import { ScrollView, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStorageStore } from "@/services/storage";
-import { ButtonThemed, TextThemed, ViewThemed } from "@/components/Themed";
-import { Entypo, Feather } from "@expo/vector-icons";
-import { handleLink } from "@/services/helper";
-import { getThemeColors } from "@/styles";
+import HistoryItem from "@/components/HistoryItem";
+import Divider from "@/components/Themed/Divider";
 
 const History = observer(() => {
   const { historySorted } = useStorageStore(); // OR useContext(CounterStoreContext)
-  const colorsTheme = getThemeColors();
 
   return (
-    <ViewThemed style={{
-      display: "flex",
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-    }}>
+    <>
       {!!historySorted && (
-        <ScrollView style={{
-          display: "flex",
-          flex: 1,
-        }}>
-          {historySorted.map((item, index) => (
-            <>
-              {index > 0 && <View style={{}} />}
-              <ButtonThemed
-                onPress={() => handleLink(item)}
-                // className={`flex flex-col p-7 rounded-[40px] overflow-hidden m-5`}
-                key={index}
-              >
-                <View>
-                  <View>
-                    <ViewThemed color="bgComponents">
-                      {item.isURL ? (
-                        <Entypo name="link" size={25} color={colorsTheme.text} />
-                      ) : (
-                        <Feather
-                          name="file-text"
-                          size={25}
-                          color={colorsTheme.text}
-                        />
-                      )}
-                    </ViewThemed>
-                  </View>
-                  <TextThemed numberOfLines={3}>{item.text}</TextThemed>
-                </View>
-               
-       
-              </ButtonThemed>
-            </>
-          ))}
-        </ScrollView>
+        <FlatList
+          style={styles.list}
+          data={historySorted}
+          keyExtractor={(item) => item.created_at + "_history"}
+          renderItem={({ item, index }) => (
+            <HistoryItem item={item} index={index} />
+          )}
+          ItemSeparatorComponent={() => <View style={{ marginVertical: 10 }} />}
+        />
       )}
-    </ViewThemed>
+    </>
   );
 });
 
 export default History;
+
+const styles = StyleSheet.create({
+  list: {
+    flex: 1,
+  },
+});

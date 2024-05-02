@@ -17,6 +17,7 @@ export default {
     border: "#000000",
     highlighted: "#000000",
     highlightedColored: colors.purple,
+    ...colors,
   },
   dark: {
     bg: "#161616",
@@ -25,5 +26,6 @@ export default {
     border: "#FFFFFF",
     highlighted: "#2C2C2C",
     highlightedColored: colors.purple,
+    ...colors,
   },
 };
