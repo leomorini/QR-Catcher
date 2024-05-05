@@ -97,17 +97,6 @@ function RootLayoutNav() {
                   headerShadowVisible: false,
                 }}
               />
-              <Stack.Screen
-                name="info"
-                options={{
-                  headerShown: true,
-                  title: "Information",
-                  headerTitle: ({ children }) => {
-                    return <Title title={children} />;
-                  },
-                  headerShadowVisible: false,
-                }}
-              />
             </Stack>
           </AlertNotificationRoot>
         </ViewThemed>

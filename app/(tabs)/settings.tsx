@@ -1,7 +1,7 @@
 import { TextThemed, ViewThemed } from "@/components/Themed";
 import ScreenContainer from "@/components/ScreenContainer";
 
-const Info = () => {
+const Settings = () => {
   return (
     <ViewThemed
       color="bg"
@@ -18,4 +18,4 @@ const Info = () => {
   );
 };
 
-export default Info;
+export default Settings;

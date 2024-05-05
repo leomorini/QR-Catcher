@@ -1,3 +1,14 @@
-export { default as ViewThemed } from "./View";
-export { default as ButtonThemed } from "./Button";
-export { default as TextThemed } from "./Text";
+export {
+  default as ViewThemed,
+  ComponentProps as ViewThemedProps,
+} from "./View";
+
+export {
+  default as ButtonThemed,
+  ComponentProps as ButtonThemedProps,
+} from "./Button";
+
+export {
+  default as TextThemed,
+  ComponentProps as TextThemedProps,
+} from "./Text";
