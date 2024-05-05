@@ -1,20 +1,18 @@
-import { TextThemed, ViewThemed } from "@/components/Themed";
-import ScreenContainer from "@/components/ScreenContainer";
+import { TextThemed } from "@/components/Themed";
+import Box from "@/components/Box";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Settings = () => {
   return (
-    <ViewThemed
-      color="bg"
-      style={{
-        display: "flex",
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        marginRight: 10,
-      }}
-    >
-      <TextThemed>Info</TextThemed>
-    </ViewThemed>
+    <ScrollView style={{ flex: 1 }}>
+
+      <Box>
+        <TextThemed>Desenvolvido por: <TextThemed>Leonardo Morini</TextThemed></TextThemed>
+        <TextThemed>Linkedin</TextThemed>
+        <TextThemed>Github</TextThemed>
+      </Box>
+    </ScrollView>
+
   );
 };
 
