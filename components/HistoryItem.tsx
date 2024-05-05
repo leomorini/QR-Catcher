@@ -1,7 +1,8 @@
 import { StyleSheet, View } from "react-native";
+
 import { TextThemed, ButtonThemed } from "./Themed";
 import { getThemeColors } from "@/styles";
-import { handleLink } from "@/services/helper";
+import { handleLink, handleShare } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { dimensions } from "@/styles/dimensions";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -36,10 +37,7 @@ export default function HistoryItem({ item, index }: MyProps) {
           {item.isURL ? "Clique para abrir" : "Clique para copiar"}
         </TextThemed>
 
-        <ButtonThemed
-          style={styles.action}
-          onPress={() => console.log("clicou")}
-        >
+        <ButtonThemed style={styles.action} onPress={() => handleShare(item)}>
           <FontAwesome
             name="share"
             size={24}

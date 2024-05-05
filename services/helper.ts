@@ -1,6 +1,8 @@
+import { Share } from "react-native";
 import { BarcodeType } from "expo-camera/next";
 import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
+
 import { LinkInterface } from "./interfaces";
 
 /**
@@ -41,4 +43,12 @@ export const handleLink = async (link: LinkInterface) => {
   } else {
     await Clipboard.setStringAsync(link.text);
   }
+};
+
+export const handleShare = async (link: LinkInterface) => {
+  await Share.share({
+    message: link.text,
+    url: link.isURL ? link.text : "",
+    title: link.text
+  });
 };
