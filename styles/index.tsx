@@ -31,17 +31,20 @@ export function getThemeColors() {
   return colors[colorScheme ?? "light"];
 }
 
-export function borderBrutalismStyle(size: borderDimension = "md", rounded: boolean = true) {
+export function borderBrutalismStyle(
+  size: borderDimension = "md",
+  rounded: boolean = true
+) {
   const borderWidth = dimensions.border[size];
   let style: any = {
     borderTopWidth: borderWidth,
     borderLeftWidth: borderWidth,
     borderRightWidth: borderWidth,
     borderBottomWidth: borderWidth,
-  }
+  };
 
   if (rounded) {
-    style.borderRadius = dimensions.borderRadius[size];
+    style.borderRadius = dimensions.radius[size];
   }
 
   return style;
@@ -68,5 +71,3 @@ export function getBrutalismBorder(
     borderColor: color,
   };
 }
-
-

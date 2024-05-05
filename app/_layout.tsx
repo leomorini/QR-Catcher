@@ -15,7 +15,6 @@ import { useColorScheme } from "@/styles/useColorScheme";
 import RequestPermissions from "./RequestPermissions";
 
 import Title from "@/components/Title";
-import SettingsIcon from "@/components/SetttingsIcon";
 import { i18nextInit } from "@/services/intl";
 
 import "@/global.css";
@@ -78,7 +77,7 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaProvider>
-        <ViewThemed color="bg" style={{ display: 'flex', flex: 1 }}>
+        <ViewThemed color="background" style={{ display: 'flex', flex: 1 }}>
           <AlertNotificationRoot>
             <Stack
               screenOptions={{
@@ -93,7 +92,6 @@ function RootLayoutNav() {
                   headerTitle: (title) => {
                     return <Title title="QrCode" />;
                   },
-                  headerRight: () => <SettingsIcon />,
                   headerShadowVisible: false,
                 }}
               />

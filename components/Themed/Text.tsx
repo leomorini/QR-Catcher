@@ -15,7 +15,7 @@ export default function Text(props: ComponentProps) {
 
   return (
     <DefaultComponent
-      style={[{ color: colors[color], fontFamily, fontSize: 16 }, style]}
+      style={[{ color: colors[color], fontFamily, fontSize: 14 }, style]}
       {...otherProps}
     />
   );

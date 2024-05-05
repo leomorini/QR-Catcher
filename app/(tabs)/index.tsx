@@ -3,17 +3,17 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { CameraView, CameraType } from "expo-camera/next";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import * as ImagePicker from "expo-image-picker";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import { useTranslation } from "react-i18next";
 
-import { ButtonThemed, TextThemed, ViewThemed } from "@/components/Themed";
+import { TextThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useStorageStore } from "@/services/storage";
-import ScreenContainer from "@/components/ScreenContainer";
 import Divider from "@/components/Themed/Divider";
+import { dimensions } from "@/styles/dimensions";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
@@ -127,39 +127,53 @@ export default function CodeScanner() {
         facing={facing}
       ></CameraView>
 
-      <ViewThemed style={styles.camActions}>
+      <ViewThemed
+        style={[
+          styles.camActions,
+          { borderColor: colorsTheme.highlightedColored },
+        ]}
+      >
         <TouchableOpacity onPress={handleUploadImage} style={styles.camAction}>
           <View style={styles.camActionBody}>
             <TextThemed style={styles.camActionBodyText}>
-              Busque a partir de uma
+              Busque em uma
             </TextThemed>
             <View style={styles.camActionContent}>
-              <Entypo
-                style={{ marginRight: 4 }}
+              <Feather
+                style={{ marginRight: dimensions.margin.sm }}
                 name="image"
-                size={26}
-                color={colorsTheme.text}
+                size={22}
+                color={colorsTheme.highlightedColored}
               />
-              <TextThemed style={styles.camActionContentText}>
+
+              <TextThemed
+                bold
+                color="highlightedColored"
+                style={styles.camActionContentText}
+              >
                 Imagem
               </TextThemed>
             </View>
           </View>
         </TouchableOpacity>
 
-        <Divider mode="vertical" color="highlightedColored" />
+        <Divider size="md" mode="vertical" color="highlightedColored" />
+
         <TouchableOpacity onPress={handleFacing} style={styles.camAction}>
           <View style={styles.camActionBody}>
-            <TextThemed style={styles.camActionBodyText}>
-              Inverta a imagem da
-            </TextThemed>
+            <TextThemed style={styles.camActionBodyText}>Inverta a</TextThemed>
             <View style={styles.camActionContent}>
-              <Ionicons
-                name="camera-reverse-outline"
-                size={30}
-                color={colorsTheme.text}
+              <MaterialCommunityIcons
+                style={{ marginRight: dimensions.margin.sm }}
+                name="camera-retake-outline"
+                size={26}
+                color={colorsTheme.highlightedColored}
               />
-              <TextThemed style={styles.camActionContentText}>
+              <TextThemed
+                color="highlightedColored"
+                bold
+                style={styles.camActionContentText}
+              >
                 Camera
               </TextThemed>
             </View>
@@ -176,14 +190,13 @@ const styles = StyleSheet.create({
     left: 25,
     right: 25,
     bottom: 25,
-
-    height: 80,
+    height: 75,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 8,
-    borderWidth: 4,
+    borderRadius: dimensions.radius.lg,
+    borderWidth: dimensions.border.md,
   },
   camAction: {
     display: "flex",
@@ -207,6 +220,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   camActionContentText: {
-    fontSize: 14,
+    fontSize: 16,
   },
 });

@@ -1,48 +1,79 @@
 import React from "react";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
-import {
-  shadowNoneStyle,
-  borderBrutalismStyle,
-  getThemeColors,
-} from "@/styles";
-import { NavButton } from "@/components/NavButton";
+import { shadowNoneStyle, getThemeColors } from "@/styles";
+import TabBarIcon from "@/components/TabBarIcon";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { dimensions } from "@/styles/dimensions";
 
 export default function TabLayout() {
-  const { screenOptionsStyle, tabBarOptionsStyle }: any = getTabStyles();
+  const { screenOptionsStyle, colorsTheme }: any = getTabStyles();
   const { t } = useTranslation();
 
   return (
     <Tabs
       initialRouteName="history"
-      screenOptions={{
+      screenOptions={({ route }) => ({
         ...screenOptionsStyle,
-        tabBarButton: (props) => <NavButton {...props} />,
-      }}
-      sceneContainerStyle={{ backgroundColor: "transparent" }} 
+      })}
+      sceneContainerStyle={{ backgroundColor: "transparent" }}
     >
       <Tabs.Screen
-        name="index"
+        name="history"
         options={{
-          tabBarActiveBackgroundColor: tabBarOptionsStyle,
-          title: t("Scan"),
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="data-matrix-scan"
-              size={26}
-              color={color}
-            />
+          title: t("History"),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              focused={focused}
+              background={colorsTheme.highlightedColored}
+            >
+              <MaterialIcons
+                name="history"
+                size={28}
+                color={focused ? colorsTheme.text : colorsTheme.text2}
+              />
+            </TabBarIcon>
           ),
         }}
       />
       <Tabs.Screen
-        name="history"
+        name="index"
         options={{
-          tabBarActiveBackgroundColor: tabBarOptionsStyle,
-          title: t("History"),
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="history" size={30} color={color} />
+          title: t("Scan"),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              focused={focused}
+              background={colorsTheme.highlightedColored}
+            >
+              <MaterialCommunityIcons
+                name="data-matrix-scan"
+                size={24}
+                color={focused ? colorsTheme.text : colorsTheme.text2}
+              />
+            </TabBarIcon>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: t("Settings"),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              focused={focused}
+              background={colorsTheme.highlightedColored}
+            >
+              <MaterialIcons
+                name="settings"
+                size={28}
+                color={focused ? colorsTheme.text : colorsTheme.text2}
+              />
+            </TabBarIcon>
           ),
         }}
       />
@@ -52,42 +83,43 @@ export default function TabLayout() {
 
 function getTabStyles() {
   const colorsTheme = getThemeColors();
+  const insets = useSafeAreaInsets();
+  const itemHeight = 74 + dimensions.margin.sm;
 
   return {
     screenOptionsStyle: {
       headerShown: false,
-      tabBarActiveTintColor: colorsTheme.text,
-      tabBarInactiveTintColor: colorsTheme.text,
-      activeBackgroundColor: colorsTheme.highlightedColored,
+      tabBarActiveTintColor: colorsTheme.text2,
+      tabBarInactiveTintColor: colorsTheme.text2,
+      // tabBarActiveBackgroundColor: colorsTheme.highlightedColored, //background color item selected
       tabBarStyle: {
-        height: 80,
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
-        borderColor: colorsTheme.text,
-        backgroundColor: colorsTheme.bgComponents,
+        height: itemHeight + insets.bottom,
+        borderTopWidth: 2,
+        borderColor: colorsTheme.border,
+        backgroundColor: colorsTheme.foreground,
         overflow: "hidden",
         ...shadowNoneStyle,
       },
       tabBarItemStyle: {
-        height: "100%",
+        flex: 1,
+        height: itemHeight,
       },
       tabBarLabelStyle: {
-        flex: 1,
-        fontSize: 14,
-        fontFamily: 'InterBold',
-        margin: 0,
+        flex: 0,
+        fontSize: 12,
+        fontFamily: "InterBold",
+        marginBottom: dimensions.margin.sm,
         padding: 0,
       },
       tabBarIconStyle: {
+        flex: 1,
         height: "100%",
-        margin: 0,
+        marginTop: dimensions.margin.sm,
         padding: 0,
-        marginRight: -30
       },
     },
-    tabBarOptionsStyle: {
-      activeBackgroundColor: colorsTheme.highlightedColored,
-    },
+    colorsTheme,
   };
 }

@@ -10,7 +10,7 @@ export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function Divider(props: ComponentProps) {
   const {
-    color = "bgComponents",
+    color = "foreground",
     size = "md",
     mode = "horizontal",
     style,
@@ -26,13 +26,13 @@ export default function Divider(props: ComponentProps) {
 function getDividerStyle(size: sizeDimension, color: string) {
   return StyleSheet.create({
     vertical: {
-      width: dimensions.size[size],
+      width: dimensions.border[size],
       height: "100%",
       backgroundColor: color,
     },
     horizontal: {
       width: "100%",
-      height: dimensions.size[size],
+      height: dimensions.border[size],
       backgroundColor: color,
     },
   });

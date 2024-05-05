@@ -9,7 +9,7 @@ export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function View(props: ComponentProps) {
   const {
-    color = "bgComponents",
+    color = "foreground",
     borderColor = "border",
     borderWidth = "md",
     brutalism = false,

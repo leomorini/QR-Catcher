@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
-import { ViewThemed, TextThemed, ButtonThemed } from "./Themed";
-import Divider from "./Themed/Divider";
-import { getBrutalismBorder, getThemeColors } from "@/styles";
+import { StyleSheet, View } from "react-native";
+import { TextThemed, ButtonThemed } from "./Themed";
+import { getThemeColors } from "@/styles";
 import { handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
+import { dimensions } from "@/styles/dimensions";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Entypo from "@expo/vector-icons/Entypo";
 
 interface MyProps {
   item: any;
@@ -12,65 +14,84 @@ interface MyProps {
 
 export default function HistoryItem({ item, index }: MyProps) {
   const colorsTheme = getThemeColors();
-  const borderBrutalismStyle = getBrutalismBorder(
-    colorsTheme.border,
-    "sm",
-    false
-  );
 
   const getTagComponent = (item: LinkInterface) => {
     return item.isURL ? (
-      <View style={[styles.tag, getBrutalismBorder(colorsTheme.blue, "md")]}>
-        <TextThemed color="blue">Link</TextThemed>
+      <View style={[styles.tag, { borderColor: colorsTheme.blue }]}>
+        <FontAwesome name="link" size={18} color={colorsTheme.blue} />
       </View>
     ) : (
-      <View style={[styles.tag, getBrutalismBorder(colorsTheme.orange, "md")]}>
-        <TextThemed color="orange">Texto</TextThemed>
+      <View style={[styles.tag, { borderColor: colorsTheme.orange }]}>
+        <Entypo name="text" size={18} color={colorsTheme.orange} />
       </View>
     );
   };
 
   return (
-    <ViewThemed style={[styles.container, borderBrutalismStyle]}>
-      <View style={styles.tagContainer}>{getTagComponent(item)}</View>
-      <TextThemed numberOfLines={3}>{item.text}</TextThemed>
+    <ButtonThemed style={styles.container} onPress={() => handleLink(item)}>
+      <TextThemed numberOfLines={2}>{item.text}</TextThemed>
       <View style={styles.bottom}>
-        <ButtonThemed onPress={() => handleLink(item)}>
-          <TextThemed>Copiar</TextThemed>
-        </ButtonThemed>
+        <View style={styles.tagContainer}>{getTagComponent(item)}</View>
+        <TextThemed color="highlighted">
+          {item.isURL ? "Clique para abrir" : "Clique para copiar"}
+        </TextThemed>
 
-        <ButtonThemed onPress={() => handleLink(item)}>
-          <TextThemed>Compartilhar</TextThemed>
+        <ButtonThemed
+          style={styles.action}
+          onPress={() => console.log("clicou")}
+        >
+          <FontAwesome
+            name="share"
+            size={24}
+            color={colorsTheme.highlightedColored}
+          />
         </ButtonThemed>
       </View>
-    </ViewThemed>
+    </ButtonThemed>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 15,
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: dimensions.padding.md,
+    paddingVertical: dimensions.padding.lg,
   },
   tagContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 10,
   },
   tag: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: dimensions.padding.sm,
+    paddingHorizontal: dimensions.padding.sm,
+    borderWidth: 1,
+    borderRadius: dimensions.radius.lg,
   },
   bottom: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end",
-    marginTop: 10,
+    justifyContent: "space-between",
+    marginTop: dimensions.margin.lg,
+  },
+  actions: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  action: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: dimensions.padding.sm,
+    paddingHorizontal: dimensions.padding.sm,
+    borderRadius: dimensions.radius.lg,
+    marginLeft: dimensions.margin.lg,
   },
 });
