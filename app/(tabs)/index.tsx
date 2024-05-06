@@ -136,7 +136,7 @@ export default function CodeScanner() {
         <TouchableOpacity onPress={handleUploadImage} style={styles.camAction}>
           <View style={styles.camActionBody}>
             <TextThemed style={styles.camActionBodyText}>
-              Busque em uma
+              {t("Search in")}
             </TextThemed>
             <View style={styles.camActionContent}>
               <Feather
@@ -145,13 +145,12 @@ export default function CodeScanner() {
                 size={22}
                 color={colorsTheme.highlightedColored}
               />
-
               <TextThemed
                 bold
                 color="highlightedColored"
                 style={styles.camActionContentText}
               >
-                Imagem
+                {t("Image")}
               </TextThemed>
             </View>
           </View>
@@ -161,7 +160,9 @@ export default function CodeScanner() {
 
         <TouchableOpacity onPress={handleFacing} style={styles.camAction}>
           <View style={styles.camActionBody}>
-            <TextThemed style={styles.camActionBodyText}>Inverta a</TextThemed>
+            <TextThemed style={styles.camActionBodyText}>
+              {t("Invert the")}
+            </TextThemed>
             <View style={styles.camActionContent}>
               <MaterialCommunityIcons
                 style={{ marginRight: dimensions.margin.sm }}
@@ -174,7 +175,7 @@ export default function CodeScanner() {
                 bold
                 style={styles.camActionContentText}
               >
-                Camera
+                {t("Camera")}
               </TextThemed>
             </View>
           </View>
