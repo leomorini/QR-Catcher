@@ -17,7 +17,7 @@ export default function TabLayout() {
 
   return (
     <Tabs
-      initialRouteName="history"
+      initialRouteName="index"
       screenOptions={({ route }) => ({
         ...screenOptionsStyle,
       })}
@@ -30,7 +30,7 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              background={colorsTheme.highlightedColored}
+              background={colorsTheme.navIconBackground}
             >
               <MaterialIcons
                 name="history"
@@ -48,7 +48,7 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              background={colorsTheme.highlightedColored}
+              background={colorsTheme.navIconBackground}
             >
               <MaterialCommunityIcons
                 name="data-matrix-scan"
@@ -66,7 +66,7 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              background={colorsTheme.highlightedColored}
+              background={colorsTheme.navIconBackground}
             >
               <MaterialIcons
                 name="settings"
@@ -89,7 +89,7 @@ function getTabStyles() {
   return {
     screenOptionsStyle: {
       headerShown: false,
-      tabBarActiveTintColor: colorsTheme.text2,
+      tabBarActiveTintColor: colorsTheme.text,
       tabBarInactiveTintColor: colorsTheme.text2,
       // tabBarActiveBackgroundColor: colorsTheme.highlightedColored, //background color item selected
       tabBarStyle: {
