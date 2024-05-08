@@ -9,7 +9,7 @@ import { AlertNotificationRoot } from "react-native-alert-notification";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import { useCameraPermissions, PermissionResponse } from "expo-camera/next";
+import { useCameraPermissions } from "expo-camera";
 import * as SplashScreen from "expo-splash-screen";
 import { useColorScheme } from "@/styles/useColorScheme";
 import RequestPermissions from "./RequestPermissions";

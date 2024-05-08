@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { CameraView, CameraType } from "expo-camera/next";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import { Camera, CameraView } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
@@ -26,7 +25,7 @@ export default function CodeScanner() {
   const colorsTheme = getThemeColors();
   const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
-  const [facing, setFacing] = useState<CameraType>("back");
+  const [facing, setFacing] = useState<any>("back");
   const { historyIncrement } = useStorageStore();
   const { t } = useTranslation();
 
@@ -73,7 +72,7 @@ export default function CodeScanner() {
        * if success detect and decode barcode/qrcode in image
        * @TODO this library stopped working after expo 50!
        *  */
-      const scanned = await BarCodeScanner.scanFromURLAsync(
+      const scanned = await Camera.scanFromURLAsync(
         result.assets[0].uri
       );
       if (scanned && Array.isArray(scanned) && scanned[0] && scanned[0].data) {
