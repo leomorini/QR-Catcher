@@ -1,7 +1,8 @@
 import { Platform } from "react-native";
 
 const isAndroid = Platform.OS === "android";
-const isHermes = !!global.HermesInternal;
+const isHermes: any =
+  typeof HermesInternal === "object" && HermesInternal !== null;
 
 if (isAndroid || isHermes) {
   require("@formatjs/intl-locale/polyfill");

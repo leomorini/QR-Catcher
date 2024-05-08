@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 5,
     backgroundColor: "transparent",
-    borderRadius: 5
+    borderRadius: 5,
   },
 });

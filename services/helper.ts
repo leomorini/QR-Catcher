@@ -49,6 +49,6 @@ export const handleShare = async (link: LinkInterface) => {
   await Share.share({
     message: link.text,
     url: link.isURL ? link.text : "",
-    title: link.text
+    title: link.text,
   });
 };
