@@ -14,7 +14,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useColorScheme } from "@/styles/useColorScheme";
 import RequestPermissions from "./RequestPermissions";
 
-import Title from "@/components/Title";
 import { i18nextInit } from "@/services/intl";
 
 import "@/global.css";
@@ -79,20 +78,11 @@ function RootLayoutNav() {
       <SafeAreaProvider>
         <ViewThemed color="background" style={{ display: "flex", flex: 1 }}>
           <AlertNotificationRoot>
-            <Stack
-              screenOptions={{
-                headerStyle: { backgroundColor: "transparent" },
-                contentStyle: { backgroundColor: "transparent" },
-              }}
-            >
+            <Stack>
               <Stack.Screen
                 name="(tabs)"
                 options={{
-                  headerShown: true,
-                  headerTitle: (title) => {
-                    return <Title title="QrCode" />;
-                  },
-                  headerShadowVisible: false,
+                  headerShown: false
                 }}
               />
             </Stack>

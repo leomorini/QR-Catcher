@@ -1,26 +1,28 @@
 const colorsLight = {
-  orange: "#BC7F7F",
+  red: "#BB304A",
+  orange: "#f97a57",
   blue: "#3BB3BD",
   green: "#7FBC8C",
   green2: "#7FA6BC",
-  yellow: "#FFC700",
+  yellow: "#dca121",
   yellow2: "#BCA47F",
   purple: "#857ee4",
   purple2: "#A17FBC",
 };
 
 const colorsDark = {
-  orange: "#d19191",
+  red: "#BB304A",
+  orange: "#cf6e3d",
   blue: "#43c3cf",
   green: "#8dd19c",
   green2: "#88b3cb",
-  yellow: "#FFC700",
+  yellow: "#E8B74C",
   yellow2: "#d5ba92",
   purple: "#c6c4ff",
   purple2: "#b28dd1",
 };
 
-const selected = "purple";
+const selected = "yellow";
 
 export default {
   light: {

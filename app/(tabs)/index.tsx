@@ -13,6 +13,7 @@ import { LinkInterface } from "@/services/interfaces";
 import { useStorageStore } from "@/services/storage";
 import Divider from "@/components/Themed/Divider";
 import { dimensions } from "@/styles/dimensions";
+import Header from "@/components/Header";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
@@ -118,6 +119,8 @@ export default function CodeScanner() {
 
   return (
     <View style={{ position: "relative", flex: 1 }}>
+      <Header fixed />
+
       <CameraView
         ref={scannerRef}
         style={{ flex: 1, overflow: "hidden" }}

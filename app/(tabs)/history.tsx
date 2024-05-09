@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useStorageStore } from "@/services/storage";
 import HistoryItem from "@/components/HistoryItem";
 import Divider from "@/components/Themed/Divider";
+import Header from "@/components/Header";
 
 const History = observer(() => {
   const { historySorted } = useStorageStore(); // OR useContext(CounterStoreContext)
@@ -11,6 +12,7 @@ const History = observer(() => {
     <>
       {!!historySorted && (
         <FlatList
+          ListHeaderComponent={<Header />}
           style={styles.list}
           data={historySorted}
           keyExtractor={(item) => item.created_at + "_history"}
@@ -28,6 +30,7 @@ export default History;
 
 const styles = StyleSheet.create({
   list: {
+    
     flex: 1,
   },
 });
