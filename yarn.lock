@@ -1548,6 +1548,13 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@krosben/react-native-gravatar@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@krosben/react-native-gravatar/-/react-native-gravatar-0.0.1.tgz#f8bffe014c8b22b6b4b572349f5542e68d0f8ef8"
+  integrity sha512-cKOwG++Rea+su5JONLBKEqkhgcq/nBfDWRTmmlJ/JZY0pBcY6GHND/46yJ/RnLdzQNc9nzjCOxIdZxQJxJYCOw==
+  dependencies:
+    blueimp-md5 "^2.12.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -2691,6 +2698,11 @@ bl@^4.1.0:
     buffer "^5.5.0"
     inherits "^2.0.4"
     readable-stream "^3.4.0"
+
+blueimp-md5@^2.12.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.19.0.tgz#b53feea5498dcb53dc6ec4b823adb84b729c4af0"
+  integrity sha512-DRQrD6gJyy8FbiE4s+bDoXS9hiW3Vbx5uCdwvcCf3zLHL+Iv7LtGHLpr+GZV8rHG8tK766FGYBwRbu8pELTt+w==
 
 boolbase@^1.0.0:
   version "1.0.0"

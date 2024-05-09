@@ -1,4 +1,10 @@
+const allColors = {
+  linkedin: "#0e76a8",
+  github: "#181616",
+};
+
 const colorsLight = {
+  ...allColors,
   red: "#BB304A",
   orange: "#f97a57",
   blue: "#3BB3BD",
@@ -11,6 +17,7 @@ const colorsLight = {
 };
 
 const colorsDark = {
+  ...allColors,
   red: "#BB304A",
   orange: "#cf6e3d",
   blue: "#43c3cf",
@@ -26,6 +33,7 @@ const selected = "yellow";
 
 export default {
   light: {
+    ...colorsLight,
     background: "#F9F4F0",
     foreground: "#FFFFFF",
     foreground2: "#F6F7F9",
@@ -35,9 +43,9 @@ export default {
     highlighted: "#8f8d88",
     highlightedColored: colorsLight[selected],
     navIconBackground: colorsDark[selected],
-    ...colorsLight,
   },
   dark: {
+    ...colorsDark,
     background: "#050505",
     foreground: "#17181C",
     foreground2: "#201F23",
@@ -47,6 +55,5 @@ export default {
     highlighted: "#41434F",
     highlightedColored: colorsDark[selected],
     navIconBackground: colorsLight[selected],
-    ...colorsDark,
   },
 };

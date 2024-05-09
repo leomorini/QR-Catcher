@@ -1,5 +1,4 @@
 import { Share } from "react-native";
-import { BarcodeType } from "expo-camera/next";
 import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
 
@@ -16,7 +15,7 @@ export function validURL(str: string) {
 /**
  * All types of codes that the reader decodes
  */
-export const barcodeTypes: BarcodeType[] = [
+export const barcodeTypes: any[] = [
   "qr",
   "aztec",
   "ean13",
