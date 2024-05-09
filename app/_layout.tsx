@@ -5,20 +5,19 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { AlertNotificationRoot } from "react-native-alert-notification";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { useCameraPermissions } from "expo-camera";
 import * as SplashScreen from "expo-splash-screen";
-import { useColorScheme } from "@/styles/useColorScheme";
 import RequestPermissions from "./RequestPermissions";
 
 import { i18nextInit } from "@/services/intl";
-
-import "@/global.css";
 import { getThemeColors } from "@/styles";
+import { useColorScheme } from "@/styles/useColorScheme";
 import { ViewThemed } from "@/components/Themed";
+import { AlertNotificationRoot } from "@/components/AlertNotification";
+
 
 export {
   // Catch any errors thrown by the Layout component.

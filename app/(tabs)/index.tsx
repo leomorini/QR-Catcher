@@ -1,19 +1,19 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Camera, CameraView } from "expo-camera";
+import { BarcodeScanningResult, Camera, CameraView } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
-import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import { useTranslation } from "react-i18next";
 
+import Divider from "@/components/Themed/Divider";
+import Header from "@/components/Header";
 import { TextThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useStorageStore } from "@/services/storage";
-import Divider from "@/components/Themed/Divider";
 import { dimensions } from "@/styles/dimensions";
-import Header from "@/components/Header";
+import { AlertContext, AlertContextType } from "@/components/AlertNotification";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
@@ -23,6 +23,8 @@ const defaultLink: LinkInterface = {
 };
 
 export default function CodeScanner() {
+  const Alert = useContext(AlertContext) as AlertContextType;
+
   const colorsTheme = getThemeColors();
   const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
@@ -42,7 +44,7 @@ export default function CodeScanner() {
    * Executes every time the camera detects a QRCode or Barcode
    * It only runs when there is no code already decoded (optimization)
    */
-  const onBarcodeScanned = ({ data }: any) => {
+  const onBarcodeScanned = ({ data }: BarcodeScanningResult) => {
     if (link.text == "" && !!data) {
       setLinkToDecode(data);
     }
@@ -73,24 +75,20 @@ export default function CodeScanner() {
        * if success detect and decode barcode/qrcode in image
        * @TODO this library stopped working after expo 50!
        *  */
-      const scanned = await Camera.scanFromURLAsync(
-        result.assets[0].uri
-      );
+      const scanned = await Camera.scanFromURLAsync(result.assets[0].uri);
       if (scanned && Array.isArray(scanned) && scanned[0] && scanned[0].data) {
         setLinkToDecode(scanned[0].data);
         return;
       }
     }
 
-    Toast.show({
-      type: ALERT_TYPE.DANGER,
+    Alert.show({
       title: t("A problem has occurred!"),
-      textBody:
+      message:
         "\n" +
         t("We did not detect a QRCode or Barcode in your image.") +
         "\n\n" +
         t("Please try again with another image!"),
-      autoClose: 2000,
     });
   };
 
@@ -102,16 +100,18 @@ export default function CodeScanner() {
   /** Show Dialog link/text decoded from QRCode or Code Bar */
   useEffect(() => {
     if (!!link.text) {
-      Dialog.show({
-        type: ALERT_TYPE.SUCCESS,
+      Alert.show({
         title: "",
-        textBody: `${link.text}`,
-        button: link.isURL ? t("Access link") : t("Copy Text"),
-        onPressButton: () => {
+        message: `${link.text}`,
+        confirmText: link.isURL ? t("Access link") : t("Copy Text"),
+        onConfirmPressed: () => {
           handleLink(link);
         },
-        onHide: () => {
-          setLink(defaultLink);
+        onClose: () => {
+          // setTimeout create debounce timeout for scanning
+          setTimeout(() => {
+            setLink(defaultLink);
+          }, 400);
         },
       });
     }
