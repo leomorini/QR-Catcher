@@ -1,10 +1,4 @@
-const allColors = {
-  linkedin: "#0e76a8",
-  github: "#181616",
-};
-
 const colorsLight = {
-  ...allColors,
   red: "#BB304A",
   orange: "#f97a57",
   blue: "#3BB3BD",
@@ -14,10 +8,11 @@ const colorsLight = {
   yellow2: "#BCA47F",
   purple: "#857ee4",
   purple2: "#A17FBC",
+  linkedin: "#0e76a8",
+  github: "#181616",
 };
 
 const colorsDark = {
-  ...allColors,
   red: "#BB304A",
   orange: "#cf6e3d",
   blue: "#43c3cf",
@@ -27,6 +22,8 @@ const colorsDark = {
   yellow2: "#d5ba92",
   purple: "#c6c4ff",
   purple2: "#b28dd1",
+  linkedin: "#1499d6",
+  github: "#F9FAFD",
 };
 
 const selected = "yellow";
