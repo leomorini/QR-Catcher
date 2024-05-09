@@ -1,12 +1,14 @@
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import LogoTextSvg from "./svg/LogoTextSvg";
+import { dimensions } from "@/styles/dimensions";
 
 export type HeaderProps = {
   fixed?: boolean;
 };
 
-const paddingVertical = 12;
+const paddingVertical = dimensions.padding.md;
+const paddingHorizontal = dimensions.padding.md;
 
 export default function Header({ fixed = false }: HeaderProps) {
   const insets = useSafeAreaInsets();
@@ -27,7 +29,7 @@ export default function Header({ fixed = false }: HeaderProps) {
 const styles = StyleSheet.create({
   container: {
     paddingVertical,
-    paddingHorizontal: 20,
+    paddingHorizontal,
   },
   fixed: {
     position: "absolute",
