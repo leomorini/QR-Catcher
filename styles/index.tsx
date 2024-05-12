@@ -5,7 +5,7 @@ import { borderDimension, sizeDimension } from "./dimensions";
 
 export type ThemeModeType = "light" | "dark";
 export type ColorsType = keyof typeof colors;
-export type ThemeColorsType = ColorsType & keyof typeof themeColors.light & keyof typeof themeColors.dark;
+export type ThemeColorsType = keyof typeof themeColors.light & keyof typeof themeColors.dark;
 
 export type ThemeProps = {
   lightColor?: string;
