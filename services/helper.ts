@@ -35,6 +35,9 @@ export const barcodeTypes: any[] = [
 * Determines what action you will take when clicking the Dialog button
     - If it is a link: It will load the link by opening the browser
     - If it is text: It will copy the text with the clipboard 
+
+  @param link LinkInterface
+  @returns function execute action
 */
 export const handleLink = async (link: LinkInterface) => {
   if (link.isURL) {
@@ -44,6 +47,11 @@ export const handleLink = async (link: LinkInterface) => {
   }
 };
 
+/**
+ * 
+ * @param link LinkInterface
+ * @return share link to other apps
+ */
 export const handleShare = async (link: LinkInterface) => {
   await Share.share({
     message: link.text,

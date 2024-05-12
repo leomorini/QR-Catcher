@@ -26,13 +26,3 @@ export async function _loadData(name: string) {
     return null;
   }
 }
-
-/** Custom functions */
-export async function _saveHistory(history: LinkInterface[]) {
-  try {
-    await _storeData('history', history);
-  } catch (error) {
-    console.error("Error in saving history: ", error);
-    return null;
-  }
-}

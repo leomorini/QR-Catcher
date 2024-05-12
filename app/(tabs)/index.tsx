@@ -11,7 +11,7 @@ import { TextThemed, ViewThemed } from "@/components/Themed";
 import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
-import { useStorageStore } from "@/services/storage";
+import { useHistoryStore } from "@/data/history";
 import { dimensions } from "@/styles/dimensions";
 import { AlertContext, AlertContextType } from "@/components/AlertNotification";
 
@@ -19,7 +19,7 @@ import { AlertContext, AlertContextType } from "@/components/AlertNotification";
 const defaultLink: LinkInterface = {
   isURL: false,
   text: "",
-  created_at: Date.now(),
+  created_at: Date.now()
 };
 
 export default function CodeScanner() {
@@ -29,14 +29,14 @@ export default function CodeScanner() {
   const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<any>("back");
-  const { historyIncrement } = useStorageStore();
+  const HistoryStore = useHistoryStore();
   const { t } = useTranslation();
 
   /** Saves the decoded text of a QRCode or Bar Code in the state */
   function setLinkToDecode(text: string) {
     const isURL: boolean = validURL(text);
     const link: LinkInterface = { isURL, text, created_at: Date.now() };
-    historyIncrement(link);
+    HistoryStore.increment(link);
     setLink(link);
   }
 

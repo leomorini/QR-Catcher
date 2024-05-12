@@ -1,5 +1,5 @@
 import { View as DefaultComponent } from "react-native";
-import { ThemeProps, getBrutalismBorder, getThemeColors } from "@/styles";
+import { ThemeProps, getThemeColors } from "@/styles";
 
 interface MyProps {
   brutalism?: boolean;
@@ -23,7 +23,6 @@ export default function View(props: ComponentProps) {
     <DefaultComponent
       style={[
         { backgroundColor: colors[color], overflow: "hidden" },
-        brutalism ? getBrutalismBorder(colors[borderColor], borderWidth) : {},
         style,
       ]}
       {...otherProps}

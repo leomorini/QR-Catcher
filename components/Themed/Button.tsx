@@ -1,5 +1,5 @@
 import { TouchableOpacity as DefaultComponent, View } from "react-native";
-import { ThemeProps, getBrutalismBorder, getThemeColors } from "@/styles";
+import { ThemeProps, getThemeColors } from "@/styles";
 
 export type ComponentProps = ThemeProps & DefaultComponent["props"];
 

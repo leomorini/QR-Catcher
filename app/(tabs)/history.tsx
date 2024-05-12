@@ -1,19 +1,19 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { observer } from "mobx-react-lite";
-import { useStorageStore } from "@/services/storage";
+import { useHistoryStore } from "@/data/history";
 import HistoryItem from "@/components/HistoryItem";
 import Header from "@/components/Header";
 import { dimensions } from "@/styles/dimensions";
 
 const History = observer(() => {
-  const { historySorted } = useStorageStore(); // OR useContext(CounterStoreContext)
+  const { sorted } = useHistoryStore(); // OR useContext(CounterStoreContext)
 
   return (
     <>
-      {!!historySorted && (
+      {!!sorted && (
         <FlatList
           style={styles.list}
-          data={historySorted}
+          data={sorted}
           keyExtractor={(item) => item.created_at + "_history"}
           renderItem={({ item, index }) => (
             <HistoryItem item={item} index={index} />
