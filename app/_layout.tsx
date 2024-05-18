@@ -1,9 +1,4 @@
 import { useEffect } from "react";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
@@ -13,11 +8,9 @@ import * as SplashScreen from "expo-splash-screen";
 import RequestPermissions from "./RequestPermissions";
 
 import { i18nextInit } from "@/services/intl";
-import { getThemeColors } from "@/styles";
-import { useColorScheme } from "@/styles/useColorScheme";
+import { ThemeProvider } from "@/styles";
 import { ViewThemed } from "@/components/Themed";
 import { AlertNotificationRoot } from "@/components/AlertNotification";
-
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -69,11 +62,8 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-  const colorsTheme = getThemeColors();
-
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider>
       <SafeAreaProvider>
         <ViewThemed color="background" style={{ display: "flex", flex: 1 }}>
           <AlertNotificationRoot>
@@ -81,7 +71,7 @@ function RootLayoutNav() {
               <Stack.Screen
                 name="(tabs)"
                 options={{
-                  headerShown: false
+                  headerShown: false,
                 }}
               />
             </Stack>

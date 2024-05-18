@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Gravatar from "@krosben/react-native-gravatar";
 import * as Linking from "expo-linking";
@@ -7,10 +8,10 @@ import { dimensions } from "@/styles/dimensions";
 import Divider from "../Themed/Divider";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { getThemeColors } from "@/styles";
+import ThemeContext from "@/styles";
 
 export default function Developer() {
-  const colors = getThemeColors();
+  const { themeColors } = useContext(ThemeContext);
 
   function openLinkedin() {
     Linking.openURL("https://www.linkedin.com/in/leomorini/");
@@ -36,9 +37,17 @@ export default function Developer() {
       <View style={styles.row}>
         <TouchableOpacity
           onPress={openLinkedin}
-          style={[styles.row, styles.button, { borderColor: colors.linkedin }]}
+          style={[
+            styles.row,
+            styles.button,
+            { borderColor: themeColors.linkedin },
+          ]}
         >
-          <AntDesign name="linkedin-square" size={20} color={colors.linkedin} />
+          <AntDesign
+            name="linkedin-square"
+            size={20}
+            color={themeColors.linkedin}
+          />
           <TextThemed color="linkedin" style={styles.buttonText}>
             Linkedin
           </TextThemed>
@@ -46,9 +55,13 @@ export default function Developer() {
 
         <TouchableOpacity
           onPress={openGithub}
-          style={[styles.row, styles.button, { borderColor: colors.github }]}
+          style={[
+            styles.row,
+            styles.button,
+            { borderColor: themeColors.github },
+          ]}
         >
-          <AntDesign name="github" size={20} color={colors.github} />
+          <AntDesign name="github" size={20} color={themeColors.github} />
           <TextThemed color="github" style={styles.buttonText}>
             Github
           </TextThemed>

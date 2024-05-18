@@ -1,5 +1,6 @@
+import { useContext } from "react";
 import { View as DefaultComponent } from "react-native";
-import { ThemeProps, getThemeColors } from "@/styles";
+import ThemeContext, { ThemeProps } from "@/styles";
 
 interface MyProps {
   brutalism?: boolean;
@@ -8,6 +9,8 @@ interface MyProps {
 export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function View(props: ComponentProps) {
+  const { themeColors } = useContext(ThemeContext);
+
   const {
     color = "foreground",
     borderColor = "border",
@@ -17,12 +20,10 @@ export default function View(props: ComponentProps) {
     ...otherProps
   } = props;
 
-  const colors = getThemeColors();
-
   return (
     <DefaultComponent
       style={[
-        { backgroundColor: colors[color], overflow: "hidden" },
+        { backgroundColor: themeColors[color], overflow: "hidden" },
         style,
       ]}
       {...otherProps}

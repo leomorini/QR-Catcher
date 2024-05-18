@@ -1,5 +1,6 @@
+import { useContext } from "react";
 import { Text as DefaultComponent } from "react-native";
-import { ThemeProps, getThemeColors } from "@/styles";
+import ThemeContext, { ThemeProps } from "@/styles";
 
 interface MyProps {
   bold?: boolean;
@@ -8,14 +9,14 @@ interface MyProps {
 export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function Text(props: ComponentProps) {
+  const { themeColors } = useContext(ThemeContext);
   const { style, color = "text", bold = false, ...otherProps } = props;
 
-  const colors = getThemeColors();
   const fontFamily = bold ? "InterBold" : "InterRegular";
 
   return (
     <DefaultComponent
-      style={[{ color: colors[color], fontFamily, fontSize: 14 }, style]}
+      style={[{ color: themeColors[color], fontFamily, fontSize: 14 }, style]}
       {...otherProps}
     />
   );

@@ -10,7 +10,7 @@ export const colors = {
   purple2: "#A17FBC",
 };
 
-export const themeColors = {
+export const modeColors = {
   light: {
     ...colors,
     background: "#F9F4F0",
@@ -40,3 +40,7 @@ export const themeColors = {
     github: "#F9FAFD",
   },
 };
+
+export type ColorsType = keyof typeof colors;
+export type ThemeColorsType = keyof typeof modeColors.light & keyof typeof modeColors.dark;
+export type ThemeType = typeof modeColors.light & typeof modeColors.dark;

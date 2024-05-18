@@ -1,9 +1,9 @@
 import { StyleSheet, View, ViewProps } from "react-native";
-import { ColorType } from "@/styles";
+import { ThemeColorsType } from "@/styles/colors";
 
 interface MyProps {
   focused: boolean;
-  background: ColorType;
+  background: ThemeColorsType;
 }
 
 export type TabBarIconProps = MyProps & ViewProps;

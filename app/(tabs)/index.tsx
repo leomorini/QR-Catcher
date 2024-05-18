@@ -8,24 +8,25 @@ import { useTranslation } from "react-i18next";
 import Divider from "@/components/Themed/Divider";
 import Header from "@/components/Header";
 import { TextThemed, ViewThemed } from "@/components/Themed";
-import { getThemeColors } from "@/styles";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useHistoryStore } from "@/data/history";
 import { dimensions } from "@/styles/dimensions";
 import { AlertContext, AlertContextType } from "@/components/AlertNotification";
+import ThemeContext from "@/styles";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
   isURL: false,
   text: "",
-  created_at: Date.now()
+  created_at: Date.now(),
 };
 
 export default function CodeScanner() {
   const Alert = useContext(AlertContext) as AlertContextType;
 
-  const colorsTheme = getThemeColors();
+  const { themeColors } = useContext(ThemeContext);
+
   const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<any>("back");
@@ -132,7 +133,7 @@ export default function CodeScanner() {
       <ViewThemed
         style={[
           styles.camActions,
-          { borderColor: colorsTheme.highlightedColored },
+          { borderColor: themeColors.highlightedColored },
         ]}
       >
         <TouchableOpacity onPress={handleUploadImage} style={styles.camAction}>
@@ -145,7 +146,7 @@ export default function CodeScanner() {
                 style={{ marginRight: dimensions.margin.sm }}
                 name="image"
                 size={22}
-                color={colorsTheme.highlightedColored}
+                color={themeColors.highlightedColored}
               />
               <TextThemed
                 bold
@@ -170,7 +171,7 @@ export default function CodeScanner() {
                 style={{ marginRight: dimensions.margin.sm }}
                 name="camera-retake-outline"
                 size={26}
-                color={colorsTheme.highlightedColored}
+                color={themeColors.highlightedColored}
               />
               <TextThemed
                 color="highlightedColored"

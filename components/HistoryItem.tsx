@@ -1,12 +1,13 @@
+import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { TextThemed, ButtonThemed } from "./Themed";
-import { getThemeColors } from "@/styles";
 import { handleLink, handleShare } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { dimensions } from "@/styles/dimensions";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
+import ThemeContext from "@/styles";
 
 interface MyProps {
   item: any;
@@ -14,16 +15,16 @@ interface MyProps {
 }
 
 export default function HistoryItem({ item, index }: MyProps) {
-  const colorsTheme = getThemeColors();
+  const { themeColors } = useContext(ThemeContext);
 
   const getTagComponent = (item: LinkInterface) => {
     return item.isURL ? (
-      <View style={[styles.tag, { borderColor: colorsTheme.blue }]}>
-        <FontAwesome name="link" size={18} color={colorsTheme.blue} />
+      <View style={[styles.tag, { borderColor: themeColors.blue }]}>
+        <FontAwesome name="link" size={18} color={themeColors.blue} />
       </View>
     ) : (
-      <View style={[styles.tag, { borderColor: colorsTheme.orange }]}>
-        <Entypo name="text" size={18} color={colorsTheme.orange} />
+      <View style={[styles.tag, { borderColor: themeColors.orange }]}>
+        <Entypo name="text" size={18} color={themeColors.orange} />
       </View>
     );
   };
@@ -41,7 +42,7 @@ export default function HistoryItem({ item, index }: MyProps) {
           <FontAwesome
             name="share"
             size={24}
-            color={colorsTheme.highlightedColored}
+            color={themeColors.highlightedColored}
           />
         </ButtonThemed>
       </View>

@@ -1,7 +1,7 @@
-import { createContext, PropsWithChildren, useState } from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 import AwesomeAlert from "react-native-awesome-alerts";
-import { getThemeColors } from "@/styles";
 import { dimensions } from "@/styles/dimensions";
+import ThemeContext from "@/styles";
 
 export interface AlertContextType {
   show: Function;
@@ -38,7 +38,9 @@ export const AlertNotificationRoot = ({ children }: PropsWithChildren) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState<AlertOptionsType>(defaultOptions);
-  const stylesProps = getStylesProps();
+
+  const { themeColors } = useContext(ThemeContext);
+  const stylesProps = getStylesProps(themeColors);
 
   function show(newOptions: AlertOptionsType) {
     setNewOptions(newOptions);
@@ -122,14 +124,13 @@ interface AlertAwesomeStylesProps {
   confirmButtonStyle?: object;
 }
 
-function getStylesProps() {
-  const colors = getThemeColors();
+function getStylesProps(themeColors) {
 
   const stylesProps: AlertAwesomeStylesProps = {
     contentContainerStyle: {
-      backgroundColor: colors.foreground2,
+      backgroundColor: themeColors.foreground2,
       borderWidth: dimensions.border.md,
-      borderColor: colors.border,
+      borderColor: themeColors.border,
       borderRadius: dimensions.radius.xl,
       minWidth: "80%",
     },
@@ -138,33 +139,33 @@ function getStylesProps() {
     },
     titleStyle: {
       fontFamily: "InterBold",
-      color: colors.text,
+      color: themeColors.text,
       fontSize: 20,
     },
     messageStyle: {
       fontFamily: "InterRegular",
-      color: colors.text,
+      color: themeColors.text,
       fontSize: 14,
     },
     cancelButtonStyle: {
       backgroundColor: "transparent",
       borderWidth: dimensions.border.md,
-      borderColor: colors.highlighted,
+      borderColor: themeColors.highlighted,
       borderRadius: dimensions.radius.md,
       fontFamily: "InterRegular",
     },
     cancelButtonTextStyle: {
-      color: colors.highlighted,
+      color: themeColors.highlighted,
     },
     confirmButtonStyle: {
       alignItems: "center",
       width: "100%",
-      backgroundColor: colors.highlightedColored,
+      backgroundColor: themeColors.highlightedColored,
       paddingVertical: dimensions.padding.md,
       borderRadius: dimensions.radius.md,
     },
     confirmButtonTextStyle: {
-      color: colors.text,
+      color: themeColors.text,
       fontFamily: "InterBold",
       fontSize: 18,
     },

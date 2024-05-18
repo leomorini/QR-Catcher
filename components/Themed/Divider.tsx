@@ -1,6 +1,7 @@
+import { useContext } from "react";
 import { View as DefaultComponent, StyleSheet } from "react-native";
-import { ThemeProps, getThemeColors } from "@/styles";
 import { dimensions, sizeDimension } from "@/styles/dimensions";
+import ThemeContext, { ThemeProps } from "@/styles";
 
 interface MyProps {
   mode?: string;
@@ -9,6 +10,8 @@ interface MyProps {
 export type ComponentProps = MyProps & ThemeProps & DefaultComponent["props"];
 
 export default function Divider(props: ComponentProps) {
+  const { themeColors } = useContext(ThemeContext);
+
   const {
     color = "foreground",
     size = "md",
@@ -17,8 +20,7 @@ export default function Divider(props: ComponentProps) {
     ...otherProps
   } = props;
 
-  const colors = getThemeColors();
-  const dividerStyle: any = getDividerStyle(size, colors[color]);
+  const dividerStyle: any = getDividerStyle(size, themeColors[color]);
   const myStyle = dividerStyle[mode];
   return <DefaultComponent style={[myStyle, style]} {...otherProps} />;
 }

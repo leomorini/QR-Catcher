@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Ionicons,
   MaterialCommunityIcons,
@@ -6,13 +6,15 @@ import {
 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { shadowNoneStyle, getThemeColors } from "@/styles";
 import TabBarIcon from "@/components/TabBarIcon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { dimensions } from "@/styles/dimensions";
+import ThemeContext, { shadowNoneStyle } from "@/styles";
 
 export default function TabLayout() {
-  const { screenOptionsStyle, colorsTheme }: any = getTabStyles();
+  const { themeColors } = useContext(ThemeContext);
+
+  const { screenOptionsStyle }: any = getTabStyles(themeColors);
   const { t } = useTranslation();
 
   return (
@@ -21,7 +23,7 @@ export default function TabLayout() {
       screenOptions={({ route }) => ({
         ...screenOptionsStyle,
       })}
-      sceneContainerStyle={{ backgroundColor: "transparent" }}
+      sceneContainerStyle={{ backgroundColor: themeColors.background }}
     >
       <Tabs.Screen
         name="history"
@@ -30,12 +32,12 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              background={colorsTheme.navIconBackground}
+              background={themeColors.navIconBackground}
             >
               <MaterialIcons
                 name="history"
                 size={28}
-                color={focused ? colorsTheme.text : colorsTheme.text2}
+                color={focused ? themeColors.text : themeColors.text2}
               />
             </TabBarIcon>
           ),
@@ -48,12 +50,12 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              background={colorsTheme.navIconBackground}
+              background={themeColors.navIconBackground}
             >
               <MaterialCommunityIcons
                 name="data-matrix-scan"
                 size={24}
-                color={focused ? colorsTheme.text : colorsTheme.text2}
+                color={focused ? themeColors.text : themeColors.text2}
               />
             </TabBarIcon>
           ),
@@ -66,12 +68,12 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              background={colorsTheme.navIconBackground}
+              background={themeColors.navIconBackground}
             >
               <MaterialIcons
                 name="settings"
                 size={28}
-                color={focused ? colorsTheme.text : colorsTheme.text2}
+                color={focused ? themeColors.text : themeColors.text2}
               />
             </TabBarIcon>
           ),
@@ -81,24 +83,23 @@ export default function TabLayout() {
   );
 }
 
-function getTabStyles() {
-  const colorsTheme = getThemeColors();
+function getTabStyles(themeColors) {
   const insets = useSafeAreaInsets();
   const itemHeight = 74 + dimensions.margin.sm;
 
   return {
     screenOptionsStyle: {
       headerShown: false,
-      tabBarActiveTintColor: colorsTheme.text,
-      tabBarInactiveTintColor: colorsTheme.text2,
+      tabBarActiveTintColor: themeColors.text,
+      tabBarInactiveTintColor: themeColors.text2,
       // tabBarActiveBackgroundColor: colorsTheme.highlightedColored, //background color item selected
       tabBarStyle: {
         display: "flex",
         flexDirection: "row",
         height: itemHeight + insets.bottom,
         borderTopWidth: 2,
-        borderColor: colorsTheme.border,
-        backgroundColor: colorsTheme.foreground,
+        borderColor: themeColors.border,
+        backgroundColor: themeColors.foreground,
         overflow: "hidden",
         ...shadowNoneStyle,
       },
@@ -120,6 +121,5 @@ function getTabStyles() {
         padding: 0,
       },
     },
-    colorsTheme,
   };
 }
