@@ -12,5 +12,11 @@
   "Search in": "Search In",
   "Image": "Image",
   "Invert the": "Invert the",
-  "Camera": "Camera"
+  "Camera": "Camera",
+
+  "THEME_TITLE_MODE": "Theme color",
+  "THEME_TITLE_COLOR": "Accent color",
+  "THEME_MODE_auto": "Auto",
+  "THEME_MODE_dark": "Dark",
+  "THEME_MODE_light": "Light"
 }

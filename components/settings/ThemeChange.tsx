@@ -9,67 +9,122 @@ import { dimensions } from "@/styles/dimensions";
 
 export default function ThemeChange() {
   const { t } = useTranslation();
-  const { fixed, setFixed, mode, setMode, color, setColor, themeColors } =
-    useContext(ThemeContext);
+  const {
+    fixed,
+    mode,
+    color,
+    themeColors,
+    setAutoMode,
+    setFixedMode,
+    setAccentColor,
+  } = useContext(ThemeContext);
 
   const themeModes = ["auto", "dark", "light"];
 
   const handleMode = (themeMode: any) => {
     if (themeMode === "auto") {
-      setFixed(false);
+      setAutoMode();
     } else {
-      setFixed(true);
-      setMode(themeMode);
+      setFixedMode(themeMode);
     }
   };
 
   const handleColor = (color: ColorsType) => {
-    setColor(color);
+    setAccentColor(color);
   };
 
   return (
     <>
-      <Box style={styles.container}>
-        <ScrollView style={styles.scroll}>
+      <Box style={styles.section}>
+        <TextThemed bold style={styles.sectionTitle}>
+          {t("THEME_TITLE_MODE")}
+        </TextThemed>
+        <ScrollView horizontal style={styles.scroll}>
           {themeModes.map((themeMode, index) => {
             return (
-              <View key={"theme_mode_" + themeMode}>
-                {index > 0 && <View />}
-                <ButtonThemed onPress={() => handleMode(themeMode)}>
-                  <TextThemed color="text">
-                    {t("THEME_MODE_" + themeMode)}
-                  </TextThemed>
-                </ButtonThemed>
-              </View>
+              <ButtonThemed
+                key={"THEME_MODE_" + themeMode}
+                style={[
+                  styles.button,
+                  { borderColor: themeColors.text },
+                  ((fixed && themeMode == mode) ||
+                    (themeMode === "auto" && !fixed)) && {
+                    backgroundColor: themeColors.highlightedColored,
+                    borderColor: themeColors.highlightedColored,
+                  },
+                  index > 0 && { marginLeft: dimensions.margin.md },
+                ]}
+                onPress={() => handleMode(themeMode)}
+              >
+                <TextThemed bold color="text">
+                  {t("THEME_MODE_" + themeMode)}
+                </TextThemed>
+              </ButtonThemed>
             );
           })}
         </ScrollView>
       </Box>
 
-      <Box style={styles.container}>
-        <ScrollView style={styles.scroll}>
-          {Object.keys(colors).map((key: any) => {
+      <Box style={styles.section}>
+        <TextThemed bold style={styles.sectionTitle}>
+          {t("THEME_TITLE_COLOR")}
+        </TextThemed>
+        <View style={styles.row}>
+          {Object.entries(colors).map(([key, value]: any) => {
             return (
               <View key={"color_" + key}>
-                <ButtonThemed onPress={() => handleColor(key)}>
-                  <TextThemed color="text">
-                    {t("THEME_COLOR_" + key)}
-                  </TextThemed>
-                </ButtonThemed>
+                <ButtonThemed
+                  style={[
+                    styles.square,
+                    key == color && {
+                      borderColor: themeColors.highlightedColored,
+                    },
+                    {
+                      backgroundColor: value,
+                      borderColor: key == color ? themeColors.text : value,
+                    },
+                  ]}
+                  onPress={() => handleColor(key)}
+                ></ButtonThemed>
               </View>
             );
           })}
-        </ScrollView>
+        </View>
       </Box>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: dimensions.margin.md,
+  section: {
+    marginBottom: dimensions.margin.xl,
+    padding: dimensions.margin.lg,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    marginBottom: dimensions.margin.lg,
+  },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: dimensions.size.md,
   },
   scroll: {
     width: "100%",
+  },
+  button: {
+    paddingVertical: dimensions.padding.sm,
+    paddingHorizontal: dimensions.padding.md,
+    borderRadius: dimensions.radius.md,
+    borderWidth: dimensions.border.sm,
+  },
+  square: {
+    padding: dimensions.padding.sm,
+    borderRadius: dimensions.radius.md,
+    borderWidth: dimensions.border.sm,
+    width: 50,
+    height: 50,
   },
 });

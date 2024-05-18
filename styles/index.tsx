@@ -35,12 +35,12 @@ export const shadowNoneStyle = {
 
 const ThemeContext = createContext({
   fixed: false,
-  setFixed: (fixed: boolean) => false,
   mode: "light",
-  setMode: (mode: ThemeModeType) => "light",
   color: "red",
-  setColor: (color: ColorsType) => "red",
   themeColors: modeColors["light"],
+  setAutoMode: () => false,
+  setFixedMode: (mode: ThemeModeType) => "light",
+  setAccentColor: (color: ColorsType) => "red",
 });
 
 const getColorScheme = () => {
@@ -63,36 +63,8 @@ export const ThemeProvider = ({ children }: any) => {
   /** Update theme automatic */
   useEffect(() => {
     // set theme to system selected theme
-    if (!fixed) setMode(colorScheme);
+    if (!fixed) setAutoMode();
   }, [colorScheme]);
-
-  useEffect(() => {
-    const colorValue = colors[color];
-    const newThemeColors = {
-      ...themeColors,
-      highlightedColored: colorValue,
-      navIconBackground: colorValue,
-    };
-
-    console.log("COLOR -> ", color, colorValue);
-    setThemeColors(newThemeColors);
-    saveTheme();
-  }, [color]);
-
-  useEffect(() => {
-    console.log("mode -> ", mode);
-    setThemeColors(modeColors[mode]);
-    saveTheme();
-  }, [mode]);
-
-  useEffect(() => {
-    console.log("fixed -> ", fixed, colorScheme);
-
-    if (!fixed) {
-      setThemeColors(modeColors[colorScheme]);
-      saveTheme();
-    }
-  }, [fixed]);
 
   // save theme local
   const saveTheme = () => {
@@ -116,9 +88,43 @@ export const ThemeProvider = ({ children }: any) => {
     }
   };
 
+  const setFixedMode = (fixedMode: ThemeModeType) => {
+    setThemeColors(modeColors[fixedMode]);
+    setFixed(true);
+    setMode(fixedMode);
+    saveTheme();
+  };
+
+  const setAccentColor = (accentColor: ColorsType) => {
+    const colorValue = colors[accentColor];
+    const newThemeColors = {
+      ...themeColors,
+      highlightedColored: colorValue,
+      navIconBackground: colorValue,
+    };
+
+    setColor(accentColor);
+    setThemeColors(newThemeColors);
+    saveTheme();
+  };
+
+  const setAutoMode = () => {
+    setFixed(false);
+    setThemeColors(modeColors[colorScheme]);
+    saveTheme();
+  };
+
   return (
     <ThemeContext.Provider
-      value={{ fixed, setFixed, mode, setMode, color, setColor, themeColors }}
+      value={{
+        fixed,
+        mode,
+        color,
+        themeColors,
+        setAutoMode,
+        setFixedMode,
+        setAccentColor,
+      }}
     >
       {children}
     </ThemeContext.Provider>

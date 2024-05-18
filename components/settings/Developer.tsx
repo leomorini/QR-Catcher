@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Gravatar from "@krosben/react-native-gravatar";
 import * as Linking from "expo-linking";
-import Box from "../Box";
 import { TextThemed } from "../Themed";
 import { dimensions } from "@/styles/dimensions";
 import Divider from "../Themed/Divider";
@@ -22,7 +21,7 @@ export default function Developer() {
   }
 
   return (
-    <Box color="background" style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.row}>
         <Gravatar email="leomorinidev@gmail.com" size={150} />
         <View style={styles.info}>
@@ -67,13 +66,15 @@ export default function Developer() {
           </TextThemed>
         </TouchableOpacity>
       </View>
-    </Box>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: dimensions.margin.xl
+    paddingHorizontal: dimensions.margin.md,
+    paddingTop: dimensions.margin.lg,
+    paddingBottom: dimensions.margin.xl * 2,
   },
   row: {
     flexDirection: "row",
