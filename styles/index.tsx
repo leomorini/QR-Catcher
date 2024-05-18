@@ -71,6 +71,7 @@ export const ThemeProvider = ({ children }: any) => {
     const newThemeColors = {
       ...themeColors,
       highlightedColored: colorValue,
+      navIconBackground: colorValue,
     };
 
     console.log("COLOR -> ", color, colorValue);

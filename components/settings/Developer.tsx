@@ -22,7 +22,7 @@ export default function Developer() {
   }
 
   return (
-    <Box>
+    <Box color="background" style={styles.container}>
       <View style={styles.row}>
         <Gravatar email="leomorinidev@gmail.com" size={150} />
         <View style={styles.info}>
@@ -72,6 +72,9 @@ export default function Developer() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: dimensions.margin.xl
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
