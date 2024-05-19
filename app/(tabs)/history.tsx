@@ -3,8 +3,8 @@ import { observer } from "mobx-react-lite";
 import { useHistoryStore } from "@/data/history";
 import HistoryItem from "@/components/HistoryItem";
 import Header from "@/components/Header";
-import { dimensions } from "@/styles/dimensions";
 import Empty from "@/components/Empty";
+import { dimensions } from "@/styles/dimensions";
 
 const History = observer(() => {
   const { sorted } = useHistoryStore(); // OR useContext(CounterStoreContext)
@@ -24,7 +24,10 @@ const History = observer(() => {
       )}
     />
   ) : (
-    <Empty />
+    <>
+      <Header />
+      <Empty />
+    </>
   );
 });
 
