@@ -19,5 +19,7 @@
   "THEME_TITLE_COLOR": "Cor de destaque",
   "THEME_MODE_auto": "Auto",
   "THEME_MODE_dark": "Escuro",
-  "THEME_MODE_light": "Claro"
+  "THEME_MODE_light": "Claro",
+
+  "EMPTY_We don't have data to display here yet": "Ainda não temos dados para exibir aqui"
 }

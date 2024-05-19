@@ -19,5 +19,7 @@
   "THEME_TITLE_COLOR": "Accent color",
   "THEME_MODE_auto": "Auto",
   "THEME_MODE_dark": "Dark",
-  "THEME_MODE_light": "Light"
+  "THEME_MODE_light": "Light",
+
+  "EMPTY_We don't have data to display here yet": "We don't have data to display here yet"
 }

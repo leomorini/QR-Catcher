@@ -33,7 +33,7 @@ export const shadowNoneStyle = {
   elevation: 0,
 };
 
-const ThemeContext = createContext({
+const initialContext = {
   fixed: false,
   mode: "light",
   color: "red",
@@ -41,7 +41,9 @@ const ThemeContext = createContext({
   setAutoMode: () => false,
   setFixedMode: (mode: ThemeModeType) => "light",
   setAccentColor: (color: ColorsType) => "red",
-});
+};
+
+const ThemeContext = createContext(initialContext);
 
 const getColorScheme = () => {
   const colorScheme = useColorScheme();
@@ -85,32 +87,33 @@ export const ThemeProvider = ({ children }: any) => {
       if (!!fixed) setFixed(fixed);
       if (!!mode) setMode(mode);
       if (!!color) setColor(color);
+      setThemeColors(getNewThemeColors(mode, color));
     }
   };
 
+  function getNewThemeColors(newMode: ThemeModeType, newColor: ColorsType) {
+    const newThemeColors = modeColors[newMode];
+    const colorValue = colors[newColor];
+    newThemeColors.highlightedColored = colorValue;
+    newThemeColors.navIconBackground = colorValue;
+    return newThemeColors;
+  }
+
   const setFixedMode = (fixedMode: ThemeModeType) => {
-    setThemeColors(modeColors[fixedMode]);
     setFixed(true);
+    setThemeColors(getNewThemeColors(fixedMode, color));
     setMode(fixedMode);
-    saveTheme();
   };
 
   const setAccentColor = (accentColor: ColorsType) => {
-    const colorValue = colors[accentColor];
-    const newThemeColors = {
-      ...themeColors,
-      highlightedColored: colorValue,
-      navIconBackground: colorValue,
-    };
-
     setColor(accentColor);
-    setThemeColors(newThemeColors);
+    setThemeColors(getNewThemeColors(fixed ? mode : colorScheme, accentColor));
     saveTheme();
   };
 
   const setAutoMode = () => {
     setFixed(false);
-    setThemeColors(modeColors[colorScheme]);
+    setThemeColors(getNewThemeColors(colorScheme, color));
     saveTheme();
   };
 
