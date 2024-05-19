@@ -1,6 +1,7 @@
 {
-  "You need to activate permission to use the camera and storage!": "É necessário ativar a permissão para usar a camera e armazenamento!",
-  "Click here to grant permission!": "Clique aqui para conceder a permissão!",
+  "REQUEST_PERMISSION_You need to activate permission to use the camera and storage!": "É necessário ativar a permissão para usar a camera e armazenamento!",
+  "REQUEST_PERMISSION_grant permission": "Conceder Permissão",
+
   "Scan": "Scan",
   "History": "Histórico",
   "A problem has occurred!": "Um problema ocorreu!",

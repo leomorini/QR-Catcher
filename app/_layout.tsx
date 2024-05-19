@@ -55,7 +55,11 @@ export default function RootLayout() {
   }
 
   if (!permission || !permission.granted) {
-    return <RequestPermissions requestPermission={requestPermission} />;
+    return (
+      <ThemeProvider>
+        <RequestPermissions requestPermission={requestPermission} />
+      </ThemeProvider>
+    );
   }
 
   return <RootLayoutNav />;

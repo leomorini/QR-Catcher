@@ -1,6 +1,7 @@
 {
-  "You need to activate permission to use the camera and storage!": "You need to activate permission to use the camera and storage!",
-  "Click here to grant permission!": "Click here to grant permission!",
+  "REQUEST_PERMISSION_You need to activate permission to use the camera and storage!": "You need to activate permission to use the camera and storage!",
+  "REQUEST_PERMISSION_grant permission": "Grant permission",
+
   "Scan": "Scan",
   "History": "History",
   "A problem has occurred!": "A problem has occurred!",
