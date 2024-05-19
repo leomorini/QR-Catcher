@@ -1,19 +1,14 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { BarcodeScanningResult, Camera, CameraView } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTranslation } from "react-i18next";
-
-import Divider from "@/components/Themed/Divider";
-import Header from "@/components/Header";
-import { TextThemed, ViewThemed } from "@/components/Themed";
 import { validURL, barcodeTypes, handleLink } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useHistoryStore } from "@/data/history";
-import { dimensions } from "@/styles/dimensions";
 import { AlertContext, AlertContextType } from "@/components/AlertNotification";
-import ThemeContext from "@/styles";
+import { ScannerActions } from "@/components/scanner/ScannerActions";
+import { useTranslation } from "react-i18next";
+import { ScannerSquare } from "@/components/scanner/ScannerSquare";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
@@ -24,14 +19,11 @@ const defaultLink: LinkInterface = {
 
 export default function CodeScanner() {
   const Alert = useContext(AlertContext) as AlertContextType;
-
-  const { themeColors } = useContext(ThemeContext);
-
+  const { t } = useTranslation();
   const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<any>("back");
   const HistoryStore = useHistoryStore();
-  const { t } = useTranslation();
 
   /** Saves the decoded text of a QRCode or Bar Code in the state */
   function setLinkToDecode(text: string) {
@@ -84,12 +76,12 @@ export default function CodeScanner() {
     }
 
     Alert.show({
-      title: t("A problem has occurred!"),
+      title: t("SCANNER_ALERT_A problem has occurred!"),
       message:
         "\n" +
-        t("We did not detect a QRCode or Barcode in your image.") +
+        t("SCANNER_ALERT_We did not detect a QRCode or Barcode in your image.") +
         "\n\n" +
-        t("Please try again with another image!"),
+        t("SCANNER_ALERT_Please try again with another image!"),
     });
   };
 
@@ -104,7 +96,7 @@ export default function CodeScanner() {
       Alert.show({
         title: "",
         message: `${link.text}`,
-        confirmText: link.isURL ? t("Access link") : t("Copy Text"),
+        confirmText: link.isURL ? t("LINK_Access link") : t("LINK_Copy Text"),
         onConfirmPressed: () => {
           handleLink(link);
         },
@@ -120,8 +112,6 @@ export default function CodeScanner() {
 
   return (
     <View style={{ position: "relative", flex: 1 }}>
-      <Header fixed />
-
       <CameraView
         ref={scannerRef}
         style={{ flex: 1, overflow: "hidden" }}
@@ -130,100 +120,12 @@ export default function CodeScanner() {
         facing={facing}
       ></CameraView>
 
-      <ViewThemed
-        style={[
-          styles.camActions,
-          { borderColor: themeColors.highlightedColored },
-        ]}
-      >
-        <TouchableOpacity onPress={handleUploadImage} style={styles.camAction}>
-          <View style={styles.camActionBody}>
-            <TextThemed style={styles.camActionBodyText}>
-              {t("Search in")}
-            </TextThemed>
-            <View style={styles.camActionContent}>
-              <Feather
-                style={{ marginRight: dimensions.margin.sm }}
-                name="image"
-                size={22}
-                color={themeColors.highlightedColored}
-              />
-              <TextThemed
-                bold
-                color="highlightedColored"
-                style={styles.camActionContentText}
-              >
-                {t("Image")}
-              </TextThemed>
-            </View>
-          </View>
-        </TouchableOpacity>
+      <ScannerSquare />
 
-        <Divider size="md" mode="vertical" color="highlightedColored" />
-
-        <TouchableOpacity onPress={handleFacing} style={styles.camAction}>
-          <View style={styles.camActionBody}>
-            <TextThemed style={styles.camActionBodyText}>
-              {t("Invert the")}
-            </TextThemed>
-            <View style={styles.camActionContent}>
-              <MaterialCommunityIcons
-                style={{ marginRight: dimensions.margin.sm }}
-                name="camera-retake-outline"
-                size={26}
-                color={themeColors.highlightedColored}
-              />
-              <TextThemed
-                color="highlightedColored"
-                bold
-                style={styles.camActionContentText}
-              >
-                {t("Camera")}
-              </TextThemed>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </ViewThemed>
+      <ScannerActions
+        handleUploadImage={handleUploadImage}
+        handleFacing={handleFacing}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  camActions: {
-    position: "absolute",
-    left: 25,
-    right: 25,
-    bottom: 25,
-    height: 75,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: dimensions.radius.lg,
-    borderWidth: dimensions.border.md,
-  },
-  camAction: {
-    display: "flex",
-    flex: 1,
-    padding: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  camActionBody: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-  },
-  camActionContent: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 5,
-  },
-  camActionBodyText: {
-    fontSize: 10,
-  },
-  camActionContentText: {
-    fontSize: 16,
-  },
-});

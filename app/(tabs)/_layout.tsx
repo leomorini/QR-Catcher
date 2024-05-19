@@ -25,7 +25,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="history"
         options={{
-          title: t("History"),
+          title: t("TABS_History"),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon>
               <MaterialIcons
@@ -42,7 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: t("Scan"),
+          title: t("TABS_Scan"),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon>
               <MaterialCommunityIcons
@@ -59,7 +59,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: t("Settings"),
+          title: t("TABS_Settings"),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon>
               <MaterialIcons
