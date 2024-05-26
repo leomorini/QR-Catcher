@@ -25,5 +25,8 @@
   "THEME_MODE_dark": "Dark",
   "THEME_MODE_light": "Light",
 
-  "EMPTY_We don't have data to display here yet": "We don't have data to display here yet"
+  "EMPTY_We don't have data to display here yet": "We don't have data to display here yet",
+
+  "HISTORY_DATA_Today": "Today",
+  "HISTORY_DATA_Yesterday": "Yesterday"
 }

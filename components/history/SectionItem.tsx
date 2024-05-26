@@ -1,73 +1,44 @@
-import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
-import { TextThemed, ButtonThemed } from "./Themed";
+import { TextThemed, ButtonThemed } from "@/components/Themed";
 import { handleLink, handleShare } from "@/services/helper";
-import { LinkInterface } from "@/services/interfaces";
 import { dimensions } from "@/styles/dimensions";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
-import ThemeContext from "@/styles";
-import { useTranslation } from "react-i18next";
+import { ThemeType } from "@/styles/colors";
 
 interface MyProps {
   item: any;
   index: number;
+  t: Function;
+  themeColors: ThemeType;
 }
 
-export default function HistoryItem({ item, index }: MyProps) {
-  const { t } = useTranslation();
-
-  const { themeColors } = useContext(ThemeContext);
-
-  const getTagComponent = (item: LinkInterface) => {
-    return item.isURL ? (
-      <View style={[styles.tag, { borderColor: themeColors.blue }]}>
-        <FontAwesome name="link" size={18} color={themeColors.blue} />
-      </View>
-    ) : (
-      <View style={[styles.tag, { borderColor: themeColors.orange }]}>
-        <Entypo name="text" size={18} color={themeColors.orange} />
-      </View>
-    );
-  };
-
+export default function SectionItem({ t, item, themeColors }: MyProps) {
   return (
     <ButtonThemed
       style={[styles.container, { borderColor: themeColors.border }]}
       onPress={() => handleLink(item)}
     >
       <View style={styles.textPanel}>
-        {item.isURL ? (
-          <>
-            <View style={[styles.tag, { borderColor: themeColors.blue }]}>
-              <FontAwesome name="link" size={18} color={themeColors.blue} />
-            </View>
-            <TextThemed
-              style={[styles.text, { color: themeColors.blue }]}
-              numberOfLines={3}
-            >
-              {item.text}
-            </TextThemed>
-          </>
-        ) : (
-          <>
-            <View style={[styles.tag, { borderColor: themeColors.orange }]}>
-              <Entypo name="text" size={18} color={themeColors.orange} />
-            </View>
-            <TextThemed
-              style={[styles.text, { color: themeColors.orange }]}
-              numberOfLines={3}
-            >
-              {item.text}
-            </TextThemed>
-          </>
-        )}
+        <View style={[styles.tag, { borderColor: themeColors.text }]}>
+          {item.isURL ? (
+            <FontAwesome name="link" size={18} color={themeColors.text} />
+          ) : (
+            <Entypo name="text" size={18} color={themeColors.text} />
+          )}
+        </View>
+        <TextThemed
+          style={[styles.text, { color: themeColors.text }]}
+          numberOfLines={3}
+        >
+          {item.text}
+        </TextThemed>
       </View>
 
       <View style={styles.bottom}>
         <View style={styles.action}>
-          <TextThemed color="text">
+          <TextThemed color="highlightedColored">
             {item.isURL ? t("LINK_Access") : t("LINK_Copy")}
           </TextThemed>
         </View>
