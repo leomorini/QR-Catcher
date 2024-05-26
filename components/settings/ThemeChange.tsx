@@ -6,6 +6,7 @@ import { ButtonThemed, TextThemed } from "../Themed";
 import { ColorsType, colors } from "@/styles/colors";
 import { useTranslation } from "react-i18next";
 import { dimensions } from "@/styles/dimensions";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function ThemeChange() {
   const { t } = useTranslation();
@@ -39,30 +40,41 @@ export default function ThemeChange() {
         <TextThemed bold style={styles.sectionTitle}>
           {t("THEME_TITLE_MODE")}
         </TextThemed>
-        <ScrollView horizontal style={styles.scroll}>
+        <View style={styles.rowModes}>
           {themeModes.map((themeMode, index) => {
+            const selected =
+              (fixed && themeMode == mode) || (themeMode === "auto" && !fixed);
+
             return (
               <ButtonThemed
                 key={"THEME_MODE_" + themeMode}
                 style={[
                   styles.button,
                   { borderColor: themeColors.text },
-                  ((fixed && themeMode == mode) ||
-                    (themeMode === "auto" && !fixed)) && {
-                    backgroundColor: themeColors.highlightedColored,
+                  selected && {
                     borderColor: themeColors.highlightedColored,
                   },
-                  index > 0 && { marginLeft: dimensions.margin.md },
                 ]}
                 onPress={() => handleMode(themeMode)}
               >
-                <TextThemed bold color="text">
+                {selected && (
+                  <AntDesign
+                    style={styles.icon}
+                    name="checkcircle"
+                    size={dimensions.size.sm + 3}
+                    color={themeColors.highlightedColored}
+                  />
+                )}
+                <TextThemed
+                  bold
+                  color={selected ? "highlightedColored" : "text"}
+                >
                   {t("THEME_MODE_" + themeMode)}
                 </TextThemed>
               </ButtonThemed>
             );
           })}
-        </ScrollView>
+        </View>
       </Box>
 
       <Box style={styles.section}>
@@ -104,6 +116,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: dimensions.margin.lg,
   },
+  rowModes: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    alignItems: "center",
+    gap: dimensions.margin.md,
+  },
   row: {
     display: "flex",
     flexDirection: "row",
@@ -115,16 +134,24 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
-    paddingVertical: dimensions.padding.sm,
-    paddingHorizontal: dimensions.padding.md,
-    borderRadius: dimensions.radius.md,
+    flex: 1,
+    position: "relative",
+    paddingVertical: dimensions.padding.md,
+    paddingHorizontal: dimensions.padding.md + 5,
+    borderRadius: dimensions.radius.lg,
     borderWidth: dimensions.border.sm,
   },
   square: {
     padding: dimensions.padding.sm,
-    borderRadius: dimensions.radius.md,
+    borderRadius: dimensions.radius.lg,
     borderWidth: dimensions.border.sm,
     width: 50,
     height: 50,
+  },
+  icon: {
+    position: "absolute",
+    top: 5,
+    left: 5,
+    zIndex: 1,
   },
 });

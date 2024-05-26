@@ -76,12 +76,8 @@ export default function CodeScanner() {
     }
 
     Alert.show({
-      title: t("SCANNER_ALERT_A problem has occurred!"),
-      message:
-        "\n" +
-        t("SCANNER_ALERT_We did not detect a QRCode or Barcode in your image.") +
-        "\n\n" +
-        t("SCANNER_ALERT_Please try again with another image!"),
+      title: t("SCANNER_ALERT_Attention"),
+      message: t("We did not detect a QRCode or Barcode in image"),
     });
   };
 
@@ -96,7 +92,7 @@ export default function CodeScanner() {
       Alert.show({
         title: "",
         message: `${link.text}`,
-        confirmText: link.isURL ? t("LINK_Access link") : t("LINK_Copy Text"),
+        confirmText: link.isURL ? t("LINK_Access") : t("LINK_Copy"),
         onConfirmPressed: () => {
           handleLink(link);
         },

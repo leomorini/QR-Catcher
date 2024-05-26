@@ -1,23 +1,37 @@
 export const colors = {
   light: {
-    blue: "#4897be",
-    green: "#50b387",
-    yellow: "#fbc64a",
-    red: "#c06172",
-    orange: "#f79c83",
-    rose: "#bf5894",
-    violet: "#8a3890",
-    purple: "#8b98ee",
-  },
-  dark: {
     blue: "#2e8fc0",
+    cyan: "#0097A7",
     green: "#40A578",
+    lightGreen: "#8BC34A",
+    gold: "#FFB300",
     yellow: "#fbc64a",
     red: "#BB304A",
     orange: "#f97a57",
+    pink: "#D81B60",
     rose: "#B51B75",
     violet: "#8e1e92",
     purple: "#615EFC",
+    darkPurple: "#311B92",
+    brown: "#795548",
+    blueGray: "#607D8B"
+  },
+  dark: {
+    blue: "#2e8fc0",
+    cyan: "#0097A7",
+    green: "#40A578",
+    lightGreen: "#8BC34A",
+    gold: "#FFB300",
+    yellow: "#fbc64a",
+    red: "#BB304A",
+    orange: "#f97a57",
+    pink: "#D81B60",
+    rose: "#B51B75",
+    violet: "#8e1e92",
+    purple: "#615EFC",
+    darkPurple: "#311B92",
+    brown: "#795548",
+    blueGray: "#607D8B"
   }
 };
 

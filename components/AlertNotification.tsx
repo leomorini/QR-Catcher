@@ -2,6 +2,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import AwesomeAlert from "react-native-awesome-alerts";
 import { dimensions } from "@/styles/dimensions";
 import ThemeContext from "@/styles";
+import { ThemeType } from "@/styles/colors";
 
 export interface AlertContextType {
   show: Function;
@@ -53,7 +54,7 @@ export const AlertNotificationRoot = ({ children }: PropsWithChildren) => {
 
   function onDismiss() {
     close();
-    
+
     if (typeof options.onClose === "function") {
       options.onClose();
     }
@@ -124,8 +125,7 @@ interface AlertAwesomeStylesProps {
   confirmButtonStyle?: object;
 }
 
-function getStylesProps(themeColors) {
-
+function getStylesProps(themeColors: ThemeType) {
   const stylesProps: AlertAwesomeStylesProps = {
     contentContainerStyle: {
       backgroundColor: themeColors.foreground2,
@@ -139,20 +139,23 @@ function getStylesProps(themeColors) {
     },
     titleStyle: {
       fontFamily: "FontBold",
-      color: themeColors.text,
-      fontSize: 20,
+      color: themeColors.red,
+      fontSize: 22,
     },
     messageStyle: {
       fontFamily: "FontRegular",
       color: themeColors.text,
-      fontSize: 14,
+      fontSize: 18,
+      width: "100%",
+      textAlign: "center",
+      marginTop: dimensions.margin.lg
     },
     cancelButtonStyle: {
       backgroundColor: "transparent",
       borderWidth: dimensions.border.md,
       borderColor: themeColors.highlighted,
       borderRadius: dimensions.radius.md,
-      fontFamily: "InterRegular",
+      fontFamily: "FontRegular",
     },
     cancelButtonTextStyle: {
       color: themeColors.highlighted,
@@ -160,14 +163,17 @@ function getStylesProps(themeColors) {
     confirmButtonStyle: {
       alignItems: "center",
       width: "100%",
-      backgroundColor: themeColors.highlightedColored,
       paddingVertical: dimensions.padding.md,
-      borderRadius: dimensions.radius.md,
+      borderRadius: dimensions.radius.lg,
+      borderWidth: dimensions.border.md,
+      borderColor: themeColors.highlightedColored,
+      backgroundColor: themeColors.foreground,
+      marginTop: dimensions.margin.lg,
     },
     confirmButtonTextStyle: {
-      color: themeColors.text,
+      color: themeColors.highlightedColored,
       fontFamily: "FontBold",
-      fontSize: 18,
+      fontSize: 22,
     },
   };
 

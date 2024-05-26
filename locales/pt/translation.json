@@ -7,12 +7,11 @@
   "TABS_History": "Histórico",
   "TABS_Settings": "Opções",
 
-  "LINK_Access link": "Acessar link",
-  "LINK_Copy Text": "Copiar texto",
+  "LINK_Access": "Acessar",
+  "LINK_Copy": "Copiar",
 
-  "SCANNER_ALERT_A problem has occurred!": "Um problema ocorreu!",
-  "SCANNER_ALERT_We did not detect a QRCode or Barcode in your image.": "Não detectamos um QRCode ou Barra de código na sua imagem.",
-  "SCANNER_ALERT_Please try again with another image!": "Por favor tente novamente com outra imagem!",
+  "SCANNER_ALERT_Attention": "Atenção",
+  "SCANNER_ALERT_We did not detect a QRCode or Barcode in image": "Não detectamos Código QR ou Código de Barras na imagem",
 
   "SCANNER_ACTIONS_Search in": "Busque em uma",
   "SCANNER_ACTIONS_Image": "Imagem",
