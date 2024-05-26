@@ -4,7 +4,6 @@ import {
   ThemeColorsType,
   ThemeType,
   ColorsType,
-  colors,
   modeColors,
 } from "@/styles/colors";
 import { borderDimension, sizeDimension } from "./dimensions";
@@ -33,7 +32,17 @@ export const shadowNoneStyle = {
   elevation: 0,
 };
 
-const initialContext = {
+interface initialContextType {
+  fixed: boolean;
+  mode: ThemeModeType;
+  color: ColorsType;
+  themeColors: ThemeType;
+  setAutoMode: () => void;
+  setFixedMode: (mode: ThemeModeType) => void;
+  setAccentColor: (color: ColorsType) => void;
+}
+
+const initialContext: initialContextType = {
   fixed: false,
   mode: "light",
   color: "red",
@@ -93,7 +102,7 @@ export const ThemeProvider = ({ children }: any) => {
 
   function getNewThemeColors(newMode: ThemeModeType, newColor: ColorsType) {
     const newThemeColors = modeColors[newMode];
-    const colorValue = colors[newColor];
+    const colorValue = newThemeColors[newColor];
     newThemeColors.highlightedColored = colorValue;
     newThemeColors.navIconBackground = colorValue;
     return newThemeColors;
@@ -113,6 +122,7 @@ export const ThemeProvider = ({ children }: any) => {
 
   const setAutoMode = () => {
     setFixed(false);
+    setMode(colorScheme);
     setThemeColors(getNewThemeColors(colorScheme, color));
     saveTheme();
   };

@@ -70,7 +70,7 @@ export default function ThemeChange() {
           {t("THEME_TITLE_COLOR")}
         </TextThemed>
         <View style={styles.row}>
-          {Object.entries(colors).map(([key, value]: any) => {
+          {Object.entries(colors[mode]).map(([key, value]: any) => {
             return (
               <View key={"color_" + key}>
                 <ButtonThemed
