@@ -21,7 +21,7 @@ export default function Header({ fixed = false }: HeaderProps) {
         { paddingTop: insets.top + paddingVertical },
       ]}
     >
-      <LogoTextSvg />
+      <LogoTextSvg width={200} height={50} />
     </View>
   );
 }
