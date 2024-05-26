@@ -173,7 +173,7 @@ function getStylesProps(themeColors: ThemeType) {
     confirmButtonTextStyle: {
       color: themeColors.highlightedColored,
       fontFamily: "FontBold",
-      fontSize: 22,
+      fontSize: 18,
     },
   };
 

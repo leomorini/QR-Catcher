@@ -41,7 +41,7 @@ export const modeColors = {
     background: "#F9F4F0",
     foreground: "#FFFFFF",
     foreground2: "#F6F7F9",
-    border: "#F6F7F9",
+    border: "#f5f1ef",
     text: "#0B0B0B",
     text2: "#979191",
     highlighted: "#8f8d88",

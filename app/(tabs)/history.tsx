@@ -20,7 +20,7 @@ const History = observer(() => {
       ListHeaderComponent={<Header />}
       ListFooterComponent={<View style={styles.footer} />}
       ItemSeparatorComponent={() => (
-        <View style={{ marginVertical: dimensions.margin.md }} />
+        <View style={{ marginVertical: dimensions.margin.sm }} />
       )}
     />
   ) : (

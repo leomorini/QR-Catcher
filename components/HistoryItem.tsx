@@ -8,6 +8,7 @@ import { dimensions } from "@/styles/dimensions";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
 import ThemeContext from "@/styles";
+import { useTranslation } from "react-i18next";
 
 interface MyProps {
   item: any;
@@ -15,6 +16,8 @@ interface MyProps {
 }
 
 export default function HistoryItem({ item, index }: MyProps) {
+  const { t } = useTranslation();
+
   const { themeColors } = useContext(ThemeContext);
 
   const getTagComponent = (item: LinkInterface) => {
@@ -30,20 +33,55 @@ export default function HistoryItem({ item, index }: MyProps) {
   };
 
   return (
-    <ButtonThemed style={styles.container} onPress={() => handleLink(item)}>
-      <TextThemed numberOfLines={2}>{item.text}</TextThemed>
+    <ButtonThemed
+      style={[styles.container, { borderColor: themeColors.border }]}
+      onPress={() => handleLink(item)}
+    >
+      <View style={styles.textPanel}>
+        {item.isURL ? (
+          <>
+            <View style={[styles.tag, { borderColor: themeColors.blue }]}>
+              <FontAwesome name="link" size={18} color={themeColors.blue} />
+            </View>
+            <TextThemed
+              style={[styles.text, { color: themeColors.blue }]}
+              numberOfLines={3}
+            >
+              {item.text}
+            </TextThemed>
+          </>
+        ) : (
+          <>
+            <View style={[styles.tag, { borderColor: themeColors.orange }]}>
+              <Entypo name="text" size={18} color={themeColors.orange} />
+            </View>
+            <TextThemed
+              style={[styles.text, { color: themeColors.orange }]}
+              numberOfLines={3}
+            >
+              {item.text}
+            </TextThemed>
+          </>
+        )}
+      </View>
+
       <View style={styles.bottom}>
-        <View style={styles.tagContainer}>{getTagComponent(item)}</View>
-        <TextThemed color="highlighted">
-          {item.isURL ? "Clique para abrir" : "Clique para copiar"}
-        </TextThemed>
+        <View style={styles.action}>
+          <TextThemed color="text">
+            {item.isURL ? t("LINK_Access") : t("LINK_Copy")}
+          </TextThemed>
+        </View>
 
         <ButtonThemed style={styles.action} onPress={() => handleShare(item)}>
           <FontAwesome
             name="share"
-            size={24}
+            size={dimensions.size.md}
             color={themeColors.highlightedColored}
+            style={{ marginTop: 2 }}
           />
+          <TextThemed style={styles.actionText} color="highlightedColored">
+            Compartilhar
+          </TextThemed>
         </ButtonThemed>
       </View>
     </ButtonThemed>
@@ -52,24 +90,27 @@ export default function HistoryItem({ item, index }: MyProps) {
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: dimensions.padding.md,
-    paddingVertical: dimensions.padding.lg,
+    borderTopWidth: dimensions.border.sm,
+    borderBottomWidth: dimensions.border.sm,
   },
-  tagContainer: {
+  textPanel: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    paddingTop: dimensions.padding.lg,
+    paddingBottom: dimensions.padding.sm,
+    paddingHorizontal: dimensions.padding.lg,
+  },
+  text: {
+    fontSize: 16,
   },
   tag: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: dimensions.padding.sm,
-    paddingHorizontal: dimensions.padding.sm,
-    borderWidth: 1,
-    borderRadius: dimensions.radius.lg,
+    marginRight: dimensions.margin.sm,
   },
   bottom: {
     display: "flex",
@@ -87,10 +128,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: dimensions.padding.sm,
-    paddingHorizontal: dimensions.padding.sm,
+    justifyContent: "flex-end",
+    paddingVertical: dimensions.padding.lg,
+    paddingHorizontal: dimensions.padding.lg,
     borderRadius: dimensions.radius.lg,
-    marginLeft: dimensions.margin.lg,
+    backgroundColor: "transparent",
+  },
+  actionText: {
+    marginLeft: dimensions.margin.sm,
   },
 });

@@ -18,13 +18,15 @@ const defaultLink: LinkInterface = {
 };
 
 export default function CodeScanner() {
+  const HistoryStore = useHistoryStore();
+  const scannerRef = useRef<any>(null);
   const Alert = useContext(AlertContext) as AlertContextType;
   const { t } = useTranslation();
-  const scannerRef = useRef<any>(null);
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<any>("back");
-  const HistoryStore = useHistoryStore();
 
+  let scanTimeout: any = null; //use to create interval timeout of scans
+ 
   /** Saves the decoded text of a QRCode or Bar Code in the state */
   function setLinkToDecode(text: string) {
     const isURL: boolean = validURL(text);
@@ -38,8 +40,11 @@ export default function CodeScanner() {
    * It only runs when there is no code already decoded (optimization)
    */
   const onBarcodeScanned = ({ data }: BarcodeScanningResult) => {
-    if (link.text == "" && !!data) {
+
+    if (scanTimeout == null && link.text == "" && !!data) {
       setLinkToDecode(data);
+
+      scanTimeout = setTimeout(() => { scanTimeout = null }, 1000);
     }
   };
 

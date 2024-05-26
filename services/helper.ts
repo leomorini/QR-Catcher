@@ -7,9 +7,9 @@ import { LinkInterface } from "./interfaces";
 /**
  * Checks if a string is a valid link
  */
-export function validURL(str: string) {
-  const regex = /^http:\/\/.+/i;
-  return !!regex.test(str);
+export function validURL(text: string) {
+  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+  return urlPattern.test(text);
 }
 
 /**
