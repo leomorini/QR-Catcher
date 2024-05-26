@@ -6,15 +6,13 @@ import Divider from "../Themed/Divider";
 import ThemeContext from "@/styles";
 import { useTranslation } from "react-i18next";
 
-export function ScannerSquare() {
+export function ScannerSquare({ children }: any) {
   const { themeColors } = useContext(ThemeContext);
   const { t } = useTranslation();
 
   return (
     <ViewThemed style={styles.container}>
-      <View
-        style={[styles.square, { borderColor: themeColors.highlightedColored }]}
-      >
+      <View style={[styles.square, { top: 0, borderBottomWidth: 1, borderColor: themeColors.gray }]}>
         <TextThemed
           bold
           style={[
@@ -25,6 +23,10 @@ export function ScannerSquare() {
         >
           {t("SCANNER_SQUARE_Target the QR Code or Barcode")}
         </TextThemed>
+      </View>
+
+      <View style={[styles.square, { bottom: 0, borderTopWidth: 1, borderColor: themeColors.gray }]}>
+        {children}
       </View>
     </ViewThemed>
   );
@@ -44,25 +46,23 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   square: {
-    position: "relative",
-    height: "50%",
-    width: "85%",
-    marginVertical: dimensions.margin.md,
-    backgroundColor: "transparent",
-    borderRadius: dimensions.radius.xl,
-    borderWidth: dimensions.border.md,
-    borderStyle: "dashed",
-  },
-  text: {
     position: "absolute",
-    top: -100,
     left: 0,
     right: 0,
-    fontSize: 22,
+    height: "20%",
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    paddingHorizontal: dimensions.padding.lg,
+  },
+  text: {
+    marginTop: dimensions.margin.md,
+    fontSize: 20,
     textAlign: "center",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,
-    marginBottom: dimensions.margin.lg,
     marginHorizontal: dimensions.margin.lg,
   },
 });

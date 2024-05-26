@@ -35,6 +35,7 @@ export const modeColors = {
     navIconBackground: colors.dark.red,
     linkedin: "#0e76a8",
     github: "#181616",
+    gray: "#41434F",
   },
   dark: {
     ...colors.dark,
@@ -49,6 +50,7 @@ export const modeColors = {
     navIconBackground: colors.light.red,
     linkedin: "#1499d6",
     github: "#F9FAFD",
+    gray: "#41434F",
   },
 };
 

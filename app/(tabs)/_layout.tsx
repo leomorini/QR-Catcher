@@ -79,7 +79,7 @@ export default function TabLayout() {
 
 function getTabStyles(themeColors: ThemeType) {
   const insets = useSafeAreaInsets();
-  const itemHeight = 74 + dimensions.margin.sm;
+  const itemHeight = 58 + dimensions.margin.sm;
 
   return {
     screenOptionsStyle: {
@@ -103,16 +103,17 @@ function getTabStyles(themeColors: ThemeType) {
       },
       tabBarLabelStyle: {
         flex: 0,
-        fontSize: 12,
-        fontFamily: "FontBold",
-        marginBottom: dimensions.margin.sm + 4,
+        fontSize: 11,
+        fontFamily: "FontRegular",
         padding: 0,
+        marginBottom: dimensions.margin.sm + 2,
+        marginTop: dimensions.margin.sm - 5
       },
       tabBarIconStyle: {
         flex: 1,
         height: "100%",
-        marginTop: dimensions.margin.sm,
         padding: 0,
+        marginTop: dimensions.margin.sm
       },
     },
   };

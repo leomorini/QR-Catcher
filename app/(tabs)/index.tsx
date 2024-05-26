@@ -120,12 +120,12 @@ export default function CodeScanner() {
         facing={facing}
       ></CameraView>
 
-      <ScannerSquare />
-
-      <ScannerActions
-        handleUploadImage={handleUploadImage}
-        handleFacing={handleFacing}
-      />
+      <ScannerSquare>
+        <ScannerActions
+          handleUploadImage={handleUploadImage}
+          handleFacing={handleFacing}
+        />
+      </ScannerSquare>
     </View>
   );
 }

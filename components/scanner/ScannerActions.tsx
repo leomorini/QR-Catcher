@@ -20,7 +20,7 @@ export function ScannerActions({ handleUploadImage, handleFacing }: MyProps) {
     <ViewThemed
       style={[
         styles.camActions,
-        { borderColor: themeColors.highlightedColored },
+        { borderColor: themeColors.highlighted },
       ]}
     >
       <TouchableOpacity
@@ -49,7 +49,7 @@ export function ScannerActions({ handleUploadImage, handleFacing }: MyProps) {
         </View>
       </TouchableOpacity>
 
-      <Divider size="md" mode="vertical" color="highlightedColored" />
+      <Divider size="sm" mode="vertical" color="highlighted" />
 
       <TouchableOpacity onPress={() => handleFacing()} style={styles.camAction}>
         <View style={styles.camActionBody}>
@@ -79,17 +79,13 @@ export function ScannerActions({ handleUploadImage, handleFacing }: MyProps) {
 
 const styles = StyleSheet.create({
   camActions: {
-    position: "absolute",
-    left: 25,
-    right: 25,
-    bottom: "6%",
     height: 75,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: dimensions.radius.lg,
-    borderWidth: dimensions.border.md,
+    borderWidth: dimensions.border.sm,
   },
   camAction: {
     display: "flex",
