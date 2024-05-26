@@ -12,7 +12,7 @@ export default function Text(props: ComponentProps) {
   const { themeColors } = useContext(ThemeContext);
   const { style, color = "text", bold = false, ...otherProps } = props;
 
-  const fontFamily = bold ? "InterBold" : "InterRegular";
+  const fontFamily = bold ? "FontBold" : "FontRegular";
 
   return (
     <DefaultComponent

@@ -1,5 +1,6 @@
 {
-  "REQUEST_PERMISSION_You need to activate permission to use the camera and storage!": "You need to activate permission to use the camera and storage!",
+  "REQUEST_PERMISSION_Attention": "Attention",
+  "REQUEST_PERMISSION_You need to activate permission": "You need to activate permission to use the camera",
   "REQUEST_PERMISSION_grant permission": "Grant permission",
 
   "TABS_Scan": "Scan",

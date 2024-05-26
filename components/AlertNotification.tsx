@@ -138,12 +138,12 @@ function getStylesProps(themeColors) {
       marginTop: dimensions.margin.md,
     },
     titleStyle: {
-      fontFamily: "InterBold",
+      fontFamily: "FontBold",
       color: themeColors.text,
       fontSize: 20,
     },
     messageStyle: {
-      fontFamily: "InterRegular",
+      fontFamily: "FontRegular",
       color: themeColors.text,
       fontSize: 14,
     },
@@ -166,7 +166,7 @@ function getStylesProps(themeColors) {
     },
     confirmButtonTextStyle: {
       color: themeColors.text,
-      fontFamily: "InterBold",
+      fontFamily: "FontBold",
       fontSize: 18,
     },
   };

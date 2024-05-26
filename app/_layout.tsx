@@ -29,8 +29,8 @@ export default function RootLayout() {
   const [permission, requestPermission] = useCameraPermissions();
 
   const [loaded, error] = useFonts({
-    InterRegular: require("../assets/fonts/Inter-Regular.ttf"),
-    InterBold: require("../assets/fonts/Inter-Bold.ttf"),
+    FontRegular: require("../assets/fonts/Lexend-Regular.ttf"),
+    FontBold: require("../assets/fonts/Lexend-Bold.ttf"),
     ...FontAwesome.font,
   });
 

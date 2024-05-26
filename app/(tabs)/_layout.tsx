@@ -104,7 +104,7 @@ function getTabStyles(themeColors: ThemeType) {
       tabBarLabelStyle: {
         flex: 0,
         fontSize: 12,
-        fontFamily: "InterBold",
+        fontFamily: "FontBold",
         marginBottom: dimensions.margin.sm + 4,
         padding: 0,
       },
