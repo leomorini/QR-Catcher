@@ -12,6 +12,7 @@
 
   "SCANNER_ALERT_Attention": "Attention",
   "SCANNER_ALERT_We did not detect a QRCode or Barcode in image": "We did not detect a QRCode or Barcode in image",
+  "SCANNER_ALERT_Close": "Close",
 
   "SCANNER_ACTIONS_Search in": "Search In",
   "SCANNER_ACTIONS_Image": "Image",
@@ -28,5 +29,7 @@
   "EMPTY_We don't have data to display here yet": "We don't have data to display here yet",
 
   "HISTORY_DATA_Today": "Today",
-  "HISTORY_DATA_Yesterday": "Yesterday"
+  "HISTORY_DATA_Yesterday": "Yesterday",
+
+  "GLOBAL_Share": "Share"
 }

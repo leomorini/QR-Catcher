@@ -12,6 +12,7 @@
 
   "SCANNER_ALERT_Attention": "Atenção",
   "SCANNER_ALERT_We did not detect a QRCode or Barcode in image": "Não detectamos Código QR ou Código de Barras na imagem",
+  "SCANNER_ALERT_Close": "Fechar",
 
   "SCANNER_ACTIONS_Search in": "Busque em uma",
   "SCANNER_ACTIONS_Image": "Imagem",
@@ -28,5 +29,7 @@
   "EMPTY_We don't have data to display here yet": "Ainda não temos dados para exibir aqui",
 
   "HISTORY_DATA_Today": "Hoje",
-  "HISTORY_DATA_Yesterday": "Ontem"
+  "HISTORY_DATA_Yesterday": "Ontem",
+
+  "GLOBAL_Share": "Compartilhar"
 }

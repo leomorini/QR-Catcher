@@ -51,7 +51,7 @@ export default function SectionItem({ t, item, themeColors }: MyProps) {
             style={{ marginTop: 2 }}
           />
           <TextThemed style={styles.actionText} color="highlightedColored">
-            Compartilhar
+            {t("GLOBAL_Share")}
           </TextThemed>
         </ButtonThemed>
       </View>

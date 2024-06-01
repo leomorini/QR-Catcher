@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     marginLeft: dimensions.margin.md,
   },
   text: {
-    fontSize: 26,
+    fontSize: 22,
   },
 });

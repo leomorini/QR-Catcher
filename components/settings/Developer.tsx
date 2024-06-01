@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Gravatar from "@krosben/react-native-gravatar";
 import * as Linking from "expo-linking";
-import { TextThemed } from "../Themed";
+import { ButtonThemed, TextThemed } from "../Themed";
 import { dimensions } from "@/styles/dimensions";
 import Divider from "../Themed/Divider";
 
@@ -34,7 +34,7 @@ export default function Developer() {
       <Divider size="sm" color="highlightedColored" style={styles.divider} />
 
       <View style={styles.row}>
-        <TouchableOpacity
+        <ButtonThemed
           onPress={openLinkedin}
           style={[
             styles.row,
@@ -50,9 +50,9 @@ export default function Developer() {
           <TextThemed color="linkedin" style={styles.buttonText}>
             Linkedin
           </TextThemed>
-        </TouchableOpacity>
+        </ButtonThemed>
 
-        <TouchableOpacity
+        <ButtonThemed
           onPress={openGithub}
           style={[
             styles.row,
@@ -64,7 +64,7 @@ export default function Developer() {
           <TextThemed color="github" style={styles.buttonText}>
             Github
           </TextThemed>
-        </TouchableOpacity>
+        </ButtonThemed>
       </View>
     </View>
   );
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     paddingVertical: dimensions.padding.sm,
     paddingHorizontal: dimensions.padding.md,
     marginRight: dimensions.margin.md,
+    backgroundColor: "transparent",
   },
   buttonText: {
     marginLeft: dimensions.margin.sm,

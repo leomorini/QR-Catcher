@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { dimensions } from "@/styles/dimensions";
-import { TextThemed, ViewThemed } from "../Themed";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { ButtonThemed, TextThemed, ViewThemed } from "../Themed";
+import { StyleSheet, View } from "react-native";
+import Ripple from 'react-native-material-ripple';
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import Divider from "../Themed/Divider";
 import ThemeContext from "@/styles";
@@ -23,7 +24,7 @@ export function ScannerActions({ handleUploadImage, handleFacing }: MyProps) {
         { borderColor: themeColors.highlighted },
       ]}
     >
-      <TouchableOpacity
+      <ButtonThemed
         onPress={() => handleUploadImage()}
         style={styles.camAction}
       >
@@ -47,11 +48,11 @@ export function ScannerActions({ handleUploadImage, handleFacing }: MyProps) {
             </TextThemed>
           </View>
         </View>
-      </TouchableOpacity>
+      </ButtonThemed>
 
       <Divider size="sm" mode="vertical" color="highlighted" />
 
-      <TouchableOpacity onPress={() => handleFacing()} style={styles.camAction}>
+      <ButtonThemed onPress={() => handleFacing()} style={styles.camAction}>
         <View style={styles.camActionBody}>
           <TextThemed style={styles.camActionBodyText}>
             {t("SCANNER_ACTIONS_Invert the")}
@@ -72,7 +73,7 @@ export function ScannerActions({ handleUploadImage, handleFacing }: MyProps) {
             </TextThemed>
           </View>
         </View>
-      </TouchableOpacity>
+      </ButtonThemed>
     </ViewThemed>
   );
 }
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     padding: 5,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "transparent",
   },
   camActionBody: {
     display: "flex",

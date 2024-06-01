@@ -1,8 +1,20 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
-import AwesomeAlert from "react-native-awesome-alerts";
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { dimensions } from "@/styles/dimensions";
 import ThemeContext from "@/styles";
-import { ThemeType } from "@/styles/colors";
+import { StyleSheet, View } from "react-native";
+import { ButtonThemed, TextThemed, ViewThemed } from "./Themed";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import Modal from "react-native-modal";
+import { useTranslation } from "react-i18next";
 
 export interface AlertContextType {
   show: Function;
@@ -10,17 +22,14 @@ export interface AlertContextType {
 }
 
 export interface AlertOptionsType {
-  title: string;
+  title?: string;
   message: string;
-  cancelText?: string;
   confirmText?: string;
-  confirmButtonColor?: string;
-  cancelButtonColor?: string;
+  confirmIcon?: string | null;
   onClose?: Function;
+  onSharePressed?: Function;
+  showShareButton?: boolean;
   onConfirmPressed?: Function;
-  closeOnTouchOutside?: boolean;
-  closeOnHardwareBackPress?: boolean;
-  showCancelButton?: boolean;
   showConfirmButton?: boolean;
 }
 
@@ -30,31 +39,34 @@ export const AlertContext = createContext<AlertContextType | undefined>(
 
 export const AlertNotificationRoot = ({ children }: PropsWithChildren) => {
   const defaultOptions = {
-    title: "Titulo",
-    message: "Mensagem",
-    cancelText: "",
-    confirmText: "Fechar",
+    title: "",
+    message: "",
+    confirmText: "",
+    confirmIcon: null,
+    onClose: () => false,
+    onSharePressed: () => false,
+    showShareButton: false,
     onConfirmPressed: () => false,
+    showConfirmButton: true,
   };
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const [options, setOptions] = useState<AlertOptionsType>(defaultOptions);
+  const { t } = useTranslation();
 
   const { themeColors } = useContext(ThemeContext);
-  const stylesProps = getStylesProps(themeColors);
 
   function show(newOptions: AlertOptionsType) {
     setNewOptions(newOptions);
-    setIsOpen(true);
+    setOpen(true);
   }
 
   function close() {
-    setIsOpen(false);
+    setOpen(false);
+    onDismiss();
   }
 
   function onDismiss() {
-    close();
-
     if (typeof options.onClose === "function") {
       options.onClose();
     }
@@ -83,99 +95,162 @@ export const AlertNotificationRoot = ({ children }: PropsWithChildren) => {
     close();
   }
 
+  const generateIconConfirmButton = (confirmIcon: string) => {
+    if (confirmIcon === "copy") {
+      return (
+        <Ionicons
+          style={styles.actionIcon}
+          name="copy-outline"
+          size={24}
+          color={themeColors.text}
+        />
+      );
+    } else {
+      return (
+        <Ionicons
+          style={styles.actionIcon}
+          name="open-outline"
+          size={26}
+          color={themeColors.text}
+        />
+      );
+    }
+  };
+
   return (
     <AlertContext.Provider value={{ show, close }}>
       <>
         {children}
 
-        <AwesomeAlert
-          show={isOpen}
-          showProgress={false}
-          title={options.title}
-          message={options.message}
-          closeOnTouchOutside={options.closeOnTouchOutside || true}
-          closeOnHardwareBackPress={options.closeOnHardwareBackPress || true}
-          showCancelButton={false}
-          showConfirmButton={options.showConfirmButton || true}
-          cancelText={options.cancelText || ""}
-          confirmText={options.confirmText || ""}
-          onConfirmPressed={handleConfirm}
-          onDismiss={onDismiss}
-          {...stylesProps}
-        />
+        <Modal
+          isVisible={isOpen}
+          onModalHide={onDismiss}
+          onBackButtonPress={close}
+          onBackdropPress={close}
+          onSwipeComplete={close}
+          swipeDirection={["down"]}
+          style={styles.modal}
+        >
+          <ViewThemed style={styles.container}>
+            <View style={styles.info}>
+              {options.title && (
+                <TextThemed bold style={styles.title}>
+                  {options.title}
+                </TextThemed>
+              )}
+              {options.message && (
+                <TextThemed numberOfLines={5} style={styles.message}>
+                  {options.message}
+                </TextThemed>
+              )}
+            </View>
+
+            <View style={styles.actions}>
+              {options.showShareButton && options.onSharePressed && (
+                <ButtonThemed
+                  onPress={() =>
+                    typeof options.onSharePressed === "function"
+                      ? options.onSharePressed()
+                      : false
+                  }
+                  color="foreground"
+                  style={[
+                    styles.action,
+                    { borderColor: themeColors.highlightedColored },
+                  ]}
+                >
+                  <Ionicons
+                    style={styles.actionIcon}
+                    name="share-social"
+                    size={24}
+                    color={themeColors.text}
+                  />
+                  <TextThemed style={styles.actionText}>
+                    {t("GLOBAL_Share")}
+                  </TextThemed>
+                </ButtonThemed>
+              )}
+
+              {options.showConfirmButton && options.confirmText && (
+                <ButtonThemed
+                  onPress={handleConfirm}
+                  color="highlightedColored"
+                  style={[
+                    styles.action,
+                    { borderColor: themeColors.foreground },
+                  ]}
+                >
+                  {options.confirmIcon &&
+                    generateIconConfirmButton(options.confirmIcon)}
+                  <TextThemed style={styles.actionText}>
+                    {options.confirmText}
+                  </TextThemed>
+                </ButtonThemed>
+              )}
+            </View>
+          </ViewThemed>
+        </Modal>
       </>
     </AlertContext.Provider>
   );
 };
 
-// Styles
-interface AlertAwesomeStylesProps {
-  alertContainerStyle?: object;
-  overlayStyle?: object;
-  contentContainerStyle?: object;
-  contentStyle?: object;
-  titleStyle?: object;
-  messageStyle?: object;
-  actionContainerStyle?: object;
-  cancelButtonColor?: string;
-  cancelButtonTextStyle?: object;
-  cancelButtonStyle?: object;
-  confirmButtonColor?: string;
-  confirmButtonTextStyle?: object;
-  confirmButtonStyle?: object;
-}
-
-function getStylesProps(themeColors: ThemeType) {
-  const stylesProps: AlertAwesomeStylesProps = {
-    contentContainerStyle: {
-      backgroundColor: themeColors.foreground2,
-      borderWidth: dimensions.border.md,
-      borderColor: themeColors.border,
-      borderRadius: dimensions.radius.xl,
-      minWidth: "80%",
-    },
-    actionContainerStyle: {
-      marginTop: dimensions.margin.md,
-    },
-    titleStyle: {
-      fontFamily: "FontBold",
-      color: themeColors.red,
-      fontSize: 22,
-    },
-    messageStyle: {
-      fontFamily: "FontRegular",
-      color: themeColors.text,
-      fontSize: 18,
-      width: "100%",
-      textAlign: "center",
-      marginTop: dimensions.margin.lg
-    },
-    cancelButtonStyle: {
-      backgroundColor: "transparent",
-      borderWidth: dimensions.border.md,
-      borderColor: themeColors.highlighted,
-      borderRadius: dimensions.radius.md,
-      fontFamily: "FontRegular",
-    },
-    cancelButtonTextStyle: {
-      color: themeColors.highlighted,
-    },
-    confirmButtonStyle: {
-      alignItems: "center",
-      width: "100%",
-      paddingVertical: dimensions.padding.md,
-      borderRadius: dimensions.radius.lg,
-      borderWidth: dimensions.border.md,
-      borderColor: themeColors.highlightedColored,
-      backgroundColor: themeColors.foreground,
-      marginTop: dimensions.margin.lg,
-    },
-    confirmButtonTextStyle: {
-      color: themeColors.highlightedColored,
-      fontFamily: "FontBold",
-      fontSize: 18,
-    },
-  };
-
-  return stylesProps;
-}
+const styles = StyleSheet.create({
+  modal: {
+    justifyContent: "flex-end",
+    margin: 0,
+  },
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: dimensions.padding.lg,
+    maxHeight: "50%",
+    borderTopLeftRadius: dimensions.border.xl + 20,
+    borderTopRightRadius: dimensions.border.xl + 20,
+  },
+  content: {
+    flex: 1,
+  },
+  info: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 26,
+    marginBottom: dimensions.margin.lg,
+  },
+  message: {
+    fontSize: 20,
+  },
+  actions: {
+    width: "100%",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: dimensions.margin.lg,
+    marginBottom: dimensions.margin.lg,
+    gap: dimensions.size.md,
+  },
+  action: {
+    position: "relative",
+    width: "100%",
+    paddingHorizontal: dimensions.padding.lg,
+    paddingVertical: dimensions.padding.md,
+    borderRadius: dimensions.radius.lg,
+    borderWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  actionIcon: {
+    position: "absolute",
+    left: dimensions.padding.md,
+  },
+  actionText: {
+    fontSize: 16,
+  },
+});

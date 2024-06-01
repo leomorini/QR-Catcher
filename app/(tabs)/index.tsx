@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useContext } from "react";
 import { View } from "react-native";
 import { BarcodeScanningResult, Camera, CameraView } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { validURL, barcodeTypes, handleLink } from "@/services/helper";
+import { validURL, barcodeTypes, handleLink, handleShare } from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useHistoryStore } from "@/data/history";
 import { AlertContext, AlertContextType } from "@/components/AlertNotification";
@@ -82,7 +82,10 @@ export default function CodeScanner() {
 
     Alert.show({
       title: t("SCANNER_ALERT_Attention"),
-      message: t("We did not detect a QRCode or Barcode in image"),
+      message: t("SCANNER_ALERT_We did not detect a QRCode or Barcode in image"),
+      confirmText: t("SCANNER_ALERT_Close"),
+      showConfirmButton: true,
+      showShareButton: false,
     });
   };
 
@@ -95,12 +98,15 @@ export default function CodeScanner() {
   useEffect(() => {
     if (!!link.text) {
       Alert.show({
-        title: "",
         message: `${link.text}`,
         confirmText: link.isURL ? t("LINK_Access") : t("LINK_Copy"),
+        confirmIcon: link.isURL ? "open" : "copy",
+        showConfirmButton: true,
         onConfirmPressed: () => {
           handleLink(link);
         },
+        showShareButton: true,
+        onSharePressed: () => handleShare(link),
         onClose: () => {
           // setTimeout create debounce timeout for scanning
           setTimeout(() => {
