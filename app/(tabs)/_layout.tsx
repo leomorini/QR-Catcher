@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
-import TabBarIcon from "@/components/TabBarIcon";
+import TabBarIcon from "@/components/tabs/TabBarIcon";
+import TabBarButton from "@/components/tabs/TabBarButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { dimensions } from "@/styles/dimensions";
 import ThemeContext, { shadowNoneStyle } from "@/styles";
@@ -19,6 +20,9 @@ export default function TabLayout() {
       initialRouteName="index"
       screenOptions={({ route }) => ({
         ...screenOptionsStyle,
+        tabBarButton: (props) => {
+          return TabBarButton(props);
+        }
       })}
       sceneContainerStyle={{ backgroundColor: themeColors.background }}
     >
@@ -30,7 +34,7 @@ export default function TabLayout() {
             <TabBarIcon>
               <MaterialIcons
                 name="history"
-                size={28}
+                size={22}
                 color={
                   focused ? themeColors.highlightedColored : themeColors.text2
                 }
@@ -47,7 +51,7 @@ export default function TabLayout() {
             <TabBarIcon>
               <MaterialCommunityIcons
                 name="data-matrix-scan"
-                size={24}
+                size={20}
                 color={
                   focused ? themeColors.highlightedColored : themeColors.text2
                 }
@@ -64,7 +68,7 @@ export default function TabLayout() {
             <TabBarIcon>
               <MaterialIcons
                 name="settings"
-                size={28}
+                size={24}
                 color={
                   focused ? themeColors.highlightedColored : themeColors.text2
                 }
