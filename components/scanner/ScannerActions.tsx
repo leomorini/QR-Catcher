@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { dimensions } from "@/styles/dimensions";
 import { ButtonThemed, TextThemed, ViewThemed } from "../Themed";
 import { StyleSheet, View } from "react-native";
-import Ripple from "react-native-material-ripple";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import Divider from "../Themed/Divider";
 import ThemeContext from "@/styles";
