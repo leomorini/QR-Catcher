@@ -48,6 +48,7 @@ export default function ThemeChange() {
             return (
               <ButtonThemed
                 key={"THEME_MODE_" + themeMode}
+                borderRadius={dimensions.radius.lg}
                 style={[
                   styles.button,
                   { borderColor: themeColors.text },
@@ -86,6 +87,7 @@ export default function ThemeChange() {
             return (
               <View key={"color_" + key}>
                 <ButtonThemed
+                  borderRadius={dimensions.radius.lg}
                   style={[
                     styles.square,
                     key == color && {
@@ -138,7 +140,6 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingVertical: dimensions.padding.md,
     paddingHorizontal: dimensions.padding.md + 5,
-    borderRadius: dimensions.radius.lg,
     borderWidth: dimensions.border.sm,
   },
   square: {
