@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { TouchableNativeFeedback, View, ViewStyle } from "react-native";
 import ThemeContext, { ThemeProps } from "@/styles";
-import { ViewThemed } from ".";
 
 type MyProps = {
   transparent?: boolean;
@@ -37,7 +36,7 @@ export default function Button(props: ComponentProps) {
         background={TouchableNativeFeedback.Ripple(rippleColor, false)}
         {...otherProps}
       >
-        <ViewThemed
+        <View
           style={[
             {
               backgroundColor: transparent ? "transparent" : themeColors[color],
@@ -48,7 +47,7 @@ export default function Button(props: ComponentProps) {
           ]}
         >
           {children}
-        </ViewThemed>
+        </View>
       </TouchableNativeFeedback>
     </View>
   );
