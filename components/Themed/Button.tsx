@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { TouchableNativeFeedback, View, ViewStyle } from "react-native";
 import ThemeContext, { ThemeProps } from "@/styles";
+import { ThemeType } from "@/styles/colors";
 
 type MyProps = {
   transparent?: boolean;
   borderRadius?: number;
-  rippleColor?: string;
+  rippleColor?: string | null;
   rippleOverflow?: boolean;
   containerStyle?: ViewStyle;
   style?: ViewStyle;
@@ -26,14 +27,17 @@ export default function Button(props: ComponentProps) {
     containerStyle = {},
     style,
     children,
-    rippleColor = themeColors.highlightedColored,
+    rippleColor = null,
     ...otherProps
   } = props;
 
   return (
     <View style={[{ borderRadius, overflow: "hidden" }, containerStyle]}>
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple(rippleColor, false)}
+        background={TouchableNativeFeedback.Ripple(
+          rippleColor || themeColors.highlightedColored,
+          false
+        )}
         {...otherProps}
       >
         <View
