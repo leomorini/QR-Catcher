@@ -11,6 +11,7 @@ type groupedSectionItemType = { title: string; data: LinkInterface[] };
 type groupedSectionListType = groupedSectionItemType[];
 
 class Store {
+  systemLocale: string = "en";
   limit = 50;
   history: LinkInterface[] = [];
 
@@ -28,6 +29,8 @@ class Store {
 
   /** Get history saved in local storage */
   async init() {
+    this.systemLocale = getLocales()[0].languageCode || "en";
+
     const history = await _loadData("history");
     if (!!history && Array.isArray(history)) {
       this.history = history;
@@ -54,13 +57,11 @@ class Store {
    * The observer conflicts with sort. That's why I use map to create a copy of history, and only then do the sort
    * */
   get grouped() {
-    return groupByDate(this.history);
+    return groupByDate(this.history, this.systemLocale);
   }
 }
 
-function groupByDate(arr: LinkInterface[]) {
-  const { t } = useTranslation();
-
+function groupByDate(arr: LinkInterface[], systemLocale: string) {
   // Sort by datetime -> my recent is in top
   arr = arr.slice().sort((a, b) => b.created_at - a.created_at);
 
@@ -68,8 +69,7 @@ function groupByDate(arr: LinkInterface[]) {
   const grouped: groupedLinksType = {};
 
   // Get system locale to format date correctly
-  const systemLocale = getLocales()[0].languageCode;
-  const locale = systemLocale === "pt" ? "pt-BR" : "en-US";
+  const locale:string = systemLocale === "pt" ? "pt-BR" : "en-US";
   const localeOptions: any = {
     day: "2-digit",
     month: "long",
@@ -90,9 +90,9 @@ function groupByDate(arr: LinkInterface[]) {
     // Verificar se a data é hoje ou ontem
     let groupKey;
     if (formattedDate === todayString) {
-      groupKey = t("HISTORY_DATA_Today");
+      groupKey = "HISTORY_DATA_Today";
     } else if (formattedDate === yesterdayString) {
-      groupKey = t("HISTORY_DATA_Yesterday");
+      groupKey = "HISTORY_DATA_Yesterday";
     } else {
       groupKey = formattedDate;
     }

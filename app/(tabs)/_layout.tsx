@@ -11,8 +11,8 @@ import { ThemeType } from "@/styles/colors";
 
 export default function TabLayout() {
   const { themeColors } = useContext(ThemeContext);
-
-  const { screenOptionsStyle }: any = getTabStyles(themeColors);
+  const insets = useSafeAreaInsets();
+  const { screenOptionsStyle }: any = getTabStyles(insets, themeColors);
   const { t } = useTranslation();
 
   return (
@@ -81,8 +81,7 @@ export default function TabLayout() {
   );
 }
 
-function getTabStyles(themeColors: ThemeType) {
-  const insets = useSafeAreaInsets();
+function getTabStyles(insets: any, themeColors: ThemeType) {
   const itemHeight = 58 + dimensions.margin.sm;
 
   return {

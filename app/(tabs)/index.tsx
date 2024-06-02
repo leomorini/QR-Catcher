@@ -25,6 +25,30 @@ export default function CodeScanner() {
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<any>("back");
 
+
+  /** Show Dialog link/text decoded from QRCode or Code Bar */
+  useEffect(() => {
+    if (!!link.text) {
+      Alert.show({
+        message: `${link.text}`,
+        confirmText: link.isURL ? t("LINK_Access") : t("LINK_Copy"),
+        confirmIcon: link.isURL ? "open" : "copy",
+        showConfirmButton: true,
+        onConfirmPressed: () => {
+          handleLink(link);
+        },
+        showShareButton: true,
+        onSharePressed: () => handleShare(link),
+        onClose: () => {
+          // setTimeout create debounce timeout for scanning
+          setTimeout(() => {
+            setLink(defaultLink);
+          }, 400);
+        },
+      });
+    }
+  }, [link]);
+
   let scanTimeout: any = null; //use to create interval timeout of scans
  
   /** Saves the decoded text of a QRCode or Bar Code in the state */
@@ -93,29 +117,6 @@ export default function CodeScanner() {
   function handleFacing() {
     setFacing(facing === "front" ? "back" : "front");
   }
-
-  /** Show Dialog link/text decoded from QRCode or Code Bar */
-  useEffect(() => {
-    if (!!link.text) {
-      Alert.show({
-        message: `${link.text}`,
-        confirmText: link.isURL ? t("LINK_Access") : t("LINK_Copy"),
-        confirmIcon: link.isURL ? "open" : "copy",
-        showConfirmButton: true,
-        onConfirmPressed: () => {
-          handleLink(link);
-        },
-        showShareButton: true,
-        onSharePressed: () => handleShare(link),
-        onClose: () => {
-          // setTimeout create debounce timeout for scanning
-          setTimeout(() => {
-            setLink(defaultLink);
-          }, 400);
-        },
-      });
-    }
-  }, [link]);
 
   return (
     <View style={{ position: "relative", flex: 1 }}>

@@ -29,7 +29,7 @@ const History = observer(() => {
         />
       )}
       renderSectionHeader={({ section: { title } }) => (
-        <SectionTitle title={title} />
+        <SectionTitle title={t(title)} />
       )}
       ListHeaderComponent={<View style={{ marginTop: dimensions.margin.xl }} />}
       ListFooterComponent={<View style={styles.footer} />}

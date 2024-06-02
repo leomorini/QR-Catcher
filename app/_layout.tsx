@@ -3,7 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import { useCameraPermissions } from "expo-camera";
+import { useCameraPermissions, PermissionResponse } from "expo-camera";
 import * as SplashScreen from "expo-splash-screen";
 import RequestPermissions from "./RequestPermissions";
 
@@ -25,9 +25,11 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const [permission, requestPermission] = useCameraPermissions();
+type MyProps = {
+  permission: PermissionResponse;
+};
 
+export default function RootLayout() {
   const [loaded, error] = useFonts({
     FontRegular: require("../assets/fonts/Lexend-Regular.ttf"),
     FontBold: require("../assets/fonts/Lexend-Bold.ttf"),
@@ -54,33 +56,31 @@ export default function RootLayout() {
     return null;
   }
 
-  if (!permission || !permission.granted) {
-    return (
-      <ThemeProvider>
-        <RequestPermissions requestPermission={requestPermission} />
-      </ThemeProvider>
-    );
-  }
-
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
+  const [permission, requestPermission] = useCameraPermissions();
+
   return (
     <ThemeProvider>
       <SafeAreaProvider>
-        <ViewThemed color="background" style={{ display: "flex", flex: 1 }}>
-          <AlertNotificationRoot>
-            <Stack>
-              <Stack.Screen
-                name="(tabs)"
-                options={{
-                  headerShown: false,
-                }}
-              />
-            </Stack>
-          </AlertNotificationRoot>
-        </ViewThemed>
+        {!permission || !permission.granted ? (
+          <RequestPermissions requestPermission={requestPermission} />
+        ) : (
+          <ViewThemed color="background" style={{ display: "flex", flex: 1 }}>
+            <AlertNotificationRoot>
+              <Stack>
+                <Stack.Screen
+                  name="(tabs)"
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </Stack>
+            </AlertNotificationRoot>
+          </ViewThemed>
+        )}
       </SafeAreaProvider>
     </ThemeProvider>
   );
