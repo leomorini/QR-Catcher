@@ -104,7 +104,6 @@ export const ThemeProvider = ({ children }: any) => {
     const newThemeColors = modeColors[newMode];
     const colorValue = newThemeColors[newColor];
     newThemeColors.highlightedColored = colorValue;
-    newThemeColors.navIconBackground = colorValue;
     return newThemeColors;
   }
 

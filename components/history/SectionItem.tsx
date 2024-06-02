@@ -3,8 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { TextThemed, ButtonThemed } from "@/components/Themed";
 import { handleLink, handleShare } from "@/services/helper";
 import { dimensions } from "@/styles/dimensions";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import Entypo from "@expo/vector-icons/Entypo";
+import { FontAwesome, Entypo, Ionicons } from "@expo/vector-icons";
 import { ThemeType } from "@/styles/colors";
 
 interface MyProps {
@@ -21,13 +20,6 @@ export default function SectionItem({ t, item, themeColors }: MyProps) {
       onPress={() => handleLink(item)}
     >
       <View style={styles.textPanel}>
-        <View style={[styles.tag, { borderColor: themeColors.text }]}>
-          {item.isURL ? (
-            <FontAwesome name="link" size={18} color={themeColors.text} />
-          ) : (
-            <Entypo name="text" size={18} color={themeColors.text} />
-          )}
-        </View>
         <TextThemed
           style={[styles.text, { color: themeColors.text }]}
           numberOfLines={3}
@@ -38,6 +30,22 @@ export default function SectionItem({ t, item, themeColors }: MyProps) {
 
       <View style={styles.bottom}>
         <View style={styles.action}>
+          {item.isURL ? (
+            <Ionicons
+              size={dimensions.size.lg}
+              color={themeColors.highlightedColored}
+              style={{ marginRight: dimensions.margin.sm }}
+              name="open-outline"
+            />
+          ) : (
+            <Ionicons
+              size={dimensions.size.lg}
+              color={themeColors.highlightedColored}
+              style={{ marginRight: dimensions.margin.sm }}
+              name="copy-outline"
+            />
+          )}
+
           <TextThemed color="highlightedColored">
             {item.isURL ? t("LINK_Access") : t("LINK_Copy")}
           </TextThemed>
@@ -46,7 +54,7 @@ export default function SectionItem({ t, item, themeColors }: MyProps) {
         <ButtonThemed style={styles.action} onPress={() => handleShare(item)}>
           <FontAwesome
             name="share"
-            size={dimensions.size.md}
+            size={dimensions.size.lg}
             color={themeColors.highlightedColored}
             style={{ marginTop: 2 }}
           />
