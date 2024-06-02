@@ -1,21 +1,25 @@
-import { useContext } from "react";
+import { StyleSheet, View, ViewProps } from "react-native";
 import { dimensions } from "@/styles/dimensions";
 import { ButtonThemed, TextThemed, ViewThemed } from "../Themed";
-import { StyleSheet, View } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import Divider from "../Themed/Divider";
-import ThemeContext from "@/styles";
-import { useTranslation } from "react-i18next";
+import { ThemeType } from "@/styles/colors";
 
-interface MyProps {
+type MyProps = {
   handleUploadImage: Function;
   handleFacing: Function;
-}
+  themeColors: ThemeType;
+  t: Function;
+};
 
-export function ScannerActions({ handleUploadImage, handleFacing }: MyProps) {
-  const { themeColors } = useContext(ThemeContext);
-  const { t } = useTranslation();
+export type ScannerActionsProps = MyProps & ViewProps;
 
+export function ScannerActions({
+  handleUploadImage,
+  handleFacing,
+  themeColors,
+  t,
+}: ScannerActionsProps) {
   return (
     <ViewThemed
       style={[styles.camActions, { borderColor: themeColors.highlighted }]}

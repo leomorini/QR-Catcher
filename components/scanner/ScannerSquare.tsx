@@ -1,14 +1,21 @@
-import { useContext } from "react";
+import { ViewProps } from "react-native";
 import { dimensions } from "@/styles/dimensions";
 import { TextThemed, ViewThemed } from "../Themed";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import ThemeContext from "@/styles";
-import { useTranslation } from "react-i18next";
+import { ThemeType } from "@/styles/colors";
 
-export function ScannerSquare({ children }: any) {
-  const { themeColors } = useContext(ThemeContext);
-  const { t } = useTranslation();
+type MyProps = {
+  themeColors: ThemeType;
+  t: Function;
+};
 
+export type ScannerSquareProps = MyProps & ViewProps;
+
+export function ScannerSquare({
+  themeColors,
+  t,
+  children,
+}: ScannerSquareProps) {
   return (
     <ViewThemed style={styles.container}>
       <View

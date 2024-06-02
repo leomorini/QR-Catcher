@@ -14,6 +14,7 @@ import { AlertContext, AlertContextType } from "@/components/AlertNotification";
 import { ScannerActions } from "@/components/scanner/ScannerActions";
 import { useTranslation } from "react-i18next";
 import { ScannerSquare } from "@/components/scanner/ScannerSquare";
+import ThemeContext from "@/styles";
 
 /** Standard structure of decoded code to start/clear when necessary */
 const defaultLink: LinkInterface = {
@@ -26,6 +27,7 @@ export default function CodeScanner() {
   const HistoryStore = useHistoryStore();
   const scannerRef = useRef<any>(null);
   const Alert = useContext(AlertContext) as AlertContextType;
+  const { themeColors } = useContext(ThemeContext);
   const { t } = useTranslation();
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<any>("back");
@@ -135,10 +137,12 @@ export default function CodeScanner() {
         facing={facing}
       ></CameraView>
 
-      <ScannerSquare>
+      <ScannerSquare themeColors={themeColors} t={t}>
         <ScannerActions
           handleUploadImage={handleUploadImage}
           handleFacing={handleFacing}
+          themeColors={themeColors}
+          t={t}
         />
       </ScannerSquare>
     </View>
