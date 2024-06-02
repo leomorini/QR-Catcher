@@ -3,7 +3,6 @@ import { makeObservable, observable, action, computed } from "mobx";
 import { _loadData, _storeData } from "@/services/api";
 import { LinkInterface } from "@/services/interfaces";
 import { getLocales } from "expo-localization";
-import { useTranslation } from "react-i18next";
 
 /** Type/Interface */
 type groupedLinksType = { [key: string]: LinkInterface[] };
@@ -69,7 +68,7 @@ function groupByDate(arr: LinkInterface[], systemLocale: string) {
   const grouped: groupedLinksType = {};
 
   // Get system locale to format date correctly
-  const locale:string = systemLocale === "pt" ? "pt-BR" : "en-US";
+  const locale: string = systemLocale === "pt" ? "pt-BR" : "en-US";
   const localeOptions: any = {
     day: "2-digit",
     month: "long",

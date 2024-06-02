@@ -1,18 +1,9 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { dimensions } from "@/styles/dimensions";
 import ThemeContext from "@/styles";
 import { StyleSheet, View } from "react-native";
 import { ButtonThemed, TextThemed, ViewThemed } from "./Themed";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 import { useTranslation } from "react-i18next";
 

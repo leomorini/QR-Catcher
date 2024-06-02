@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, ViewProps } from "react-native";
+import { StyleSheet, ViewProps } from "react-native";
 import { ThemeColorsType } from "@/styles/colors";
-import { dimensions } from "@/styles/dimensions";
 import { ButtonThemed } from "../Themed";
 
 interface MyProps {
@@ -11,13 +10,20 @@ interface MyProps {
 export type TabBarIconProps = MyProps & ViewProps;
 
 export default function TabBarButton({ children, ...restProps }: any) {
-  return <ButtonThemed containerStyle={styles.button} style={styles.button} {...restProps}>{children}</ButtonThemed>;
+  return (
+    <ButtonThemed
+      containerStyle={styles.button}
+      style={styles.button}
+      {...restProps}
+    >
+      {children}
+    </ButtonThemed>
+  );
 }
 
 const styles = StyleSheet.create({
   button: {
     flex: 1,
     width: "100%",
-  }
+  },
 });
-

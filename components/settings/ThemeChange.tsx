@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Box from "../Box";
 import ThemeContext from "@/styles";
 import { ButtonThemed, TextThemed } from "../Themed";

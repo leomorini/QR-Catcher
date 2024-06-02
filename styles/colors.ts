@@ -14,7 +14,7 @@ export const colors = {
     purple: "#615EFC",
     darkPurple: "#311B92",
     brown: "#795548",
-    blueGray: "#607D8B"
+    blueGray: "#607D8B",
   },
   dark: {
     blue: "#2e8fc0",
@@ -31,8 +31,8 @@ export const colors = {
     purple: "#615EFC",
     darkPurple: "#311B92",
     brown: "#795548",
-    blueGray: "#607D8B"
-  }
+    blueGray: "#607D8B",
+  },
 };
 
 export const modeColors = {
@@ -67,5 +67,6 @@ export const modeColors = {
 };
 
 export type ColorsType = keyof typeof colors.light & keyof typeof colors.dark;
-export type ThemeColorsType = keyof typeof modeColors.light & keyof typeof modeColors.dark;
+export type ThemeColorsType = keyof typeof modeColors.light &
+  keyof typeof modeColors.dark;
 export type ThemeType = typeof modeColors.light & typeof modeColors.dark;

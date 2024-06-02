@@ -17,7 +17,9 @@ export default function RequestPermissions({
     <ViewThemed color="foreground" style={styles.container}>
       <View style={styles.textContainer}>
         <CameraSvg width={150} height={150} />
-        <TextThemed color="highlightedColored" bold style={styles.title}>{t( "REQUEST_PERMISSION_Attention")}</TextThemed>
+        <TextThemed color="highlightedColored" bold style={styles.title}>
+          {t("REQUEST_PERMISSION_Attention")}
+        </TextThemed>
         <TextThemed bold style={styles.text}>
           {t("REQUEST_PERMISSION_You need to activate permission_1")}
         </TextThemed>

@@ -1,12 +1,7 @@
 import React, { useContext } from "react";
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
-import TabBarIcon from "@/components/tabs/TabBarIcon";
 import TabBarButton from "@/components/tabs/TabBarButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { dimensions } from "@/styles/dimensions";

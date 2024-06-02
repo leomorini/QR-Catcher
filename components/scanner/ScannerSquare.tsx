@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { dimensions } from "@/styles/dimensions";
 import { TextThemed, ViewThemed } from "../Themed";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import Divider from "../Themed/Divider";
 import ThemeContext from "@/styles";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +11,12 @@ export function ScannerSquare({ children }: any) {
 
   return (
     <ViewThemed style={styles.container}>
-      <View style={[styles.square, { top: 0, borderBottomWidth: 1, borderColor: themeColors.gray }]}>
+      <View
+        style={[
+          styles.square,
+          { top: 0, borderBottomWidth: 1, borderColor: themeColors.gray },
+        ]}
+      >
         <TextThemed
           bold
           style={[
@@ -25,7 +29,12 @@ export function ScannerSquare({ children }: any) {
         </TextThemed>
       </View>
 
-      <View style={[styles.square, { bottom: 0, borderTopWidth: 1, borderColor: themeColors.gray }]}>
+      <View
+        style={[
+          styles.square,
+          { bottom: 0, borderTopWidth: 1, borderColor: themeColors.gray },
+        ]}
+      >
         {children}
       </View>
     </ViewThemed>

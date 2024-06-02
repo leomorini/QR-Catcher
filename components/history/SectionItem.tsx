@@ -1,9 +1,8 @@
 import { StyleSheet, View } from "react-native";
-
 import { TextThemed, ButtonThemed } from "@/components/Themed";
 import { handleLink, handleShare } from "@/services/helper";
 import { dimensions } from "@/styles/dimensions";
-import { FontAwesome, Entypo, Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { ThemeType } from "@/styles/colors";
 
 interface MyProps {

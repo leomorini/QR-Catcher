@@ -1,6 +1,4 @@
-import { StyleSheet } from "react-native";
 import { ViewThemed, ViewThemedProps } from "./Themed";
-import globalStyles from "@/styles/globalStyles";
 import { dimensions } from "@/styles/dimensions";
 
 interface MyProps {}

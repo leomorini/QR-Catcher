@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LinkInterface } from "@/services/interfaces";
 
 /** Default key for save */
 const key: string = "@morinistudios.qrbarreader:";

@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { TouchableNativeFeedback, View, ViewStyle } from "react-native";
 import ThemeContext, { ThemeProps } from "@/styles";
-import { ThemeType } from "@/styles/colors";
 
 type MyProps = {
   transparent?: boolean;

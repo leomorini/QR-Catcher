@@ -2,7 +2,12 @@ import { useState, useRef, useEffect, useContext } from "react";
 import { View } from "react-native";
 import { BarcodeScanningResult, Camera, CameraView } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { validURL, barcodeTypes, handleLink, handleShare } from "@/services/helper";
+import {
+  validURL,
+  barcodeTypes,
+  handleLink,
+  handleShare,
+} from "@/services/helper";
 import { LinkInterface } from "@/services/interfaces";
 import { useHistoryStore } from "@/data/history";
 import { AlertContext, AlertContextType } from "@/components/AlertNotification";
@@ -24,7 +29,6 @@ export default function CodeScanner() {
   const { t } = useTranslation();
   const [link, setLink] = useState(defaultLink);
   const [facing, setFacing] = useState<any>("back");
-
 
   /** Show Dialog link/text decoded from QRCode or Code Bar */
   useEffect(() => {
@@ -50,7 +54,7 @@ export default function CodeScanner() {
   }, [link]);
 
   let scanTimeout: any = null; //use to create interval timeout of scans
- 
+
   /** Saves the decoded text of a QRCode or Bar Code in the state */
   function setLinkToDecode(text: string) {
     const isURL: boolean = validURL(text);
@@ -64,11 +68,12 @@ export default function CodeScanner() {
    * It only runs when there is no code already decoded (optimization)
    */
   const onBarcodeScanned = ({ data }: BarcodeScanningResult) => {
-
     if (scanTimeout == null && link.text == "" && !!data) {
       setLinkToDecode(data);
 
-      scanTimeout = setTimeout(() => { scanTimeout = null }, 1000);
+      scanTimeout = setTimeout(() => {
+        scanTimeout = null;
+      }, 1000);
     }
   };
 
@@ -106,7 +111,9 @@ export default function CodeScanner() {
 
     Alert.show({
       title: t("SCANNER_ALERT_Attention"),
-      message: t("SCANNER_ALERT_We did not detect a QRCode or Barcode in image"),
+      message: t(
+        "SCANNER_ALERT_We did not detect a QRCode or Barcode in image"
+      ),
       confirmText: t("SCANNER_ALERT_Close"),
       showConfirmButton: true,
       showShareButton: false,
