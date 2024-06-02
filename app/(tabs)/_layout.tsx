@@ -1,5 +1,9 @@
 import React, { useContext } from "react";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import TabBarIcon from "@/components/tabs/TabBarIcon";
@@ -22,7 +26,7 @@ export default function TabLayout() {
         ...screenOptionsStyle,
         tabBarButton: (props) => {
           return TabBarButton(props);
-        }
+        },
       })}
       sceneContainerStyle={{ backgroundColor: themeColors.background }}
     >
@@ -31,15 +35,13 @@ export default function TabLayout() {
         options={{
           title: t("TABS_History"),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon>
-              <MaterialIcons
-                name="history"
-                size={22}
-                color={
-                  focused ? themeColors.highlightedColored : themeColors.text2
-                }
-              />
-            </TabBarIcon>
+            <Ionicons
+              name={focused ? "reader" : "reader-outline"}
+              size={focused ? 22 : 18}
+              color={
+                focused ? themeColors.highlightedColored : themeColors.text2
+              }
+            />
           ),
         }}
       />
@@ -48,32 +50,28 @@ export default function TabLayout() {
         options={{
           title: t("TABS_Scan"),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon>
-              <MaterialCommunityIcons
-                name="data-matrix-scan"
-                size={20}
-                color={
-                  focused ? themeColors.highlightedColored : themeColors.text2
-                }
-              />
-            </TabBarIcon>
+            <Ionicons
+              name="qr-code"
+              size={focused ? 22 : 18}
+              color={
+                focused ? themeColors.highlightedColored : themeColors.text2
+              }
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="theme"
         options={{
-          title: t("TABS_Settings"),
+          title: t("TABS_Theme"),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon>
-              <MaterialIcons
-                name="settings"
-                size={24}
-                color={
-                  focused ? themeColors.highlightedColored : themeColors.text2
-                }
-              />
-            </TabBarIcon>
+            <Ionicons
+              name={focused ? "brush" : "brush-outline"}
+              size={focused ? 22 : 18}
+              color={
+                focused ? themeColors.highlightedColored : themeColors.text2
+              }
+            />
           ),
         }}
       />
@@ -110,13 +108,13 @@ function getTabStyles(insets: any, themeColors: ThemeType) {
         fontFamily: "FontRegular",
         padding: 0,
         marginBottom: dimensions.margin.sm + 2,
-        marginTop: dimensions.margin.sm - 5
+        marginTop: dimensions.margin.sm - 5,
       },
       tabBarIconStyle: {
         flex: 1,
         height: "100%",
         padding: 0,
-        marginTop: dimensions.margin.sm
+        marginTop: dimensions.margin.sm,
       },
     },
   };
