@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/leomorini/QR-Catcher/refs/heads/main/assets/images/icon.png" alt="QR Catcher Icon" width="200">
+</div>
+
 # QR Catcher
 
 QR Catcher is an application for scanning QR Codes and barcodes, designed to simplify capturing and processing this information on mobile devices or other compatible systems.
