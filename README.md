@@ -11,9 +11,10 @@ QR Catcher is an application for scanning QR Codes and barcodes, designed to sim
 ## 🔍 About the Project
 
 QR Catcher is perfect for developers or businesses looking for a quick and efficient solution to scan QR Codes and barcodes. With an intuitive interface and well-structured code, it can be adapted for various use cases, such as:  
-- Product registration  
-- Accessing links and encrypted information  
-- Inventory management  
+- Qrcode and Barcode scan  
+- History of links
+- Custom theme
+- No ADS  
 
 ---
 
