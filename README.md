@@ -43,10 +43,10 @@ Prerequisites
 - Node.js (version 14 or higher)
 - npm or yarn
 
-## Steps to Run the Project:
+Steps to Run the Project:
 - Clone the repository
   ```
-  - git clone https://github.com/leomorini/QR-Catcher.git
+  git clone https://github.com/leomorini/QR-Catcher.git
   cd QR-Catcher
   ```
 - Install dependencies
