@@ -16,17 +16,18 @@ QR Catcher is perfect for developers or businesses looking for a quick and effic
 ## 📁 Project Structure
 
 ```plaintext
-QR-Catcher/
-├── src/                # Main application source code
-│   ├── components/     # Reusable interface components
-│   ├── views/          # Main app pages
-│   ├── services/       # Services, such as QR Code reading
-│   └── assets/         # Static resources like images and icons
-├── public/             # Public files (manifest.json, icons, etc.)
-├── tests/              # Unit and integration tests
+QR-Catcher/             # Main application source code
+├── app/                # Screens
+├── assets/             # Fonts and images
+├── components/         # Reusable interface components
+├── data/               # Local "database"
+├── locales/            # Translations
+├── services/           # Api and helpers
+├── styles/             # Style archives and configurations
+├── tests/              # Unit and integration tests (future feature)
 ├── README.md           # Project documentation
 ├── package.json        # Project dependencies
-├── .env.example        # Environment variables example
+├── app.json            # Expo configuration
 └── ...                 # Other configuration files
 ```
 
@@ -38,6 +39,7 @@ Follow these steps to set up and run the project locally.
 
 Prerequisites
 - Ensure you have installed:
+- Expo cli
 - Node.js (version 14 or higher)
 - npm or yarn
 
@@ -53,7 +55,11 @@ Prerequisites
   # or, if you are using yarn
   yarn install
   ```
-- Configure environment variables
+- Start
+  ```
+  expo start
+  #use expo --help if necessary
+  ```
 
 ---
 
